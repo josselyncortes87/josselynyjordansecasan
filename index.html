@@ -1,0 +1,1116 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>App Matrimonio J&J</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400;1,600&family=Montserrat:wght@300;400;500;600&family=Pinyon+Script&display=swap');
+
+  :root {
+    --sage-green: #9ba993; 
+    --text-dark: #3a4a3e;
+    --text-light: #5e6b61;
+    --bg-cream: #FCFAF6;
+  }
+
+  body {
+    margin: 0;
+    font-family: 'Montserrat', sans-serif;
+    background-color: var(--bg-cream);
+    color: var(--text-dark);
+    /* Previene el pull-to-refresh en celulares para sentirse como App nativa */
+    overscroll-behavior-y: none; 
+    padding-bottom: 70px; /* Espacio para la barra inferior */
+  }
+
+/* --- ESTILOS INICIO: HERO & ROLLO DE PELÍCULA --- */
+  .hero-photo-container {
+    width: 100%;
+    max-width: 320px;
+    height: 380px;
+    margin: 10px auto 20px auto;
+    border-radius: 160px 160px 12px 12px; /* Corte en arco arquitectónico editorial */
+    overflow: hidden;
+    box-shadow: 0 12px 25px rgba(0,0,0,0.06);
+    border: 1px solid rgba(155, 169, 147, 0.4);
+  }
+  .hero-photo-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  /* --- ESTILOS: GALERÍA DE RECUERDOS EDITORIAL --- */
+  .editorial-gallery-wrapper {
+    width: 100%;
+    position: relative;
+    margin: 35px 0;
+    padding: 30px 0;
+    background: linear-gradient(rgba(252, 250, 246, 0.88), rgba(252, 250, 246, 0.95)), 
+                url('https://drive.google.com/thumbnail?id=1amJzxFUNTN7A1LfJzrc6LV3ss3HL7xn_&sz=w800') center/cover no-repeat;
+    border-top: 1px solid rgba(155, 169, 147, 0.3);
+    border-bottom: 1px solid rgba(155, 169, 147, 0.3);
+    overflow: hidden;
+    box-shadow: inset 0 0 20px rgba(0,0,0,0.03);
+  }
+
+  .gallery-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem;
+    font-style: italic;
+    color: var(--text-dark);
+    text-align: center;
+    margin: 0 0 20px 0;
+    letter-spacing: 1px;
+  }
+
+  .gallery-track {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    padding: 10px 0;
+  }
+
+  .gallery-card {
+    width: 160px;
+    height: 220px;
+    border-radius: 90px 90px 12px 12px;
+    overflow: hidden;
+    position: relative;
+    transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+    transform: scale(0.85);
+    opacity: 0.45;
+    filter: grayscale(80%) brightness(0.9);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    border: 2px solid rgba(255, 255, 255, 0.6);
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+
+  .gallery-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .gallery-card.active-card {
+    width: 200px;
+    height: 280px;
+    transform: scale(1) translateY(-5px);
+    opacity: 1;
+    filter: grayscale(0%) brightness(1.03);
+    border: 4px solid #ffffff;
+    box-shadow: 0 18px 35px rgba(58, 74, 62, 0.18), 0 0 0 1px rgba(155, 169, 147, 0.4);
+    z-index: 10;
+  }
+
+  /* Tipografía clásica para los pines en lugar de emojis */
+  .pin-icon { 
+    font-family: 'Cormorant Garamond', serif; 
+    font-weight: 600; 
+    font-size: 1.05rem; 
+    color: var(--text-dark); 
+  }
+
+  /* --- BARRA DE NAVEGACIÓN ELEGANTE --- */
+  .bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: var(--bg-cream); /* Fondo crema suave en lugar de blanco de app */
+    border-top: 1px solid rgba(155, 169, 147, 0.35);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 14px 0 12px 0;
+    box-shadow: 0 -5px 20px rgba(0,0,0,0.03);
+    z-index: 9999;
+  }
+
+  .nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: var(--text-light);
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    padding: 0 10px;
+    position: relative;
+    opacity: 0.7;
+  }
+
+  .nav-item .nav-text {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.68rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 2.5px; /* Espaciado elegante entre letras */
+    transition: color 0.3s ease;
+  }
+
+  /* Punto minimalista para indicar la pestaña activa */
+  .nav-item .nav-dot {
+    width: 4px;
+    height: 4px;
+    background-color: var(--sage-green);
+    border-radius: 50%;
+    margin-top: 5px;
+    opacity: 0;
+    transform: scale(0);
+    transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+  }
+
+  /* Estado Activo */
+  .nav-item.active {
+    opacity: 1;
+  }
+
+  .nav-item.active .nav-text {
+    font-weight: 600;
+    color: var(--text-dark);
+  }
+
+  .nav-item.active .nav-dot {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  /* Estado Activo de la pestaña */
+  .nav-item.active {
+    color: var(--sage-green);
+  }
+  .nav-item.active .icon {
+    transform: scale(1.1);
+  }
+
+  /* --- CONTENEDORES DE LAS VISTAS --- */
+  .view-section {
+    display: none; /* Ocultas por defecto */
+    padding: 20px;
+    animation: fadeIn 0.4s ease-out;
+  }
+  .view-section.active-view {
+    display: block; /* Solo se muestra la activa */
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  
+  
+  /* Titulos de sección */
+  h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.2rem;
+    color: var(--sage-green);
+    text-align: center;
+    margin-top: 10px;
+  }
+
+  /* Estilos para los Pines */
+  .map-container { position: relative; width: 100%; border-radius: 16px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.06); background-color: #eae7df; }
+  .map-container img { width: 100%; display: block; height: auto; }
+  .map-pin { position: absolute; width: auto; min-width: 38px; height: 34px; padding: 0 12px; background-color: #ffffff; border: 1.5px solid var(--sage-green); border-radius: 20px; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 10; transform: translate(-50%, -50%); box-shadow: 0 4px 10px rgba(0,0,0,0.12); transition: transform 0.2s ease; white-space: nowrap; }
+  .map-pin:active { transform: translate(-50%, -50%) scale(0.85); }
+  .pin-icon { font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 1.5px; color: var(--text-dark); }
+  .pin-latido-suave { animation: latidoPin 3s infinite ease-in-out; }
+  @keyframes latidoPin { 0%, 100% { box-shadow: 0 4px 10px rgba(0,0,0,0.15), 0 0 0 0 rgba(155, 169, 147, 0.4); } 50% { box-shadow: 0 6px 15px rgba(0,0,0,0.2), 0 0 0 8px rgba(155, 169, 147, 0); } }
+
+  /* Estilos para la Tarjeta Deslizable (Bottom Sheet) */
+  .bottom-sheet { position: fixed; bottom: -100%; left: 0; width: 100%; background-color: #ffffff; border-radius: 24px 24px 0 0; box-sizing: border-box; z-index: 10000; transition: bottom 0.4s cubic-bezier(0.25, 1, 0.5, 1); box-shadow: 0 -10px 30px rgba(0,0,0,0.08); }
+  .bottom-sheet.sheet-open { bottom: 0; }
+  .bottom-sheet-header { width: 100%; padding: 12px 0 4px 0; display: flex; justify-content: center; }
+  .drag-handle { width: 40px; height: 4px; background-color: #e0e0e0; border-radius: 2px; }
+  .bottom-sheet-content { padding: 10px 24px 35px 24px; text-align: center; }
+  .sheet-badge { width: 50px; height: 50px; background-color: rgba(155, 169, 147, 0.12); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 15px auto; font-size: 1.5rem; }
+  #sheet-title { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; margin: 0 0 12px 0; color: var(--text-dark); }
+  #sheet-description { font-family: 'Montserrat', sans-serif; font-size: 0.9rem; line-height: 1.6; color: var(--text-light); margin: 0 0 25px 0; }
+  .sheet-close-btn { width: 100%; background-color: var(--sage-green); color: white; border: none; padding: 14px; border-radius: 12px; font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 0.85rem; letter-spacing: 1px; text-transform: uppercase; cursor: pointer; }
+  .sheet-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.3); z-index: 9998; opacity: 0; display: none; transition: opacity 0.3s ease; }
+  .sheet-overlay.overlay-active { display: block; opacity: 1; }
+
+  /* Estilos para el Buscador de Asientos (Mesa Imperial Rectangular) */
+
+  /* --- EFECTO WOW: BUSCADOR CON ACUARELA Y MARCO BOTÁNICO --- */
+  .seating-hero-banner {
+    width: 100%;
+    max-width: 360px;
+    height: 180px;
+    margin: 0 auto 20px auto;
+    border-radius: 16px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+    border: 1px solid rgba(155, 169, 147, 0.3);
+  }
+  .seating-hero-banner img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .seating-hero-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: linear-gradient(to top, rgba(252, 250, 246, 0.95) 10%, rgba(252, 250, 246, 0) 100%);
+    padding: 20px 10px 10px 10px;
+    text-align: center;
+    box-sizing: border-box;
+  }
+  .seating-hero-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.8rem;
+    color: var(--text-dark);
+    margin: 0;
+    font-weight: 600;
+    line-height: 1;
+  }
+
+  /* Marco Botánico Tallado envolviendo el MENÚ */
+  .menu-botanical-frame {
+    position: relative;
+    width: 100%;
+    max-width: 360px;
+    min-height: 540px; /* Altura perfecta para que los 4 platos respiren dentro del marco */
+    margin: 20px auto;
+    padding: 60px 45px; /* Espaciado interior amplio para no pisar el relieve de flores */
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-image: url('https://drive.google.com/thumbnail?id=1JxGiC9uol1bu71h23SvtLY8btVm7JJd4&sz=w800');
+    background-size: 100% 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    filter: drop-shadow(0 10px 25px rgba(0,0,0,0.06));
+  }
+
+  /* Foto redonda antes del Cronograma */
+  .round-photo-frame {
+    width: 150px;
+    height: 150px;
+    margin: 15px auto 25px auto;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 3px solid var(--sage-green);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+  }
+  .round-photo-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  /* Cabecera de novios elegante con Monograma J&J */
+  .monogram-header {
+    text-align: center;
+    margin-bottom: 15px;
+    padding-bottom: 12px;
+    border-bottom: 1px dashed var(--sage-green);
+  }
+  .monogram-img {
+    height: 45px;
+    width: auto;
+    margin-bottom: 4px;
+  }
+  .monogram-names {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: var(--text-dark);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+  
+  /* Separador con hojas verdes de la invitación */
+  .botanical-divider {
+    text-align: center;
+    margin: 35px 0 25px 0;
+  }
+  .botanical-divider img {
+    height: 25px;
+    width: auto;
+    opacity: 0.8;
+  }
+
+  .search-box input { width: 100%; padding: 14px; border: none; border-bottom: 1px solid var(--sage-green); background: #faf9f6; font-family: inherit; font-size: 0.95rem; box-sizing: border-box; outline: none; color: var(--text-dark); text-align: center; border-radius: 8px; }
+  
+  .rectangular-table-container { width: 100%; max-width: 340px; margin: 20px auto; background: #fff; padding: 15px; box-sizing: border-box; border-radius: 12px; }
+  
+  .table-cabecera { display: flex; justify-content: center; gap: 15px; margin-bottom: 15px; padding-bottom: 12px; border-bottom: 2px dashed var(--sage-green); }
+  .novio-seat { font-family: 'Cormorant Garamond', serif; font-size: 1.05rem; font-weight: bold; color: var(--text-dark); background: rgba(155, 169, 147, 0.15); padding: 6px 14px; border-radius: 20px; border: 1px solid var(--sage-green); }
+  
+  .table-scroll-box { max-height: 280px; overflow-y: auto; border: 1px solid #f0f0f0; padding: 10px; border-radius: 8px; background: #fafafa; }
+  .table-body-layout { position: relative; width: 100%; display: flex; justify-content: center; }
+  .long-table-bar { width: 45px; background-color: #f7f5ef; border: 1px solid var(--sage-green); position: absolute; top: 0; bottom: 0; left: 50%; transform: translateX(-50%); z-index: 1; border-radius: 4px; }
+  
+  #rectangular-seats-container { width: 100%; z-index: 2; display: flex; flex-direction: column; gap: 14px; position: relative; }
+  
+  .seat-row { display: flex; justify-content: space-between; width: 100%; align-items: center; }
+  .seat-side { width: 43%; font-size: 0.75rem; color: var(--text-light); font-weight: 500; opacity: 0; transition: opacity 0.4s ease; box-sizing: border-box; }
+  .seat-side.left-side { text-align: right; padding-right: 8px; }
+  .seat-side.right-side { text-align: left; padding-left: 8px; }
+  
+  /* Resaltado del invitado con el conejito */
+  .seat-side.highlighted-guest { color: var(--text-dark); font-weight: bold; font-size: 0.8rem; background-color: rgba(155, 169, 147, 0.22); padding: 5px 8px; border-radius: 12px; border: 1px solid var(--sage-green); text-align: center !important; }
+  
+  .bunny-indicator { display: inline-block; animation: saltarConejito 0.5s infinite alternate; font-size: 0.95rem; vertical-align: middle; }
+  @keyframes saltarConejito { from { transform: translateY(0); } to { transform: translateY(-5px); } }
+
+  /* Estilos para la Cuenta Regresiva de la pestaña Inicio */
+  .app-countdown-container { display: flex; justify-content: center; gap: 12px; margin: 20px auto; max-width: 320px; }
+  .app-time-box { text-align: center; background: #ffffff; border: 1px solid rgba(155, 169, 147, 0.25); border-radius: 12px; padding: 12px 8px; min-width: 68px; box-shadow: 0 4px 10px rgba(0,0,0,0.02); box-sizing: border-box; }
+  .app-time-box span { display: block; font-size: 1.8rem; font-family: 'Cormorant Garamond', serif; color: var(--text-dark); font-weight: 600; line-height: 1; }
+  .app-time-box small { font-size: 0.65rem; text-transform: uppercase; color: var(--text-light); letter-spacing: 1px; display: block; margin-top: 6px; font-weight: 600; }
+
+  /* Estilos para la pestaña El Día (Cronograma y Menú) */
+  .app-timeline { position: relative; margin: 0 auto; padding-left: 20px; max-width: 300px; border-left: 2px solid var(--sage-green); }
+  .app-time-item { position: relative; margin-bottom: 25px; padding-left: 25px; }
+  .app-time-item:last-child { margin-bottom: 0; }
+  .app-time-dot { position: absolute; left: -26px; top: 4px; width: 10px; height: 10px; background-color: var(--bg-cream); border: 2px solid var(--sage-green); border-radius: 50%; box-shadow: 0 0 0 4px var(--bg-cream); }
+  .app-time-content { background: #ffffff; padding: 15px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.03); border: 1px solid rgba(155, 169, 147, 0.15); }
+  
+  .menu-box { background-color: #ffffff; padding: 30px 20px; border-radius: 16px; border: 1px solid var(--sage-green); box-shadow: 0 6px 20px rgba(0,0,0,0.04); margin: 0 auto; max-width: 320px; text-align: center; }
+  .menu-category { font-family: 'Montserrat', sans-serif; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; color: var(--sage-green); border-bottom: 1px solid rgba(155,169,147,0.3); padding-bottom: 5px; margin: 0 auto 12px auto; display: inline-block; font-weight: 600; }
+  .menu-items { font-family: 'Cormorant Garamond', serif; font-size: 1.15rem; color: var(--text-dark); line-height: 1.4; margin: 0 0 25px 0; font-style: italic; }
+  .menu-items:last-child { margin-bottom: 0; }
+
+/* Estilos para el Modal de Check-In */
+  .modal-checkin-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.4); z-index: 10001; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(3px); }
+  .modal-checkin-box { background: white; width: 90%; max-width: 350px; border-radius: 20px; padding: 30px 20px; text-align: center; box-shadow: 0 15px 40px rgba(0,0,0,0.1); border: 1px solid rgba(155, 169, 147, 0.3); }
+  .checkin-checkbox-label { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; font-weight: 600; color: var(--text-dark); font-size: 0.95rem; cursor: pointer; padding: 10px; border: 1px solid rgba(155, 169, 147, 0.3); border-radius: 8px; background: white; }
+  .checkin-checkbox-label input[type="checkbox"] { width: 18px; height: 18px; accent-color: var(--sage-green); }
+
+/* Animación para que los nombres "floten" */
+  .presente-chip { 
+    background: #f0f2ef; 
+    padding: 6px 14px; 
+    border-radius: 15px; 
+    font-size: 0.75rem; 
+    color: var(--text-dark); 
+    border: 1px solid var(--sage-green);
+    animation: flotar 3s ease-in-out infinite;
+    display: inline-block;
+  }
+  @keyframes flotar {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+  }
+
+.game-box { background: #ffffff; padding: 25px; border-radius: 20px; border: 1px solid rgba(155, 169, 147, 0.3); box-shadow: 0 10px 25px rgba(0,0,0,0.05); }
+  .option-btn { background: #fcfbf8; border: 1px solid var(--sage-green); padding: 12px; border-radius: 10px; font-family: 'Montserrat', sans-serif; font-size: 0.85rem; cursor: pointer; transition: 0.3s; }
+  .option-btn:hover { background: var(--sage-green); color: white; }
+
+</style>
+</head>
+<body>
+
+  <!-- VISTA 1: INICIO -->
+  <div id="view-inicio" class="view-section active-view">
+    
+    <!-- FOTO PRINCIPAL EN ARCO EDITORIAL -->
+    <div class="hero-photo-container">
+      <img src="https://drive.google.com/thumbnail?id=1-ug9d7bVDn8xRhd1oGiEkwzdMl-ZYNNS&sz=w1000" alt="Josselyn y Jordán">
+    </div>
+
+    <h1 style="font-family: 'Pinyon Script', cursive; font-size: 4.2rem; margin-top: 10px; margin-bottom: 5px; color: var(--text-dark); font-weight: normal; line-height: 0.9; text-align: center;">Josselyn y Jordán</h1>
+    <p style="text-align: center; font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.2rem; color: var(--text-light); margin-top: 0; margin-bottom: 20px;">Falta muy poco para el gran momento...</p>
+    
+    <!-- CONTENEDOR DE LA CUENTA REGRESIVA ELEGANTE -->
+    <div class="app-countdown-container">
+      <div class="app-time-box"><span id="app-days">00</span><small>Días</small></div>
+      <div class="app-time-box"><span id="app-hours">00</span><small>Hrs</small></div>
+      <div class="app-time-box"><span id="app-minutes">00</span><small>Min</small></div>
+      <div class="app-time-box"><span id="app-seconds">00</span><small>Seg</small></div>
+    </div>
+    
+    <p style="text-align: center; font-size: 0.8rem; color: var(--text-light); margin-top: 20px; margin-bottom: 15px; letter-spacing: 2px; text-transform: uppercase; font-weight: 600;">03 • 10 • 2026 | 18:30 Hrs</p>
+
+    <!-- GALERÍA DE RECUERDOS EDITORIAL CON PROFUNDIDAD -->
+    <div class="editorial-gallery-wrapper">
+      <div class="gallery-title">Nuestra Historia en Retratos</div>
+      <div class="gallery-track" id="gallery-track">
+        <!-- Foto Izquierda (En sombra) -->
+        <div class="gallery-card" onclick="enfocarFoto(this)">
+          <img src="https://drive.google.com/thumbnail?id=1hiyKGWGFsxylrRrCfWrjXg80fwBDzipa&sz=w600" alt="Recuerdo 1">
+        </div>
+        
+        <!-- Foto Central (Activa e Iluminada por defecto) -->
+        <div class="gallery-card active-card" onclick="enfocarFoto(this)">
+          <img src="https://drive.google.com/thumbnail?id=1nHY-TiHU5bo9knGZWpPQhpLRUcHNo0my&sz=w600" alt="Recuerdo 2">
+        </div>
+        
+        <!-- Foto Derecha (En sombra) -->
+        <div class="gallery-card" onclick="enfocarFoto(this)">
+          <img src="https://drive.google.com/thumbnail?id=ID_FOTO_4&sz=w600" alt="Recuerdo 3">
+        </div>
+      </div>
+      <p style="text-align: center; font-size: 0.7rem; color: var(--text-light); margin-top: 15px; letter-spacing: 1.5px; text-transform: uppercase;">• Toca una fotografía para iluminarla •</p>
+    </div>
+
+    <!-- BOTÓN DE CHECK-IN Y LISTA DE PRESENTES -->
+    <div style="text-align: center; margin-top: 25px;">
+      <button onclick="abrirModalCheckIn()" style="background-color: var(--text-dark); color: white; border: none; padding: 16px 30px; border-radius: 30px; font-family: 'Montserrat', sans-serif; font-size: 0.8rem; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; box-shadow: 0 6px 15px rgba(0,0,0,0.08); width: 80%; max-width: 280px;">
+        Registra tu Llegada
+      </button>
+      
+      <p style="font-size: 0.75rem; color: var(--text-light); margin-top: 12px; font-style: italic;">Por favor ingresa aquí para saber que ya llegaste a la casona</p>
+
+      <div style="margin-top: 30px; padding: 15px;">
+        <h4 style="font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; color: var(--sage-green); margin-bottom: 10px; font-weight: 600;">Ya están celebrando:</h4>
+        <div id="lista-presentes" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 8px;">
+          <p style="font-size: 0.8rem; color: var(--text-light); font-style: italic;">Cargando lista...</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- VISTA 2: EL DÍA (CRONOGRAMA, MENÚ Y ASIENTOS) -->
+  <div id="view-agenda" class="view-section">
+    
+    <!-- FOTO REDONDA DE LOS NOVIOS -->
+    <div class="round-photo-frame">
+      <img src="https://drive.google.com/thumbnail?id=1nHY-TiHU5bo9knGZWpPQhpLRUcHNo0my&sz=w600" alt="Josselyn & Jordán">
+    </div>
+
+    <!-- TÍTULO CRONOGRAMA -->
+    <h2 style="font-family: 'Pinyon Script', cursive; font-size: 3.5rem; color: var(--sage-green); text-align: center; margin: 10px 0 0 0; font-weight: normal;">Cronograma</h2>
+    <p style="text-align: center; font-size: 0.85rem; color: var(--text-light); margin-bottom: 30px;">Sigue cada momento de nuestra celebración.</p>
+    
+    <!-- LÍNEA DE TIEMPO VERTICAL -->
+    <div class="app-timeline">
+      <div class="app-time-item">
+        <div class="app-time-dot"></div>
+        <div class="app-time-content">
+          <h4 style="font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; margin: 0; color: var(--text-dark);">18:30 hrs</h4>
+          <p style="margin: 2px 0 0 0; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; color: var(--sage-green); font-weight: 600;">Ceremonia</p>
+          <p style="margin: 5px 0 0 0; font-size: 0.8rem; color: var(--text-light);">Acompáñanos a dar el Sí.</p>
+        </div>
+      </div>
+      
+      <div class="app-time-item">
+        <div class="app-time-dot"></div>
+        <div class="app-time-content">
+          <h4 style="font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; margin: 0; color: var(--text-dark);">19:30 hrs</h4>
+          <p style="margin: 2px 0 0 0; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; color: var(--sage-green); font-weight: 600;">Cóctel</p>
+          <p style="margin: 5px 0 0 0; font-size: 0.8rem; color: var(--text-light);">Ubicado al exterior de la Casona</p>
+        </div>
+      </div>
+      
+      <div class="app-time-item">
+        <div class="app-time-dot"></div>
+        <div class="app-time-content">
+          <h4 style="font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; margin: 0; color: var(--text-dark);">20:30 hrs</h4>
+          <p style="margin: 2px 0 0 0; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; color: var(--sage-green); font-weight: 600;">Cena y Postre</p>
+          <p style="margin: 5px 0 0 0; font-size: 0.8rem; color: var(--text-light);">Busca tu asiento y disfruta de una exquisita banquetería estilo campestre.</p>
+        </div>
+      </div>
+      
+      <div class="app-time-item">
+        <div class="app-time-dot"></div>
+        <div class="app-time-content">
+          <h4 style="font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; margin: 0; color: var(--text-dark);">22:00 hrs</h4>
+          <p style="margin: 2px 0 0 0; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; color: var(--sage-green); font-weight: 600;">Fiesta y Bar</p>
+          <p style="margin: 5px 0 0 0; font-size: 0.8rem; color: var(--text-light);">Barra libre y pista de baile bajo las estrellas.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- SEPARADOR ELEGANTE -->
+    <div style="margin: 40px auto 30px auto; width: 70%; border-top: 1px dashed var(--sage-green); opacity: 0.5;"></div>
+
+    <!-- TÍTULO DEL MENÚ -->
+    <h2 style="font-family: 'Pinyon Script', cursive; font-size: 3.5rem; color: var(--sage-green); text-align: center; margin: 0; font-weight: normal;">Menú</h2>
+    <p style="text-align: center; font-size: 0.85rem; color: var(--text-light); margin-bottom: 20px;">Una selección pensada para ustedes.</p>
+
+    <!-- CARTA DEL MENÚ ENMARCADA EN ARTE BOTÁNICO -->
+    <div class="menu-botanical-frame">
+      <h3 class="menu-category">Para Brindar</h3>
+      <p class="menu-items">Vino Cabernet Sauvignon o Carmenere<br>Jugos y Bebidas</p>
+      
+      <h3 class="menu-category">Plato Principal</h3>
+      <p class="menu-items">Principal: Flat Iron Premium, Costillar a las brasas, o Pollo adobado con finas hierbas<br>acompañado de Ensaladas, Papas campesinas, Arroz al cilantro</p>
+      
+      <h3 class="menu-category">El Toque Dulce</h3>
+      <p class="menu-items">Mesón de Postres<br>Frutas de la estación, Mouse de limón en mermelada de frutos rojos, Tres leches y Creme Brulee</p>
+
+      <h3 class="menu-category">Trasnoche</h3>
+      <p class="menu-items">Sorpresa!<br>Algo reponedor para recargar energía</p>
+    </div>
+
+    <!-- SEPARADOR BOTÁNICO CON HOJAS VERDES -->
+    <div class="botanical-divider">
+      <img src="https://drive.google.com/thumbnail?id=1lbZ0CY1CV3Fv5M9O1TWLnG5irGhAh2Qm&sz=w400" alt="---">
+    </div>
+
+    <!-- BUSCADOR DE ASIENTOS CON DISEÑO WOW ARCHITECTURAL -->
+    <div style="margin-top: 10px; text-align: center; padding: 25px 15px; background: #ffffff; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.03); border: 1px solid rgba(155, 169, 147, 0.25);">
+      
+      <!-- HERO BANNER INMERSIVO CON LA ACUARELA DE LA CASONA -->
+      <div class="seating-hero-banner">
+        <img src="https://drive.google.com/thumbnail?id=1amJzxFUNTN7A1LfJzrc6LV3ss3HL7xn_&sz=w800" alt="Casona Fundo El Rosario">
+        <div class="seating-hero-overlay">
+          <h2 class="seating-hero-title">Tu Lugar en la Casona</h2>
+        </div>
+      </div>
+
+      <p style="font-family: 'Montserrat', sans-serif; font-size: 0.8rem; color: var(--text-light); margin: 0 0 20px 0; line-height: 1.5;">
+        Ingresa tu nombre para descubrir tu ubicación en nuestra mesa y con quiénes compartirás esta noche inolvidable.
+      </p>
+
+      <div id="asientos-interactive-area">
+        <div class="search-box" style="max-width: 320px; margin: 0 auto;">
+          <input type="text" id="seat-search-input" placeholder="Escribe tu nombre o apellido..." style="border-radius: 30px; border: 1px solid var(--sage-green); padding: 14px 20px; background: #fdfcf9;">
+          <button type="button" class="sheet-close-btn" onclick="buscarAsientoVirtual()" style="margin-top: 12px; border-radius: 30px; letter-spacing: 2px;">Descubrir Mi Mesa ✨</button>
+        </div>
+        
+        <div id="table-visual-container" style="margin-top: 20px; display: none;">
+          <h3 id="visual-table-title" style="font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; color: var(--text-dark); margin-bottom: 2px; font-weight: 600;"></h3>
+          <p style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1.5px; color: var(--sage-green); margin-bottom: 5px; font-weight: 600;">Distribución Oficial • Mesa Imperial</p>
+          
+          <!-- MARCO BOTÁNICO VERDE SAGE ENVOLVIENDO LA MESA -->
+          <div class="botanical-frame-container">
+            
+            <div class="monogram-header">
+              <!-- Puedes poner aquí la imagen de tu monograma J&J o usar texto en tipografía fina -->
+              <img src="https://drive.google.com/thumbnail?id=1TkvsMUGnF-2f8ugjxjF91rkkFWih0Wl8_JJ&sz=w400" alt="J&J" class="monogram-img" onerror="this.style.display='none'">
+              <div class="monogram-names">Josselyn & Jordán</div>
+            </div>
+            
+            <!-- CONTENEDOR INTERNO DE LA MESA SIN BORDES GRISACEOS -->
+            <div class="table-scroll-box" style="background: transparent; border: none; max-height: 250px; padding: 0;">
+              <div class="table-body-layout">
+                <!-- Barra central de la mesa más cálida -->
+                <div class="long-table-bar" style="background-color: #f4efea; border: 1px solid rgba(155, 169, 147, 0.6); width: 38px;"></div>
+                <div id="rectangular-seats-container"></div>
+              </div>
+            </div>
+            </div>
+
+          </div>
+        </div>
+        
+        <div id="search-error-msg" style="display: none; color: #b35c5c; margin-top: 15px; font-size: 0.85rem; font-style: italic;"></div>
+      </div>
+    </div>
+
+  <!-- VISTA 3: TU LUGAR (MAPA Y ASIENTOS) -->
+  <div id="view-lugar" class="view-section">
+    <h1>El Lugar del Gran Día</h1>
+    <p style="text-align: center; font-size: 0.85rem; color: var(--text-light); margin-bottom: 20px;">
+      Toca cada etiqueta para descubrir los rincones de la Casona.
+    </p>
+    
+    <div class="map-container">
+      <img src="https://drive.google.com/thumbnail?id=1SvAlkG9QU6RED-D8Da067D1tr2n9TG4W&sz=w1000&v=2" alt="Mapa Casona Fundo El Rosario"onclick="alert('Copia esto en tu pin -> top: ' + Math.round(event.offsetY/this.clientHeight*100) + '%; left: ' + Math.round(event.offsetX/this.clientWidth*100) + '%;')">
+
+      <div class="map-pin pin-latido-suave" style="top: 90%; left: 25%;" onclick="openPinInfo('Acceso & Check-In', 'Entrada', '¡Bienvenidos! Recuerda avisar de tu llegada a través de esta web')">
+        <span class="pin-icon">Entrada</span>
+      </div>
+
+      <div class="map-pin pin-latido-suave" style="top: 66%; left: 22%;" onclick="openPinInfo('Libro de Recuerdos', 'Recuerdos', 'Acércate a este rincón especial para firmar nuestro libro de invitados, tomarte una fotografía y dejarnos una postal con tus mejores deseos.')">
+        <span class="pin-icon">Recuerdos</span>
+      </div>
+
+      <div class="map-pin pin-latido-suave" style="top: 48%; left: 20%;" onclick="openPinInfo('Estación de Café', 'Té y Café', 'Zona de té y café disponible durante todo el evento.')">
+        <span class="pin-icon">Té y Café</span>
+      </div>
+
+      <div class="map-pin pin-latido-suave" style="top: 42%; left: 30%;" onclick="openPinInfo('Servicios Higiénicos', 'Baños', 'Baños principales ubicados al interior de la casona.')">
+        <span class="pin-icon">Baños</span>
+      </div>
+      
+      <div class="map-pin pin-latido-suave" style="top: 73%; left: 29%;" onclick="openPinInfo('La Ceremonia', 'Ceremonia', 'La ceremonia civil comenzará puntualmente a las 18:30 hrs.')">
+        <span class="pin-icon">Ceremonia</span>
+      </div>>
+
+      <div class="map-pin pin-latido-suave" style="top: 52%; left: 40%;" onclick="openPinInfo('Cóctel de Bienvenida', 'Cóctel', 'Al terminar la ceremonia, los esperamos aquí para disfrutar de un brindis al aire libre.')">
+        <span class="pin-icon">Cóctel</span>
+      </div>
+
+      <div class="map-pin pin-latido-suave" style="top: 51%; left: 52%;" onclick="openPinInfo('La Cena', 'Cena', 'La gran cena se servirá en este sector.')">
+        <span class="pin-icon">Cena</span>
+      </div>
+
+      <div class="map-pin pin-latido-suave" style="top: 52%; left: 80%;" onclick="openPinInfo('Fiesta y Bar', 'Fiesta', '¡Aquí se prende la noche! Desde las 22:00 hrs se abre la pista de baile y la barra libre hasta las 02:00 hrs.')">
+        <span class="pin-icon">Fiesta</span>
+      </div>
+
+      <div class="map-pin pin-latido-suave" style="top: 23%; left: 34%;" onclick="openPinInfo('Servicios Higiénicos', 'Baños', 'Los baños exteriores se encuentran en este sector')">
+        <span class="pin-icon">Baños</span>
+      </div>
+    </div>
+  </div>
+
+  <div id="pin-bottom-sheet" class="bottom-sheet">
+    <div class="bottom-sheet-header"><div class="drag-handle"></div></div>
+    <div class="bottom-sheet-content">
+      <div id="sheet-badge" class="sheet-badge">📍</div>
+      <h3 id="sheet-title">Título del Lugar</h3>
+      <p id="sheet-description">Descripción detallada del punto.</p>
+      <button class="sheet-close-btn" onclick="closePinInfo()">Entendido</button>
+    </div>
+  </div>
+  <div id="sheet-overlay" class="sheet-overlay" onclick="closePinInfo()"></div>
+
+  <!-- MODAL DE CHECK-IN -->
+  <div id="checkin-modal" class="modal-checkin-container" style="display: none;">
+    <div class="modal-checkin-box">
+      <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; margin: 0 0 10px 0; color: var(--text-dark);">Registro de Entrada</h3>
+      <p style="font-size: 0.85rem; color: var(--text-light); margin-bottom: 20px;">Busca tu nombre para avisar a los novios que ya estás aquí.</p>
+      
+      <div style="display: flex; gap: 10px; margin-bottom: 20px;">
+        <input type="text" id="checkin-input" placeholder="Tu nombre..." style="flex: 1; padding: 12px; border: 1px solid var(--sage-green); border-radius: 8px; font-family: 'Montserrat', sans-serif; outline: none;">
+        <button id="checkin-search-btn" onclick="buscarParaCheckIn()" style="background: var(--sage-green); color: white; border: none; padding: 0 15px; border-radius: 8px; font-weight: bold; cursor: pointer;">Buscar</button>
+      </div>
+
+      <!-- Aquí aparecerán los Checkboxes con los nombres -->
+      <div id="checkin-results" style="text-align: left; background: #faf9f6; border-radius: 8px; padding: 15px; display: none;"></div>
+
+      <button onclick="cerrarModalCheckIn()" style="background: transparent; color: var(--text-light); border: none; margin-top: 15px; font-size: 0.8rem; text-transform: uppercase; font-weight: 600; letter-spacing: 1px; cursor: pointer;">Cancelar</button>
+    </div>
+  </div>
+
+  <!-- VISTA 4: TRIVIA -->
+  <div id="view-juegos" class="view-section">
+    <h2 style="font-family: 'Pinyon Script', cursive; font-size: 3.8rem; color: var(--sage-green); text-align: center; margin: 10px 0 0 0; font-weight: normal; line-height: 1;">¿Cuánto nos conoces?</h2>
+    <p style="text-align: center; font-family: 'Montserrat', sans-serif; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; color: var(--text-light); margin-top: 5px; margin-bottom: 25px; font-weight: 600;">Trivia Oficial de Josselyn & Jordán</p>
+    
+    <div id="btn-iniciar-contenedor" style="background: #ffffff; padding: 30px 20px; border-radius: 20px; border: 1px solid rgba(155, 169, 147, 0.4); box-shadow: 0 10px 25px rgba(0,0,0,0.04); text-align: center; max-width: 340px; margin: 0 auto 20px auto; box-sizing: border-box;">
+      
+      <p style="font-family: 'Cormorant Garamond', serif; font-size: 1.25rem; color: var(--text-dark); line-height: 1.4; font-style: italic; margin: 0 0 15px 0;">
+        ¡Queremos poner a prueba qué tanto conocen nuestra historia!
+      </p>
+      
+      <p style="font-size: 0.85rem; color: var(--text-light); line-height: 1.6; margin: 0 0 25px 0;">
+        Responde este breve desafío antes de la Cena y prepárate: <strong>durante la fiesta revelaremos al ganador o ganadora.</strong>
+      </p>
+      
+      <div style="border-top: 1px dashed rgba(155, 169, 147, 0.4); margin: 20px 0; padding-top: 20px;">
+        <label for="nombre-jugador-input" style="display: block; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1.5px; color: var(--sage-green); font-weight: 600; margin-bottom: 10px;">Ingresa tu nombre y apellido</label>
+        
+        <input type="text" id="nombre-jugador-input" placeholder="Ej: Juan Pérez" style="width: 100%; padding: 14px; border-radius: 10px; border: 1px solid var(--sage-green); background: #faf9f6; font-family: 'Montserrat', sans-serif; font-size: 0.9rem; color: var(--text-dark); text-align: center; box-sizing: border-box; outline: none; margin-bottom: 18px;">
+        
+        <button onclick="iniciarJuego()" style="background: var(--text-dark); color: white; border: none; padding: 15px 30px; border-radius: 30px; font-family: 'Montserrat', sans-serif; font-size: 0.85rem; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; cursor: pointer; width: 100%; box-shadow: 0 6px 15px rgba(0,0,0,0.1); transition: opacity 0.3s;">
+          ✨ ¡Empezar el Desafío!
+        </button>
+      </div>
+      
+    </div>
+
+    <div id="game-container" class="game-box" style="display: none;">
+      <div id="question-box">
+        <h4 id="question-text" style="font-family: 'Montserrat', sans-serif; font-size: 1rem; margin-bottom: 20px;"></h4>
+        <div id="options-container" style="display: flex; flex-direction: column; gap: 10px;"></div>
+      </div>
+      <div id="result-box" style="display: none; text-align: center;">
+        <h3 id="score-text" style="font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; color: var(--text-dark);"></h3>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- BARRA INFERIOR DE NAVEGACIÓN ELEGANTE -->
+  <nav class="bottom-nav">
+    <div class="nav-item active" onclick="switchTab('view-inicio', this)">
+      <span class="nav-text">Inicio</span>
+      <div class="nav-dot"></div>
+    </div>
+    <div class="nav-item" onclick="switchTab('view-agenda', this)">
+      <span class="nav-text">El Día</span>
+      <div class="nav-dot"></div>
+    </div>
+    <div class="nav-item" onclick="switchTab('view-lugar', this)">
+      <span class="nav-text">El Lugar</span>
+      <div class="nav-dot"></div>
+    </div>
+    <div class="nav-item" onclick="switchTab('view-juegos', this)">
+      <span class="nav-text">Trivia</span>
+      <div class="nav-dot"></div>
+    </div>
+  </nav>
+
+  <script>
+    // Función para cambiar de pestañas fluidamente
+    function switchTab(viewId, element) {
+      // 1. Ocultar todas las vistas
+      document.querySelectorAll('.view-section').forEach(view => {
+        view.classList.remove('active-view');
+      });
+      // 2. Quitar estado activo de todos los botones
+      document.querySelectorAll('.nav-item').forEach(btn => {
+        btn.classList.remove('active');
+      });
+      // 3. Mostrar la vista seleccionada
+      document.getElementById(viewId).classList.add('active-view');
+      // 4. Activar el botón presionado
+      element.classList.add('active');
+      
+      // Hacemos scroll al tope automáticamente al cambiar de pestaña
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // LÓGICA DE INTERACCIÓN DEL MAPA INTERACTIVO
+    function openPinInfo(title, icon, description) {
+      document.getElementById('sheet-title').innerText = title;
+      document.getElementById('sheet-badge').innerText = icon;
+      document.getElementById('sheet-description').innerText = description;
+      
+      // Activar elementos visuales
+      const sheet = document.getElementById('pin-bottom-sheet');
+      const overlay = document.getElementById('sheet-overlay');
+      
+      sheet.classList.add('sheet-open');
+      overlay.classList.add('overlay-active');
+    }
+
+    function closePinInfo() {
+      const sheet = document.getElementById('pin-bottom-sheet');
+      const overlay = document.getElementById('sheet-overlay');
+      
+      sheet.classList.remove('sheet-open');
+      overlay.classList.remove('overlay-active');
+    }
+
+    // NUEVA FUNCIÓN: Busca en tiempo real en tu Google Sheet
+    function buscarAsientoVirtual() {
+      const input = document.getElementById('seat-search-input').value.trim().toLowerCase();
+      const errorMsg = document.getElementById('search-error-msg');
+      
+      // Buscamos el botón para hacer el efecto de "Cargando..."
+      const btnBuscar = document.querySelector('.search-box button');
+      
+      if (!input) { alert("Por favor escribe tu nombre o apellido."); return; }
+      
+      // Cambiamos el diseño del botón mientras busca en la nube
+      const textoOriginal = btnBuscar.innerText;
+      btnBuscar.innerText = "Buscando mesa...";
+      btnBuscar.disabled = true;
+      btnBuscar.style.opacity = "0.7";
+      errorMsg.style.display = 'none';
+      
+      // Llamada mágica al archivo Código.gs
+      google.script.run
+        .withSuccessHandler(function(datosMesaNube) {
+          // Cuando Google responde exitosamente
+          btnBuscar.innerText = textoOriginal;
+          btnBuscar.disabled = false;
+          btnBuscar.style.opacity = "1";
+          procesarRenderMesa(datosMesaNube, input);
+        })
+        .withFailureHandler(function(error) {
+          // Si hay un error de conexión
+          btnBuscar.innerText = textoOriginal;
+          btnBuscar.disabled = false;
+          btnBuscar.style.opacity = "1";
+          alert("Hubo un problema de conexión. Intenta nuevamente.");
+        })
+        .obtenerDistribucionMesa();
+    }
+
+    // FUNCIÓN QUE DIBUJA LA MESA CON LOS DATOS REALES DE GOOGLE SHEET
+    function procesarRenderMesa(datosMesaNube, input) {
+      const container = document.getElementById('table-visual-container');
+      const errorMsg = document.getElementById('search-error-msg');
+      const seatsContainer = document.getElementById('rectangular-seats-container');
+      const tableTitle = document.getElementById('visual-table-title');
+      
+      let encontrado = false;
+      let nombreExactoEncontrado = "";
+      
+      // Validamos si la persona existe en los datos descargados del Sheet
+      datosMesaNube.forEach(fila => {
+        if (fila.izq !== "" && fila.izq.toLowerCase().includes(input)) { encontrado = true; nombreExactoEncontrado = fila.izq; }
+        if (fila.der !== "" && fila.der.toLowerCase().includes(input)) { encontrado = true; nombreExactoEncontrado = fila.der; }
+      });
+      
+      if (encontrado) {
+        errorMsg.style.display = 'none';
+        container.style.display = 'block';
+        tableTitle.innerHTML = `¡Te encontramos, <strong>${nombreExactoEncontrado}</strong>!`;
+        seatsContainer.innerHTML = '';
+        
+        datosMesaNube.forEach((fila, index) => {
+          // Evitamos dibujar filas completamente vacías
+          if (fila.izq === "" && fila.der === "") return;
+
+          const row = document.createElement('div');
+          row.className = 'seat-row';
+          
+          // Lado Izquierdo
+          const seatIzq = document.createElement('div');
+          seatIzq.className = 'seat-side left-side';
+          if (fila.izq === nombreExactoEncontrado) {
+            seatIzq.classList.add('highlighted-guest');
+            seatIzq.innerHTML = `<span class="bunny-indicator">🐇</span> ${fila.izq}`;
+          } else {
+            seatIzq.innerText = fila.izq;
+          }
+          
+          // Lado Derecho
+          const seatDer = document.createElement('div');
+          seatDer.className = 'seat-side right-side';
+          if (fila.der === nombreExactoEncontrado) {
+            seatDer.classList.add('highlighted-guest');
+            seatDer.innerHTML = `${fila.der} <span class="bunny-indicator">🐇</span>`;
+          } else {
+            seatDer.innerText = fila.der;
+          }
+          
+          row.appendChild(seatIzq);
+          row.appendChild(seatDer);
+          seatsContainer.appendChild(row);
+          
+          setTimeout(() => {
+            seatIzq.style.opacity = '1';
+            seatDer.style.opacity = '1';
+          }, index * 80);
+        });
+        
+        setTimeout(() => {
+          container.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          const targetSeat = document.querySelector('.highlighted-guest');
+          if (targetSeat) {
+            targetSeat.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          }
+        }, 300);
+        
+      } else {
+        container.style.display = 'none';
+        errorMsg.innerText = "No encontramos coincidencias. Intenta buscando solo tu primer nombre.";
+        errorMsg.style.display = 'block';
+      }
+    }
+
+    // LÓGICA DE LA CUENTA REGRESIVA DE INICIO (03 Octubre 2026, 18:30)
+    const targetWeddingDate = new Date("Oct 3, 2026 18:30:00").getTime();
+    
+    setInterval(function() {
+      const currentTime = new Date().getTime();
+      const timeLeft = targetWeddingDate - currentTime;
+      
+      if (timeLeft < 0) {
+        document.getElementById("app-days").innerText = "00";
+        document.getElementById("app-hours").innerText = "00";
+        document.getElementById("app-minutes").innerText = "00";
+        document.getElementById("app-seconds").innerText = "00";
+        return;
+      }
+      
+      const calcDays = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+      const calcHours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const calcMinutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+      const calcSeconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+      
+      document.getElementById("app-days").innerText = calcDays.toString().padStart(2, '0');
+      document.getElementById("app-hours").innerText = calcHours.toString().padStart(2, '0');
+      document.getElementById("app-minutes").innerText = calcMinutes.toString().padStart(2, '0');
+      document.getElementById("app-seconds").innerText = calcSeconds.toString().padStart(2, '0');
+    }, 1000);
+
+    // LÓGICA DE CHECK-IN EN LA ENTRADA
+    let datosGlobalesMesas = []; // Guarda la lista para no llamar a Google a cada rato
+
+    function abrirModalCheckIn() {
+      document.getElementById('checkin-modal').style.display = 'flex';
+      
+      // Descargamos la lista en segundo plano si aún no la tenemos
+      if(datosGlobalesMesas.length === 0) {
+         const btn = document.getElementById('checkin-search-btn');
+         btn.innerText = '...';
+         google.script.run.withSuccessHandler(data => {
+           datosGlobalesMesas = data;
+           btn.innerText = 'Buscar';
+         }).obtenerDistribucionMesa();
+      }
+    }
+
+    function cerrarModalCheckIn() {
+      document.getElementById('checkin-modal').style.display = 'none';
+      document.getElementById('checkin-results').style.display = 'none';
+      document.getElementById('checkin-results').innerHTML = '';
+      document.getElementById('checkin-input').value = '';
+    }
+
+    function buscarParaCheckIn() {
+      const input = document.getElementById('checkin-input').value.trim().toLowerCase();
+      if(!input) return;
+
+      const resultsDiv = document.getElementById('checkin-results');
+      resultsDiv.innerHTML = '';
+      resultsDiv.style.display = 'block';
+
+      let parejaEncontrada = null;
+
+      // Busca a la persona en la variable descargada de Google Sheet
+      datosGlobalesMesas.forEach(fila => {
+        if ((fila.izq !== "" && fila.izq.toLowerCase().includes(input)) || (fila.der !== "" && fila.der.toLowerCase().includes(input))) {
+          parejaEncontrada = fila;
+        }
+      });
+
+      if(parejaEncontrada) {
+         let html = '<p style="font-size:0.85rem; color:var(--text-light); margin-top:0; margin-bottom:15px; font-style:italic;">Selecciona quiénes están entrando ahora mismo:</p>';
+
+         // Muestra a la persona de la izquierda si existe
+         if(parejaEncontrada.izq !== "") {
+           html += `<label class="checkin-checkbox-label"><input type="checkbox" class="checkin-box" value="${parejaEncontrada.izq}" checked> ${parejaEncontrada.izq}</label>`;
+         }
+         // Muestra a la persona de la derecha (acompañante) si existe
+         if(parejaEncontrada.der !== "") {
+           html += `<label class="checkin-checkbox-label"><input type="checkbox" class="checkin-box" value="${parejaEncontrada.der}" checked> ${parejaEncontrada.der}</label>`;
+         }
+
+         html += `<button onclick="enviarCheckIn()" style="background:var(--sage-green); color:white; border:none; padding:12px; border-radius:30px; width:100%; font-family:'Montserrat', sans-serif; font-weight:600; margin-top:10px; font-size: 0.85rem; text-transform:uppercase; letter-spacing:1px; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">Confirmar Llegada</button>`;
+         resultsDiv.innerHTML = html;
+      } else {
+         resultsDiv.innerHTML = '<p style="color:#b35c5c; font-size:0.85rem; text-align:center; margin:0;">No encontrado. Intenta escribir solo tu primer nombre.</p>';
+      }
+    }
+
+    function enviarCheckIn() {
+      const checkboxes = document.querySelectorAll('.checkin-box:checked');
+      let seleccionados = [];
+      checkboxes.forEach(cb => seleccionados.push(cb.value));
+
+      if(seleccionados.length === 0) {
+        alert("Debes seleccionar al menos a una persona.");
+        return;
+      }
+
+      const resultsDiv = document.getElementById('checkin-results');
+      resultsDiv.innerHTML = '<p style="text-align:center; font-weight:bold; color:var(--sage-green);">Registrando en sistema...</p>';
+
+      google.script.run
+        .withSuccessHandler(() => {
+           resultsDiv.innerHTML = '<div style="text-align:center;"><span style="font-size:3rem; display:block; margin-bottom:10px;">🥂</span><p style="color:var(--sage-green); font-weight:bold; font-size:1.4rem; font-family:\'Cormorant Garamond\', serif; margin:0;">¡Bienvenidos!</p><p style="font-size:0.8rem; color:var(--text-light); margin-top:5px;">Disfruten la celebración.</p></div>';
+           setTimeout(cerrarModalCheckIn, 3000);
+           cargarPresentes();
+        })
+        .withFailureHandler((error) => {
+           resultsDiv.innerHTML = `<p style="color:#b35c5c; font-size:0.85rem; text-align:center; margin-bottom:15px;">Error al conectar con la planilla. Revisa el ID en Código.gs.</p><button onclick="buscarParaCheckIn()" style="background:var(--sage-green); color:white; border:none; padding:8px 15px; border-radius:8px; cursor:pointer;">Intentar de nuevo</button>`;
+        })
+        .registrarCheckIn(seleccionados);
+    }
+
+// Carga la lista de presentes al abrir la app
+    function cargarPresentes() {
+      const container = document.getElementById('lista-presentes');
+      google.script.run.withSuccessHandler(lista => {
+        if(lista.length === 0) {
+          container.innerHTML = '<p style="font-size:0.8rem; color:var(--text-light);">Sé el primero en llegar...</p>';
+          return;
+        }
+        
+        container.innerHTML = '';
+        lista.forEach(nombre => {
+          const chip = document.createElement('span');
+          chip.className = 'presente-chip';
+          chip.innerText = nombre;
+          container.appendChild(chip);
+        });
+      }).obtenerPresentes();
+    }
+
+    // Ejecuta la carga al iniciar la app
+    document.addEventListener("DOMContentLoaded", cargarPresentes);
+    
+  let indicePregunta = 0;
+    let puntaje = 0;
+    let nombreJugador = "";
+    let listaPreguntas = [];
+
+    function iniciarJuego() {
+
+      const nombreInput = document.getElementById('nombre-jugador-input').value.trim();
+     if (!nombreInput) {
+       alert("Por favor, ingresa tu nombre para comenzar.");
+       return;
+     }
+     nombreJugador = nombreInput;
+
+      // 1. Preparamos la pantalla
+      document.getElementById('btn-iniciar-contenedor').style.display = 'none';
+      document.getElementById('game-container').style.display = 'block';
+
+      // 2. Cargamos las preguntas desde Google
+      google.script.run.withSuccessHandler(data => {
+        listaPreguntas = data;
+        
+       
+        renderizarPregunta();
+      }).obtenerPreguntas();
+    }
+
+    function renderizarPregunta() {
+      const qText = document.getElementById('question-text');
+      const optContainer = document.getElementById('options-container');
+      optContainer.innerHTML = '';
+      
+      const p = listaPreguntas[indicePregunta];
+      qText.innerText = p.q;
+      
+      p.o.forEach((opcion, i) => {
+        const btn = document.createElement('button');
+        btn.className = 'option-btn';
+        btn.innerText = opcion;
+        btn.onclick = () => verificarRespuesta(i);
+        optContainer.appendChild(btn);
+      });
+    }
+
+    function verificarRespuesta(index) {
+      // Ajustamos: sumamos 1 al índice que el usuario presiona 
+      // (o restamos 1 al valor que viene del Sheet)
+      const respuestaUsuarioAjustada = index + 1; 
+      
+      if (respuestaUsuarioAjustada === listaPreguntas[indicePregunta].a) {
+        puntaje++;
+      }
+      
+      indicePregunta++;
+      
+      if (indicePregunta < listaPreguntas.length) {
+        renderizarPregunta();
+      } else {
+        google.script.run.registrarPuntaje(nombreJugador, puntaje);
+        document.getElementById('question-box').style.display = 'none';
+        const res = document.getElementById('result-box');
+        res.style.display = 'block';
+        
+        // AQUÍ EL MENSAJE GENÉRICO QUE PEDISTE:
+        document.getElementById('score-text').innerText = "¡Gracias por participar! Durante la noche entregaremos el premio al gran ganador.";
+      }
+    }
+    
+    // LÓGICA: CARRUSEL AUTOMÁTICO CON EFECTO DE PROFUNDIDAD
+    let indiceCarrusel = 1; // Empezamos iluminando la foto central
+
+    function rotarCarruselAutomatico() {
+      const tarjetas = document.querySelectorAll('.gallery-card');
+      if (!tarjetas || tarjetas.length === 0) return;
+
+      // 1. Quitamos la luz a todas
+      tarjetas.forEach(card => card.classList.remove('active-card'));
+
+      // 2. Iluminamos la siguiente en la lista
+      tarjetas[indiceCarrusel].classList.add('active-card');
+
+      // 3. Avanzamos al siguiente índice (y volvemos al inicio si se acaban)
+      indiceCarrusel = (indiceCarrusel + 1) % tarjetas.length;
+    }
+
+    // Hará que el carrusel rote solo cada 3.5 segundos
+    setInterval(rotarCarruselAutomatico, 3500);
+
+  </script>
+
+</body>
+</html>
