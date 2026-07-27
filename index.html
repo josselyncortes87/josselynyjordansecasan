@@ -8,10 +8,57 @@
   @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400;1,600&family=Montserrat:wght@300;400;500;600&family=Pinyon+Script&display=swap');
 
   :root {
-    --sage-green: #9ba993; 
-    --text-dark: #3a4a3e;
-    --text-light: #5e6b61;
-    --bg-cream: #FCFAF6;
+    --sage-green: #7d8c75; /* Verde oliva más maduro y elegante, estilo sello de cera */
+    --gold-accent: #b89758; /* Tono oro viejo/bronce para acentos y subtítulos */
+    --text-dark: #2d3830; /* Verde bosque muy profundo, más sofisticado que el negro */
+    --text-light: #636f66;
+    --bg-cream: #fcfbf8; /* Crema cálido estilo papel de textura fina */
+  }
+
+  /* --- ESTILOS: ROLLO EDITORIAL DELICADO --- */
+  .editorial-gallery-wrapper {
+    width: 100%;
+    position: relative;
+    margin: 25px 0 35px 0;
+    padding: 25px 0;
+    background: linear-gradient(rgba(252, 251, 248, 0.90), rgba(252, 251, 248, 0.96)), 
+                url('https://drive.google.com/thumbnail?id=1amJzxFUNTN7A1LfJzrc6LV3ss3HL7xn_&sz=w800') center/cover no-repeat;
+    border-top: 1px solid rgba(125, 140, 117, 0.25);
+    border-bottom: 1px solid rgba(125, 140, 117, 0.25);
+    overflow: hidden;
+    box-shadow: inset 0 0 20px rgba(0,0,0,0.02);
+  }
+
+  .gallery-track {
+    display: flex;
+    gap: 22px;
+    width: max-content;
+    /* Animación lineal continua, suave y lenta (sin saltos ni tirones) */
+    animation: scrollElegante 35s linear infinite;
+    padding: 5px 0;
+  }
+
+  /* Retratos con corte en arco editorial y sombra cálida */
+  .gallery-card {
+    width: 145px;
+    height: 200px;
+    border-radius: 75px 75px 10px 10px; /* Arco arquitectónico refinado */
+    overflow: hidden;
+    flex-shrink: 0;
+    box-shadow: 0 10px 22px rgba(45, 56, 48, 0.12), 0 0 0 1px rgba(125, 140, 117, 0.25);
+    border: 3px solid #ffffff;
+    background-color: #ffffff;
+  }
+
+  .gallery-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  @keyframes scrollElegante {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
   }
 
   body {
@@ -41,52 +88,37 @@
     object-fit: cover;
   }
   
-  /* --- ESTILOS: GALERÍA DE RECUERDOS EDITORIAL --- */
+  /* --- ESTILOS: ROLLO EDITORIAL DELICADO --- */
   .editorial-gallery-wrapper {
     width: 100%;
     position: relative;
-    margin: 35px 0;
-    padding: 30px 0;
-    background: linear-gradient(rgba(252, 250, 246, 0.88), rgba(252, 250, 246, 0.95)), 
+    margin: 25px 0 35px 0;
+    padding: 25px 0;
+    background: linear-gradient(rgba(252, 251, 248, 0.90), rgba(252, 251, 248, 0.96)), 
                 url('https://drive.google.com/thumbnail?id=1amJzxFUNTN7A1LfJzrc6LV3ss3HL7xn_&sz=w800') center/cover no-repeat;
-    border-top: 1px solid rgba(155, 169, 147, 0.3);
-    border-bottom: 1px solid rgba(155, 169, 147, 0.3);
+    border-top: 1px solid rgba(125, 140, 117, 0.25);
+    border-bottom: 1px solid rgba(125, 140, 117, 0.25);
     overflow: hidden;
-    box-shadow: inset 0 0 20px rgba(0,0,0,0.03);
-  }
-
-  .gallery-title {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.4rem;
-    font-style: italic;
-    color: var(--text-dark);
-    text-align: center;
-    margin: 0 0 20px 0;
-    letter-spacing: 1px;
+    box-shadow: inset 0 0 20px rgba(0,0,0,0.02);
   }
 
   .gallery-track {
     display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 20px;
-    padding: 10px 0;
+    gap: 22px;
+    width: max-content;
+    animation: scrollElegante 35s linear infinite;
+    padding: 5px 0;
   }
 
   .gallery-card {
-    width: 160px;
-    height: 220px;
-    border-radius: 90px 90px 12px 12px;
+    width: 145px;
+    height: 200px;
+    border-radius: 75px 75px 10px 10px;
     overflow: hidden;
-    position: relative;
-    transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1);
-    transform: scale(0.85);
-    opacity: 0.45;
-    filter: grayscale(80%) brightness(0.9);
-    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-    border: 2px solid rgba(255, 255, 255, 0.6);
-    cursor: pointer;
     flex-shrink: 0;
+    box-shadow: 0 10px 22px rgba(45, 56, 48, 0.12), 0 0 0 1px rgba(125, 140, 117, 0.25);
+    border: 3px solid #ffffff;
+    background-color: #ffffff;
   }
 
   .gallery-card img {
@@ -95,15 +127,9 @@
     object-fit: cover;
   }
 
-  .gallery-card.active-card {
-    width: 200px;
-    height: 280px;
-    transform: scale(1) translateY(-5px);
-    opacity: 1;
-    filter: grayscale(0%) brightness(1.03);
-    border: 4px solid #ffffff;
-    box-shadow: 0 18px 35px rgba(58, 74, 62, 0.18), 0 0 0 1px rgba(155, 169, 147, 0.4);
-    z-index: 10;
+  @keyframes scrollElegante {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
   }
 
   /* Tipografía clásica para los pines en lugar de emojis */
@@ -433,26 +459,21 @@
     
     <p style="text-align: center; font-size: 0.8rem; color: var(--text-light); margin-top: 20px; margin-bottom: 15px; letter-spacing: 2px; text-transform: uppercase; font-weight: 600;">03 • 10 • 2026 | 18:30 Hrs</p>
 
-    <!-- GALERÍA DE RECUERDOS EDITORIAL CON PROFUNDIDAD -->
+    <!-- ROLLO DE RECUERDOS DELICADO Y CONTINUO -->
     <div class="editorial-gallery-wrapper">
-      <div class="gallery-title">Nuestra Historia en Retratos</div>
-      <div class="gallery-track" id="gallery-track">
-        <!-- Foto Izquierda (En sombra) -->
-        <div class="gallery-card" onclick="enfocarFoto(this)">
-          <img src="https://drive.google.com/thumbnail?id=1hiyKGWGFsxylrRrCfWrjXg80fwBDzipa&sz=w600" alt="Recuerdo 1">
-        </div>
+      <div class="gallery-track">
+        <!-- Grupo 1 -->
+        <div class="gallery-card"><img src="https://drive.google.com/thumbnail?id=1hiyKGWGFsxylrRrCfWrjXg80fwBDzipa&sz=w600" alt="Recuerdo"></div>
+        <div class="gallery-card"><img src="https://drive.google.com/thumbnail?id=1nHY-TiHU5bo9knGZWpPQhpLRUcHNo0my&sz=w600" alt="Recuerdo"></div>
+        <div class="gallery-card"><img src="https://drive.google.com/thumbnail?id=ID_FOTO_4&sz=w600" alt="Recuerdo"></div>
+        <div class="gallery-card"><img src="https://drive.google.com/thumbnail?id=1hiyKGWGFsxylrRrCfWrjXg80fwBDzipa&sz=w600" alt="Recuerdo"></div>
         
-        <!-- Foto Central (Activa e Iluminada por defecto) -->
-        <div class="gallery-card active-card" onclick="enfocarFoto(this)">
-          <img src="https://drive.google.com/thumbnail?id=1nHY-TiHU5bo9knGZWpPQhpLRUcHNo0my&sz=w600" alt="Recuerdo 2">
-        </div>
-        
-        <!-- Foto Derecha (En sombra) -->
-        <div class="gallery-card" onclick="enfocarFoto(this)">
-          <img src="https://drive.google.com/thumbnail?id=ID_FOTO_4&sz=w600" alt="Recuerdo 3">
-        </div>
+        <!-- Grupo 2 (Duplicado exacto para el loop infinito suave) -->
+        <div class="gallery-card"><img src="https://drive.google.com/thumbnail?id=1hiyKGWGFsxylrRrCfWrjXg80fwBDzipa&sz=w600" alt="Recuerdo"></div>
+        <div class="gallery-card"><img src="https://drive.google.com/thumbnail?id=1nHY-TiHU5bo9knGZWpPQhpLRUcHNo0my&sz=w600" alt="Recuerdo"></div>
+        <div class="gallery-card"><img src="https://drive.google.com/thumbnail?id=ID_FOTO_4&sz=w600" alt="Recuerdo"></div>
+        <div class="gallery-card"><img src="https://drive.google.com/thumbnail?id=1hiyKGWGFsxylrRrCfWrjXg80fwBDzipa&sz=w600" alt="Recuerdo"></div>
       </div>
-      <p style="text-align: center; font-size: 0.7rem; color: var(--text-light); margin-top: 15px; letter-spacing: 1.5px; text-transform: uppercase;">• Toca una fotografía para iluminarla •</p>
     </div>
 
     <!-- BOTÓN DE CHECK-IN Y LISTA DE PRESENTES -->
@@ -1090,26 +1111,7 @@
       }
     }
     
-    // LÓGICA: CARRUSEL AUTOMÁTICO CON EFECTO DE PROFUNDIDAD
-    let indiceCarrusel = 1; // Empezamos iluminando la foto central
-
-    function rotarCarruselAutomatico() {
-      const tarjetas = document.querySelectorAll('.gallery-card');
-      if (!tarjetas || tarjetas.length === 0) return;
-
-      // 1. Quitamos la luz a todas
-      tarjetas.forEach(card => card.classList.remove('active-card'));
-
-      // 2. Iluminamos la siguiente en la lista
-      tarjetas[indiceCarrusel].classList.add('active-card');
-
-      // 3. Avanzamos al siguiente índice (y volvemos al inicio si se acaban)
-      indiceCarrusel = (indiceCarrusel + 1) % tarjetas.length;
-    }
-
-    // Hará que el carrusel rote solo cada 3.5 segundos
-    setInterval(rotarCarruselAutomatico, 3500);
-
+    
   </script>
 
 </body>
