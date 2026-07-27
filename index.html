@@ -396,18 +396,78 @@
   .app-time-box span { display: block; font-size: 1.8rem; font-family: 'Cormorant Garamond', serif; color: var(--text-dark); font-weight: 600; line-height: 1; }
   .app-time-box small { font-size: 0.65rem; text-transform: uppercase; color: var(--text-light); letter-spacing: 1px; display: block; margin-top: 6px; font-weight: 600; }
 
-  /* Estilos para la pestaña El Día (Cronograma y Menú) */
-  .app-timeline { position: relative; margin: 0 auto; padding-left: 20px; max-width: 300px; border-left: 2px solid var(--sage-green); }
-  .app-time-item { position: relative; margin-bottom: 25px; padding-left: 25px; }
-  .app-time-item:last-child { margin-bottom: 0; }
-  .app-time-dot { position: absolute; left: -26px; top: 4px; width: 10px; height: 10px; background-color: var(--bg-cream); border: 2px solid var(--sage-green); border-radius: 50%; box-shadow: 0 0 0 4px var(--bg-cream); }
-  .app-time-content { background: #ffffff; padding: 15px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.03); border: 1px solid rgba(155, 169, 147, 0.15); }
-  
-  .menu-box { background-color: #ffffff; padding: 30px 20px; border-radius: 16px; border: 1px solid var(--sage-green); box-shadow: 0 6px 20px rgba(0,0,0,0.04); margin: 0 auto; max-width: 320px; text-align: center; }
-  .menu-category { font-family: 'Montserrat', sans-serif; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; color: var(--sage-green); border-bottom: 1px solid rgba(155,169,147,0.3); padding-bottom: 5px; margin: 0 auto 12px auto; display: inline-block; font-weight: 600; }
-  .menu-items { font-family: 'Cormorant Garamond', serif; font-size: 1.15rem; color: var(--text-dark); line-height: 1.4; margin: 0 0 25px 0; font-style: italic; }
-  .menu-items:last-child { margin-bottom: 0; }
+  /* --- ESTILOS: CRONOGRAMA EN PAPELERÍA FINA --- */
+  .app-timeline {
+    position: relative;
+    margin: 30px auto;
+    padding-left: 25px;
+    max-width: 320px;
+    border-left: 1px dashed var(--gold-accent);
+  }
+  .app-time-item {
+    position: relative;
+    margin-bottom: 30px;
+    padding-left: 20px;
+  }
+  .app-time-item:last-child {
+    margin-bottom: 0;
+  }
+  .app-time-dot {
+    position: absolute;
+    left: -31px;
+    top: 15px;
+    width: 11px;
+    height: 11px;
+    background-color: var(--gold-accent);
+    border: 3px solid var(--bg-cream);
+    border-radius: 50%;
+    box-shadow: 0 0 0 1px var(--gold-accent);
+  }
+  .app-time-content {
+    background: #ffffff;
+    padding: 18px 20px;
+    border-radius: 14px;
+    box-shadow: 0 8px 20px rgba(45, 56, 48, 0.05);
+    border: 1px solid rgba(125, 140, 117, 0.25);
+    position: relative;
+  }
+  /* Doble borde interior sutil estilo papelería de lujo */
+  .app-time-content::before {
+    content: "";
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    right: 4px;
+    bottom: 4px;
+    border: 1px solid rgba(184, 151, 88, 0.15);
+    border-radius: 10px;
+    pointer-events: none;
+  }
 
+  /* --- ESTILOS: MENÚ DE ALTA GASTRONOMÍA --- */
+  .menu-category {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    color: var(--gold-accent);
+    border-bottom: 1px solid rgba(184, 151, 88, 0.4);
+    padding-bottom: 6px;
+    margin: 0 auto 12px auto;
+    display: inline-block;
+    font-weight: 600;
+  }
+  .menu-items {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem;
+    color: var(--text-dark);
+    line-height: 1.5;
+    margin: 0 0 25px 0;
+    font-style: italic;
+  }
+  .menu-items:last-child {
+    margin-bottom: 0;
+  }
 /* Estilos para el Modal de Check-In */
   .modal-checkin-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.4); z-index: 10001; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(3px); }
   .modal-checkin-box { background: white; width: 90%; max-width: 350px; border-radius: 20px; padding: 30px 20px; text-align: center; box-shadow: 0 15px 40px rgba(0,0,0,0.1); border: 1px solid rgba(155, 169, 147, 0.3); }
@@ -505,41 +565,50 @@
     <h2 style="font-family: 'Pinyon Script', cursive; font-size: 3.5rem; color: var(--sage-green); text-align: center; margin: 10px 0 0 0; font-weight: normal;">Cronograma</h2>
     <p style="text-align: center; font-size: 0.85rem; color: var(--text-light); margin-bottom: 30px;">Sigue cada momento de nuestra celebración.</p>
     
-    <!-- LÍNEA DE TIEMPO VERTICAL -->
+    <!-- LÍNEA DE TIEMPO EDITORIAL EN RELIEVE -->
     <div class="app-timeline">
       <div class="app-time-item">
         <div class="app-time-dot"></div>
         <div class="app-time-content">
-          <h4 style="font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; margin: 0; color: var(--text-dark);">18:30 hrs</h4>
-          <p style="margin: 2px 0 0 0; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; color: var(--sage-green); font-weight: 600;">Ceremonia</p>
-          <p style="margin: 5px 0 0 0; font-size: 0.8rem; color: var(--text-light);">Acompáñanos a dar el Sí.</p>
+          <h4 style="font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-style: italic; margin: 0; color: var(--text-dark);">18:00 hrs</h4>
+          <p style="margin: 4px 0 0 0; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; color: var(--gold-accent); font-weight: 600;">Bienvenida</p>
+          <p style="margin: 6px 0 0 0; font-size: 0.85rem; color: var(--text-light); line-height: 1.4;">Recepción de invitados en los jardines de la Casona.</p>
+        </div>
+      </div>
+
+      <div class="app-time-item">
+        <div class="app-time-dot"></div>
+        <div class="app-time-content">
+          <h4 style="font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-style: italic; margin: 0; color: var(--text-dark);">18:30 hrs</h4>
+          <p style="margin: 4px 0 0 0; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; color: var(--gold-accent); font-weight: 600;">Ceremonia</p>
+          <p style="margin: 6px 0 0 0; font-size: 0.85rem; color: var(--text-light); line-height: 1.4;">Acompáñanos a dar el Sí en un entorno mágico.</p>
         </div>
       </div>
       
       <div class="app-time-item">
         <div class="app-time-dot"></div>
         <div class="app-time-content">
-          <h4 style="font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; margin: 0; color: var(--text-dark);">19:30 hrs</h4>
-          <p style="margin: 2px 0 0 0; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; color: var(--sage-green); font-weight: 600;">Cóctel</p>
-          <p style="margin: 5px 0 0 0; font-size: 0.8rem; color: var(--text-light);">Ubicado al exterior de la Casona</p>
+          <h4 style="font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-style: italic; margin: 0; color: var(--text-dark);">19:30 hrs</h4>
+          <p style="margin: 4px 0 0 0; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; color: var(--gold-accent); font-weight: 600;">Cóctel</p>
+          <p style="margin: 6px 0 0 0; font-size: 0.85rem; color: var(--text-light); line-height: 1.4;">Brindis y aperitivos al exterior de la Casona.</p>
         </div>
       </div>
       
       <div class="app-time-item">
         <div class="app-time-dot"></div>
         <div class="app-time-content">
-          <h4 style="font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; margin: 0; color: var(--text-dark);">20:30 hrs</h4>
-          <p style="margin: 2px 0 0 0; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; color: var(--sage-green); font-weight: 600;">Cena y Postre</p>
-          <p style="margin: 5px 0 0 0; font-size: 0.8rem; color: var(--text-light);">Busca tu asiento y disfruta de una exquisita banquetería estilo campestre.</p>
+          <h4 style="font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-style: italic; margin: 0; color: var(--text-dark);">20:30 hrs</h4>
+          <p style="margin: 4px 0 0 0; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; color: var(--gold-accent); font-weight: 600;">Cena y Postre</p>
+          <p style="margin: 6px 0 0 0; font-size: 0.85rem; color: var(--text-light); line-height: 1.4;">Busca tu asiento y disfruta de una exquisita banquetería estilo campestre.</p>
         </div>
       </div>
       
       <div class="app-time-item">
         <div class="app-time-dot"></div>
         <div class="app-time-content">
-          <h4 style="font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; margin: 0; color: var(--text-dark);">22:00 hrs</h4>
-          <p style="margin: 2px 0 0 0; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; color: var(--sage-green); font-weight: 600;">Fiesta y Bar</p>
-          <p style="margin: 5px 0 0 0; font-size: 0.8rem; color: var(--text-light);">Barra libre y pista de baile bajo las estrellas.</p>
+          <h4 style="font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-style: italic; margin: 0; color: var(--text-dark);">22:00 hrs</h4>
+          <p style="margin: 4px 0 0 0; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; color: var(--gold-accent); font-weight: 600;">Fiesta y Bar</p>
+          <p style="margin: 6px 0 0 0; font-size: 0.85rem; color: var(--text-light); line-height: 1.4;">Barra libre y pista de baile bajo las estrellas hasta las 02:00 hrs.</p>
         </div>
       </div>
     </div>
