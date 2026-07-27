@@ -474,26 +474,68 @@
   .checkin-checkbox-label { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; font-weight: 600; color: var(--text-dark); font-size: 0.95rem; cursor: pointer; padding: 10px; border: 1px solid rgba(155, 169, 147, 0.3); border-radius: 8px; background: white; }
   .checkin-checkbox-label input[type="checkbox"] { width: 18px; height: 18px; accent-color: var(--sage-green); }
 
-/* Animación para que los nombres "floten" */
-  .presente-chip { 
-    background: #f0f2ef; 
-    padding: 6px 14px; 
-    border-radius: 15px; 
-    font-size: 0.75rem; 
-    color: var(--text-dark); 
-    border: 1px solid var(--sage-green);
-    animation: flotar 3s ease-in-out infinite;
+/* --- ESTILOS: ETIQUETAS DE ASISTENCIA ELEGANTES --- */
+  .presente-chip {
+    background: #ffffff;
+    padding: 7px 16px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 500;
+    letter-spacing: 1px;
+    color: var(--text-dark);
+    border: 1px solid rgba(125, 140, 117, 0.4);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.02);
     display: inline-block;
-  }
-  @keyframes flotar {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-5px); }
+    transition: border-color 0.3s ease;
   }
 
-.game-box { background: #ffffff; padding: 25px; border-radius: 20px; border: 1px solid rgba(155, 169, 147, 0.3); box-shadow: 0 10px 25px rgba(0,0,0,0.05); }
-  .option-btn { background: #fcfbf8; border: 1px solid var(--sage-green); padding: 12px; border-radius: 10px; font-family: 'Montserrat', sans-serif; font-size: 0.85rem; cursor: pointer; transition: 0.3s; }
-  .option-btn:hover { background: var(--sage-green); color: white; }
+  /* --- ESTILOS: TRIVIA EN PAPELERÍA DE LUJO --- */
+  .game-box {
+    background: #ffffff;
+    padding: 35px 25px;
+    border-radius: 14px;
+    border: 1px solid rgba(184, 151, 88, 0.3);
+    box-shadow: 0 10px 30px rgba(45, 56, 48, 0.05);
+    max-width: 340px;
+    margin: 0 auto;
+    position: relative;
+    box-sizing: border-box;
+  }
+  /* Doble borde interior sutil */
+  .game-box::before {
+    content: "";
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    right: 5px;
+    bottom: 5px;
+    border: 1px solid rgba(184, 151, 88, 0.15);
+    border-radius: 10px;
+    pointer-events: none;
+  }
 
+  .option-btn {
+    background: var(--bg-cream);
+    border: 1px solid rgba(125, 140, 117, 0.4);
+    padding: 14px 18px;
+    border-radius: 8px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.85rem;
+    color: var(--text-dark);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: left;
+    line-height: 1.4;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  .option-btn:hover, .option-btn:active {
+    background: var(--sage-green);
+    color: #ffffff;
+    border-color: var(--sage-green);
+    box-shadow: 0 4px 12px rgba(125, 140, 117, 0.25);
+  }
 </style>
 </head>
 <body>
@@ -771,11 +813,11 @@
   <!-- VISTA 4: TRIVIA -->
   <div id="view-juegos" class="view-section">
     <h2 style="font-family: 'Pinyon Script', cursive; font-size: 3.8rem; color: var(--sage-green); text-align: center; margin: 10px 0 0 0; font-weight: normal; line-height: 1;">¿Cuánto nos conoces?</h2>
-    <p style="text-align: center; font-family: 'Montserrat', sans-serif; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; color: var(--text-light); margin-top: 5px; margin-bottom: 25px; font-weight: 600;">Trivia Oficial de Josselyn & Jordán</p>
+    <p style="text-align: center; font-family: 'Montserrat', sans-serif; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 3px; color: var(--gold-accent); margin-top: 6px; margin-bottom: 25px; font-weight: 600;">Trivia Oficial de Josselyn & Jordán</p>
     
-    <div id="btn-iniciar-contenedor" style="background: #ffffff; padding: 30px 20px; border-radius: 20px; border: 1px solid rgba(155, 169, 147, 0.4); box-shadow: 0 10px 25px rgba(0,0,0,0.04); text-align: center; max-width: 340px; margin: 0 auto 20px auto; box-sizing: border-box;">
+    <div id="btn-iniciar-contenedor" style="background: #ffffff; padding: 35px 25px; border-radius: 14px; border: 1px solid rgba(184, 151, 88, 0.3); box-shadow: 0 10px 30px rgba(45, 56, 48, 0.05); text-align: center; max-width: 340px; margin: 0 auto 20px auto; box-sizing: border-box; position: relative;">
       
-      <p style="font-family: 'Cormorant Garamond', serif; font-size: 1.25rem; color: var(--text-dark); line-height: 1.4; font-style: italic; margin: 0 0 15px 0;">
+      <p style="font-family: 'Cormorant Garamond', serif; font-size: 1.35rem; color: var(--text-dark); line-height: 1.4; font-style: italic; margin: 0 0 15px 0;">
         ¡Queremos poner a prueba qué tanto conocen nuestra historia!
       </p>
       
@@ -783,13 +825,13 @@
         Responde este breve desafío antes de la Cena y prepárate: <strong>durante la fiesta revelaremos al ganador o ganadora.</strong>
       </p>
       
-      <div style="border-top: 1px dashed rgba(155, 169, 147, 0.4); margin: 20px 0; padding-top: 20px;">
-        <label for="nombre-jugador-input" style="display: block; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1.5px; color: var(--sage-green); font-weight: 600; margin-bottom: 10px;">Ingresa tu nombre y apellido</label>
+      <div style="border-top: 1px dashed rgba(184, 151, 88, 0.4); margin: 20px 0; padding-top: 20px;">
+        <label for="nombre-jugador-input" style="display: block; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 2px; color: var(--gold-accent); font-weight: 600; margin-bottom: 12px;">Ingresa tu nombre y apellido</label>
         
-        <input type="text" id="nombre-jugador-input" placeholder="Ej: Juan Pérez" style="width: 100%; padding: 14px; border-radius: 10px; border: 1px solid var(--sage-green); background: #faf9f6; font-family: 'Montserrat', sans-serif; font-size: 0.9rem; color: var(--text-dark); text-align: center; box-sizing: border-box; outline: none; margin-bottom: 18px;">
+        <input type="text" id="nombre-jugador-input" placeholder="Ej: Juan Pérez" style="width: 100%; padding: 14px; border-radius: 8px; border: 1px solid rgba(125, 140, 117, 0.5); background: var(--bg-cream); font-family: 'Montserrat', sans-serif; font-size: 0.9rem; color: var(--text-dark); text-align: center; box-sizing: border-box; outline: none; margin-bottom: 20px;">
         
-        <button onclick="iniciarJuego()" style="background: var(--text-dark); color: white; border: none; padding: 15px 30px; border-radius: 30px; font-family: 'Montserrat', sans-serif; font-size: 0.85rem; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; cursor: pointer; width: 100%; box-shadow: 0 6px 15px rgba(0,0,0,0.1); transition: opacity 0.3s;">
-          ✨ ¡Empezar el Desafío!
+        <button onclick="iniciarJuego()" style="background: var(--text-dark); color: #ffffff; border: none; padding: 16px 30px; border-radius: 30px; font-family: 'Montserrat', sans-serif; font-size: 0.8rem; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; width: 100%; box-shadow: 0 8px 18px rgba(45, 56, 48, 0.15); transition: opacity 0.3s;">
+          Comenzar el Desafío
         </button>
       </div>
       
@@ -797,15 +839,14 @@
 
     <div id="game-container" class="game-box" style="display: none;">
       <div id="question-box">
-        <h4 id="question-text" style="font-family: 'Montserrat', sans-serif; font-size: 1rem; margin-bottom: 20px;"></h4>
-        <div id="options-container" style="display: flex; flex-direction: column; gap: 10px;"></div>
+        <h4 id="question-text" style="font-family: 'Cormorant Garamond', serif; font-size: 1.35rem; color: var(--text-dark); margin-top: 0; margin-bottom: 22px; text-align: center; line-height: 1.4;"></h4>
+        <div id="options-container" style="display: flex; flex-direction: column; gap: 12px;"></div>
       </div>
       <div id="result-box" style="display: none; text-align: center;">
-        <h3 id="score-text" style="font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; color: var(--text-dark);"></h3>
+        <h3 id="score-text" style="font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; color: var(--text-dark); line-height: 1.4; margin: 10px 0;"></h3>
       </div>
     </div>
   </div>
-
 
   <!-- BARRA INFERIOR DE NAVEGACIÓN ELEGANTE -->
   <nav class="bottom-nav">
