@@ -567,15 +567,36 @@
 <body>
 
   <!-- VISTA 1: INICIO -->
-  <div id="view-inicio" class="view-section active-view">
+  <div id="view-inicio" class="view-section active-view" style="padding-top: 0;">
     
-    <!-- FOTO PRINCIPAL EN ARCO EDITORIAL -->
-    <div class="hero-photo-container">
-      <img src="portada-novios.jpeg" alt="Josselyn y Jordán">
+    <!-- MARCO BOTÁNICO SUPERIOR -->
+    <div style="text-align: center; margin-bottom: 25px; margin-top: -20px;">
+      <img src="hojas-arriba.png" alt="Adorno Floral" style="width: 100%; height: auto; max-height: 180px; object-fit: cover;" onerror="this.style.display='none'">
     </div>
 
-    <h1 style="font-family: 'Pinyon Script', cursive; font-size: 4.2rem; margin-top: 10px; margin-bottom: 5px; color: var(--text-dark); font-weight: normal; line-height: 0.9; text-align: center;">Josselyn y Jordán</h1>
-    <p style="text-align: center; font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.2rem; color: var(--text-light); margin-top: 0; margin-bottom: 20px;">Falta muy poco para el gran momento...</p>
+    <!-- FECHA ELEGANTE -->
+    <p style="text-align: center; font-family: 'Montserrat', sans-serif; font-size: 0.8rem; color: var(--gold-accent); letter-spacing: 4px; font-weight: 600; margin-bottom: 20px;">
+      03 . 10 . 2026
+    </p>
+
+    <!-- MONOGRAMA -->
+    <div style="text-align: center; margin-bottom: 15px;">
+      <img src="monograma-jj.png" alt="Monograma J&J" style="height: 50px; width: auto;" onerror="this.style.display='none'">
+    </div>
+
+    <!-- NOMBRES EN CALIGRAFÍA -->
+    <h1 style="font-family: 'Pinyon Script', cursive; font-size: 4.8rem; margin: 0; color: var(--text-dark); font-weight: normal; line-height: 0.9; text-align: center;">
+      Josselyn & Jordán
+    </h1>
+    
+    <p style="text-align: center; font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.4rem; color: var(--text-dark); margin-top: 15px; margin-bottom: -15px; position: relative; z-index: 2;">
+      A celebration of love
+    </p>
+
+    <!-- ACUARELA DE LA CASONA INTEGRADA (Justo debajo del texto) -->
+    <div class="casona-footer-blend"></div>
+
+    <p style="text-align: center; font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.2rem; color: var(--text-light); margin-top: 20px; margin-bottom: 20px;">Falta muy poco para el gran momento...</p>
     
     <!-- CONTENEDOR DE LA CUENTA REGRESIVA ELEGANTE -->
     <div class="app-countdown-container">
@@ -584,8 +605,6 @@
       <div class="app-time-box"><span id="app-minutes">00</span><small>Min</small></div>
       <div class="app-time-box"><span id="app-seconds">00</span><small>Seg</small></div>
     </div>
-    
-    <p style="text-align: center; font-size: 0.8rem; color: var(--text-light); margin-top: 20px; margin-bottom: 15px; letter-spacing: 2px; text-transform: uppercase; font-weight: 600;">03 • 10 • 2026 | 18:30 Hrs</p>
 
     <!-- ROLLO DE RECUERDOS DELICADO Y CONTINUO -->
     <div class="editorial-gallery-wrapper">
@@ -619,13 +638,7 @@
       </div>
     </div>
 
-    <!-- CIERRE DE PAISAJE ESTILO ACUARELA INTEGRADO -->
-    <div style="text-align: center; margin-top: 40px; position: relative; z-index: 2;">
-      <p style="font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-style: italic; color: var(--text-dark);">Una Celebración de Amor</p>
     </div>
-    
-    <div class="casona-footer-blend"></div>
-  </div>
 
   <!-- VISTA 2: EL DÍA (CRONOGRAMA Y MENÚ) -->
   <div id="view-agenda" class="view-section">
