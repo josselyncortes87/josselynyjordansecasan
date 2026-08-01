@@ -1128,23 +1128,34 @@
         .registrarCheckIn(seleccionados);
     }
 
-// Carga la lista de presentes al abrir la app
+// Constante global con la URL de tu Web App (la usaremos para todo de ahora en adelante)
+    const API_URL = "https://script.google.com/macros/s/AKfycbzBmrbEpEMmnxKpviRPaN9iOVBdbzGeIsmZGKg0YGEKPrgSD0XyuQCti4MNnPiOQr_w/exec";
+
+    // Carga la lista de presentes al abrir la app
     function cargarPresentes() {
       const container = document.getElementById('lista-presentes');
-      google.script.run.withSuccessHandler(lista => {
-        if(lista.length === 0) {
-          container.innerHTML = '<p style="font-size:0.8rem; color:var(--text-light);">Sé el primero en llegar...</p>';
-          return;
-        }
-        
-        container.innerHTML = '';
-        lista.forEach(nombre => {
-          const chip = document.createElement('span');
-          chip.className = 'presente-chip';
-          chip.innerText = nombre;
-          container.appendChild(chip);
+      
+      // Llamamos a la URL pasando el parámetro action=obtenerPresentes
+      fetch(API_URL + "?action=obtenerPresentes")
+        .then(response => response.json())
+        .then(lista => {
+          if(lista.length === 0) {
+            container.innerHTML = '<p style="font-size:0.8rem; color:var(--text-light);">Sé el primero en llegar...</p>';
+            return;
+          }
+          
+          container.innerHTML = '';
+          lista.forEach(nombre => {
+            const chip = document.createElement('span');
+            chip.className = 'presente-chip';
+            chip.innerText = nombre;
+            container.appendChild(chip);
+          });
+        })
+        .catch(error => {
+          console.error("Error al cargar presentes:", error);
+          container.innerHTML = '<p style="font-size:0.8rem; color:var(--text-light);">No se pudo cargar la lista.</p>';
         });
-      }).obtenerPresentes();
     }
 
     // Ejecuta la carga al iniciar la app
