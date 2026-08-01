@@ -527,6 +527,41 @@
     border-color: var(--sage-green);
     box-shadow: 0 4px 12px rgba(125, 140, 117, 0.25);
   }
+
+  /* --- ACUARELA FUNDIDA EN EL PAPEL (PORTADA) --- */
+  .casona-footer-blend {
+    position: relative;
+    width: 100%;
+    height: 320px; /* Da suficiente espacio para que se vea el paisaje */
+    margin-top: 20px;
+    background-image: url('casona-acuarela.png');
+    background-position: center bottom;
+    background-size: cover; /* Expande la imagen de borde a borde de la pantalla */
+    background-repeat: no-repeat;
+  }
+  
+  /* Pincelada mágica: funde el borde superior exactamente con el color crema del fondo */
+  .casona-footer-blend::before {
+    content: "";
+    position: absolute;
+    top: -1px;
+    left: 0;
+    right: 0;
+    height: 120px; /* Qué tan largo es el desvanecimiento hacia abajo */
+    background: linear-gradient(to bottom, var(--bg-cream) 0%, rgba(252, 251, 248, 0.7) 40%, rgba(252, 251, 248, 0) 100%);
+  }
+
+  /* Pincelada mágica 2: funde el borde inferior para que no choque duro con el menú */
+  .casona-footer-blend::after {
+    content: "";
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    right: 0;
+    height: 60px;
+    background: linear-gradient(to top, var(--bg-cream) 0%, rgba(252, 251, 248, 0) 100%);
+  }
+  
 </style>
 </head>
 <body>
@@ -584,12 +619,12 @@
       </div>
     </div>
 
-    <!-- CIERRE DE PAISAJE ESTILO ACUARELA -->
-    <div style="width: 100%; margin-top: 40px; text-align: center; position: relative;">
-      <p style="font-family: 'Montserrat', sans-serif; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 4px; color: var(--gold-accent); margin-bottom: -15px; position: relative; z-index: 2;">Una Celebración de Amor</p>
-      <img src="casona-acuarela.png" alt="La Casona" style="width: 100%; max-width: 400px; height: auto; opacity: 0.9; mask-image: linear-gradient(to top, rgba(0,0,0,1) 60%, rgba(0,0,0,0) 100%); -webkit-mask-image: linear-gradient(to top, rgba(0,0,0,1) 60%, rgba(0,0,0,0) 100%);">
+    <!-- CIERRE DE PAISAJE ESTILO ACUARELA INTEGRADO -->
+    <div style="text-align: center; margin-top: 40px; position: relative; z-index: 2;">
+      <p style="font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-style: italic; color: var(--text-dark);">Una Celebración de Amor</p>
     </div>
-
+    
+    <div class="casona-footer-blend"></div>
   </div>
 
   <!-- VISTA 2: EL DÍA (CRONOGRAMA Y MENÚ) -->
