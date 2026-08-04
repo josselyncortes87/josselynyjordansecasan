@@ -531,12 +531,16 @@
   /* --- ACUARELA FUNDIDA EN EL PAPEL (PORTADA) --- */
   .casona-footer-blend {
     position: relative;
-    width: 100%;
-    height: 320px; /* Da suficiente espacio para que se vea el paisaje */
-    margin-top: 20px;
+    width: 100vw;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    height: 340px; 
+    margin-top: 10px;
     background-image: url('casona-acuarela.png');
-    background-position: center bottom;
-    background-size: cover; /* Expande la imagen de borde a borde de la pantalla */
+    background-position: center center;
+    background-size: cover;
     background-repeat: no-repeat;
   }
   
@@ -677,26 +681,25 @@
 </div>
   
   <!-- VISTA 1: INICIO -->
-  <div id="view-inicio" class="view-section active-view" style="padding-top: 0;">
+  <div id="view-inicio" class="view-section active-view" style="padding: 0; overflow-x: hidden;">
     
-    <!-- MARCO BOTÁNICO SUPERIOR -->
-    <div style="text-align: center; margin-bottom: 25px; margin-top: -20px;">
-      <img src="hojas-arriba.png" alt="Adorno Floral" style="width: 100%; height: auto; max-height: 180px; object-fit: cover;" onerror="this.style.display='none'">
+    <!-- MARCO BOTÁNICO SUPERIOR CON FECHA SUPERPUESTA -->
+    <div style="text-align: center; margin-bottom: 15px; position: relative; width: 100%;">
+      <img src="hojas-arriba.png" alt="Adorno Floral" style="width: 100%; height: auto; max-height: 200px; display: block; object-fit: cover;" onerror="this.style.display='none'">
+      <!-- FECHA ELEGANTE ENCIMA DE LAS HOJAS -->
+      <p style="position: absolute; top: 15px; left: 0; right: 0; text-align: center; font-family: 'Montserrat', sans-serif; font-size: 0.8rem; color: var(--gold-accent); letter-spacing: 4px; font-weight: 600; margin: 0; text-shadow: 0 1px 3px rgba(255,255,255,0.8);">
+        03 . 10 . 2026
+      </p>
     </div>
 
-    <!-- FECHA ELEGANTE -->
-    <p style="text-align: center; font-family: 'Montserrat', sans-serif; font-size: 0.8rem; color: var(--gold-accent); letter-spacing: 4px; font-weight: 600; margin-bottom: 20px;">
-      03 . 10 . 2026
-    </p>
-
-    <!-- MONOGRAMA -->
+    <!-- MONOGRAMA MÁS GRANDE -->
     <div style="text-align: center; margin-bottom: 15px;">
-      <img src="monograma-jj.png" alt="Monograma J&J" style="height: 50px; width: auto;" onerror="this.style.display='none'">
+      <img src="monograma-jj.png" alt="Monograma J&J" style="height: 75px; width: auto;" onerror="this.style.display='none'">
     </div>
 
-    <!-- NOMBRES EN CALIGRAFÍA -->
-    <h1 style="font-family: 'Pinyon Script', cursive; font-size: 4.8rem; margin: 0; color: var(--text-dark); font-weight: normal; line-height: 0.9; text-align: center;">
-      Josselyn & Jordán
+    <!-- NOMBRES EN CALIGRAFÍA (CON 'y' LEGIBLE) -->
+    <h1 style="font-family: 'Pinyon Script', cursive; font-size: 4.5rem; margin: 0; color: var(--text-dark); font-weight: normal; line-height: 0.95; text-align: center;">
+      Josselyn y Jordán
     </h1>
     
     <p style="text-align: center; font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.4rem; color: var(--text-dark); margin-top: 15px; margin-bottom: -15px; position: relative; z-index: 2;">
