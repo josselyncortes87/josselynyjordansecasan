@@ -290,23 +290,21 @@
     line-height: 1;
   }
 
-  /* Marco Botánico Tallado envolviendo el MENÚ */
   .menu-botanical-frame {
     position: relative;
     width: 100%;
-    max-width: 360px;
-    min-height: 540px; /* Altura perfecta para que los 4 platos respiren dentro del marco */
+    max-width: 340px;
+    min-height: 600px;
     margin: 20px auto;
-    padding: 60px 45px; /* Espaciado interior amplio para no pisar el relieve de flores */
+    padding: 70px 30px 50px 30px;
     box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    background-image: url('marco-botanico.png');
+    text-align: center;
+    background-image: url('minuta-fondo.png');
     background-size: 100% 100%;
     background-position: center;
     background-repeat: no-repeat;
-    filter: drop-shadow(0 10px 25px rgba(0,0,0,0.06));
+    border: none;
+    box-shadow: none;
   }
 
   /* Foto redonda antes del Cronograma */
@@ -352,9 +350,9 @@
     margin: 35px 0 25px 0;
   }
   .botanical-divider img {
-    height: 25px;
-    width: auto;
-    opacity: 0.8;
+    width: 200px; /* Aumentado considerablemente */
+    height: auto;
+    opacity: 0.9;
   }
 
   .search-box input { width: 100%; padding: 14px; border: none; border-bottom: 1px solid var(--sage-green); background: #faf9f6; font-family: inherit; font-size: 0.95rem; box-sizing: border-box; outline: none; color: var(--text-dark); text-align: center; border-radius: 8px; }
@@ -397,8 +395,8 @@
   }
   .app-time-item {
     position: relative;
-    margin-bottom: 30px;
-    padding-left: 20px;
+    margin-bottom: 12px; /* Reducido de 30px a 12px para apretar las tarjetas */
+    padding-left: 15px;
   }
   .app-time-item:last-child {
     margin-bottom: 0;
@@ -693,7 +691,7 @@
 </div>
 
     <!-- MONOGRAMA -->
-<div style="text-align: center; margin-bottom: 15px; margin-top: -20px;">
+<div style="text-align: center; margin-bottom: 15px; margin-top: -25px;">
   <img src="monograma-jj.png" alt="Monograma J&J" style="height: 75px; width: auto;" onerror="this.style.display='none'">
 </div>
 
@@ -763,81 +761,78 @@
     
     <!-- TÍTULO CRONOGRAMA -->
     <h2 style="font-family: 'Pinyon Script', cursive; font-size: 3.5rem; color: var(--sage-green); text-align: center; margin: 10px 0 0 0; font-weight: normal;">Cronograma</h2>
-    <p style="text-align: center; font-size: 0.85rem; color: var(--text-light); margin-bottom: 30px;">Sigue cada momento de nuestra celebración.</p>
+    <p style="text-align: center; font-size: 0.85rem; color: var(--text-light); margin-bottom: 20px;">Sigue cada momento de nuestra celebración.</p>
     
-    <!-- LÍNEA DE TIEMPO EDITORIAL EN RELIEVE -->
+    <!-- LÍNEA DE TIEMPO APRETADA -->
     <div class="app-timeline">
       <div class="app-time-item">
         <div class="app-time-dot"></div>
-        <div class="app-time-content">
-          <h4 style="font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-style: italic; margin: 0; color: var(--text-dark);">18:00 hrs</h4>
-          <p style="margin: 4px 0 0 0; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; color: var(--gold-accent); font-weight: 600;">Bienvenida</p>
-          <p style="margin: 6px 0 0 0; font-size: 0.85rem; color: var(--text-light); line-height: 1.4;">Recepción de invitados en los jardines de la Casona.</p>
+        <div class="app-time-content" style="padding: 10px 15px;">
+          <h4 style="font-family: 'Cormorant Garamond', serif; font-size: 1.25rem; font-style: italic; margin: 0; color: var(--text-dark);">18:00 hrs — Bienvenida</h4>
+          <p style="margin: 3px 0 0 0; font-size: 0.8rem; color: var(--text-light);">Recepción de invitados en los jardines de la Casona.</p>
         </div>
       </div>
 
       <div class="app-time-item">
         <div class="app-time-dot"></div>
-        <div class="app-time-content">
-          <h4 style="font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-style: italic; margin: 0; color: var(--text-dark);">18:30 hrs</h4>
-          <p style="margin: 4px 0 0 0; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; color: var(--gold-accent); font-weight: 600;">Ceremonia</p>
-          <p style="margin: 6px 0 0 0; font-size: 0.85rem; color: var(--text-light); line-height: 1.4;">Acompáñanos a dar el Sí en un entorno mágico.</p>
+        <div class="app-time-content" style="padding: 10px 15px;">
+          <h4 style="font-family: 'Cormorant Garamond', serif; font-size: 1.25rem; font-style: italic; margin: 0; color: var(--text-dark);">18:30 hrs — Ceremonia</h4>
+          <p style="margin: 3px 0 0 0; font-size: 0.8rem; color: var(--text-light);">Acompáñanos a dar el Sí en un entorno mágico.</p>
         </div>
       </div>
       
       <div class="app-time-item">
         <div class="app-time-dot"></div>
-        <div class="app-time-content">
-          <h4 style="font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-style: italic; margin: 0; color: var(--text-dark);">19:30 hrs</h4>
-          <p style="margin: 4px 0 0 0; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; color: var(--gold-accent); font-weight: 600;">Cóctel</p>
-          <p style="margin: 6px 0 0 0; font-size: 0.85rem; color: var(--text-light); line-height: 1.4;">Brindis y aperitivos al exterior de la Casona.</p>
+        <div class="app-time-content" style="padding: 10px 15px;">
+          <h4 style="font-family: 'Cormorant Garamond', serif; font-size: 1.25rem; font-style: italic; margin: 0; color: var(--text-dark);">19:30 hrs — Cóctel</h4>
+          <p style="margin: 3px 0 0 0; font-size: 0.8rem; color: var(--text-light);">Brindis y aperitivos al exterior de la Casona.</p>
         </div>
       </div>
       
       <div class="app-time-item">
         <div class="app-time-dot"></div>
-        <div class="app-time-content">
-          <h4 style="font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-style: italic; margin: 0; color: var(--text-dark);">20:30 hrs</h4>
-          <p style="margin: 4px 0 0 0; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; color: var(--gold-accent); font-weight: 600;">Cena y Postre</p>
-          <p style="margin: 6px 0 0 0; font-size: 0.85rem; color: var(--text-light); line-height: 1.4;">Busca tu asiento y disfruta de una exquisita banquetería estilo campestre.</p>
+        <div class="app-time-content" style="padding: 10px 15px;">
+          <h4 style="font-family: 'Cormorant Garamond', serif; font-size: 1.25rem; font-style: italic; margin: 0; color: var(--text-dark);">20:30 hrs — Cena y Postre</h4>
+          <p style="margin: 3px 0 0 0; font-size: 0.8rem; color: var(--text-light);">Busca tu asiento y disfruta de la banquetería.</p>
         </div>
       </div>
       
       <div class="app-time-item">
         <div class="app-time-dot"></div>
-        <div class="app-time-content">
-          <h4 style="font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-style: italic; margin: 0; color: var(--text-dark);">22:00 hrs</h4>
-          <p style="margin: 4px 0 0 0; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; color: var(--gold-accent); font-weight: 600;">Fiesta y Bar</p>
-          <p style="margin: 6px 0 0 0; font-size: 0.85rem; color: var(--text-light); line-height: 1.4;">Barra libre y pista de baile bajo las estrellas hasta las 02:00 hrs.</p>
+        <div class="app-time-content" style="padding: 10px 15px;">
+          <h4 style="font-family: 'Cormorant Garamond', serif; font-size: 1.25rem; font-style: italic; margin: 0; color: var(--text-dark);">22:00 hrs — Fiesta y Bar</h4>
+          <p style="margin: 3px 0 0 0; font-size: 0.8rem; color: var(--text-light);">Barra libre y pista de baile hasta las 02:00 hrs.</p>
         </div>
       </div>
     </div>
 
     <!-- SEPARADOR ELEGANTE -->
-    <div style="margin: 40px auto 30px auto; width: 70%; border-top: 1px dashed var(--sage-green); opacity: 0.5;"></div>
+    <div style="margin: 30px auto 20px auto; width: 70%; border-top: 1px dashed var(--sage-green); opacity: 0.5;"></div>
 
-    <!-- TÍTULO DEL MENÚ -->
-    <h2 style="font-family: 'Pinyon Script', cursive; font-size: 3.5rem; color: var(--sage-green); text-align: center; margin: 0; font-weight: normal;">Menú</h2>
-    <p style="text-align: center; font-size: 0.85rem; color: var(--text-light); margin-bottom: 20px;">Una selección pensada para ustedes.</p>
-
-    <!-- CARTA DEL MENÚ ENMARCADA EN ARTE BOTÁNICO -->
+    <!-- CARTA DEL MENÚ Y BAR ABIERTO SOBRE MINUTA-FONDO.PNG -->
     <div class="menu-botanical-frame">
-      <h3 class="menu-category">Para Brindar</h3>
-      <p class="menu-items">Vino Cabernet Sauvignon o Carmenere<br>Jugos y Bebidas</p>
+      <h3 class="menu-category" style="margin-top: 0; margin-bottom: 6px;">Entrada</h3>
+      <p class="menu-items" style="margin-bottom: 12px; font-size: 1.05rem;">Tartaleta de burrata con tomates confitados</p>
       
-      <h3 class="menu-category">Plato Principal</h3>
-      <p class="menu-items">Principal: Flat Iron Premium, Costillar a las brasas, o Pollo adobado con finas hierbas<br>acompañado de Ensaladas, Papas campesinas, Arroz al cilantro</p>
+      <h3 class="menu-category" style="margin-bottom: 6px;">Plato Principal</h3>
+      <p class="menu-items" style="margin-bottom: 12px; font-size: 1.05rem;">Lomo de ternera con vegetales asados</p>
       
-      <h3 class="menu-category">El Toque Dulce</h3>
-      <p class="menu-items">Mesón de Postres<br>Frutas de la estación, Mouse de limón en mermelada de frutos rojos, Tres leches y Creme Brulee</p>
+      <h3 class="menu-category" style="margin-bottom: 6px;">Postre</h3>
+      <p class="menu-items" style="margin-bottom: 2px; font-size: 1.05rem;">Mousse de limón con frutos rojos</p>
+      <p style="font-family: 'Cormorant Garamond', serif; font-size: 0.9rem; color: var(--text-light); font-style: italic; margin-bottom: 14px;">Café & Té</p>
 
-      <h3 class="menu-category">Trasnoche</h3>
-      <p class="menu-items">Sorpresa!<br>Algo reponedor para recargar energía</p>
+      <div style="width: 40px; height: 1px; background: var(--gold-accent); margin: 12px auto; opacity: 0.5;"></div>
+
+      <h3 class="menu-category" style="font-size: 0.8rem; letter-spacing: 3px; margin-bottom: 6px;">Bar Abierto</h3>
+      <p class="menu-items" style="margin-bottom: 4px; font-size: 0.98rem;">Mojitos · Áperol Spritz · Ramazzotti Rosato</p>
+      <p class="menu-items" style="margin-bottom: 4px; font-size: 0.98rem;">Pisco Sour · Mango Sour · Pisco Mistral</p>
+      <p class="menu-items" style="margin-bottom: 4px; font-size: 0.98rem;">Cerveza con y sin alcohol</p>
+      <p style="font-family: 'Cormorant Garamond', serif; font-size: 0.9rem; color: var(--text-light); font-style: italic; margin-top: 2px;">Jugos · Bebidas · Agua</p>
     </div>
 
-    <!-- SEPARADOR BOTÁNICO CON HOJAS VERDES -->
-    <div class="botanical-divider">
-      <img src="separador-hojas.jpg" alt="---">
+    <!-- SEPARADOR BOTÁNICO BASTANTE MÁS GRANDE AL FINAL -->
+    <div class="botanical-divider" style="margin-top: 30px;">
+      <img src="separador-hojas.jpg" alt="Separador Botánico">
     </div>
   </div>
 
