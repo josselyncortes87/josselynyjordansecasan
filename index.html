@@ -561,11 +561,107 @@
     height: 60px;
     background: linear-gradient(to top, var(--bg-cream) 0%, rgba(252, 251, 248, 0) 100%);
   }
+
+  #intro-portada {
+  position: fixed;
+  inset: 0;
+  z-index: 999999;
+  overflow: hidden;
+  background: transparent;
+}
+
+.tapa {
+  position: absolute;
+  top: 0;
+  width: 50%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.tapa img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.tapa-izquierda {
+  left: 0;
+  transform-origin: left center;
+  animation: abrirIzquierda 2.8s ease-in-out forwards;
+}
+
+.tapa-derecha {
+  right: 0;
+  transform-origin: right center;
+  animation: abrirDerecha 2.8s ease-in-out forwards;
+}
+
+.sello-centro {
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  width: 90px;
+  transform: translate(-50%, -50%);
+  animation: desaparecer 1s forwards;
+  animation-delay: 1s;
+}
+
+.sello-centro img {
+  width: 100%;
+}
+
+@keyframes abrirIzquierda {
+
+  0% {
+    transform: rotateY(0deg);
+  }
+
+  100% {
+    transform: rotateY(-100deg);
+  }
+
+}
+
+@keyframes abrirDerecha {
+
+  0% {
+    transform: rotateY(0deg);
+  }
+
+  100% {
+    transform: rotateY(100deg);
+  }
+
+}
+
+@keyframes desaparecer {
+
+  to {
+    opacity: 0;
+  }
+
+}
   
 </style>
 </head>
 <body>
 
+  <div id="intro-portada">
+
+  <div class="tapa tapa-izquierda">
+    <img src="tapa-izquierda.png">
+  </div>
+
+  <div class="tapa tapa-derecha">
+    <img src="tapa-derecha.png">
+  </div>
+
+  <div class="sello-centro">
+    <img src="sello.png">
+  </div>
+
+</div>
+  
   <!-- VISTA 1: INICIO -->
   <div id="view-inicio" class="view-section active-view" style="padding-top: 0;">
     
@@ -755,7 +851,7 @@
       
       <div class="map-pin pin-latido-suave" style="top: 73%; left: 29%;" onclick="openPinInfo('La Ceremonia', 'Ceremonia', 'La ceremonia civil comenzará puntualmente a las 18:30 hrs.')">
         <span class="pin-icon">Ceremonia</span>
-      </div>>
+      </div>
 
       <div class="map-pin pin-latido-suave" style="top: 52%; left: 40%;" onclick="openPinInfo('Cóctel de Bienvenida', 'Cóctel', 'Al terminar la ceremonia, los esperamos aquí para disfrutar de un brindis al aire libre.')">
         <span class="pin-icon">Cóctel</span>
@@ -1291,6 +1387,14 @@ resultsDiv.innerHTML = '<div style="text-align:center;"><span style="font-family
     
     
   </script>
+<script>
 
+setTimeout(() => {
+
+  document.getElementById("intro-portada").style.display = "none";
+
+}, 3200);
+
+</script>
 </body>
 </html>
