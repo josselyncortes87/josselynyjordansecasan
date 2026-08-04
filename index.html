@@ -587,13 +587,11 @@
 .tapa-izquierda {
   left: 0;
   transform-origin: left center;
-  animation: abrirIzquierda 2.8s ease-in-out forwards;
 }
 
 .tapa-derecha {
   right: 0;
   transform-origin: right center;
-  animation: abrirDerecha 2.8s ease-in-out forwards;
 }
 
 .sello-centro {
@@ -602,8 +600,7 @@
   left: 50%;
   width: 90px;
   transform: translate(-50%, -50%);
-  animation: desaparecer 1s forwards;
-  animation-delay: 1s;
+  cursor: pointer;
 }
 
 .sello-centro img {
@@ -646,6 +643,7 @@
 </head>
 <body>
 
+  
   <div id="intro-portada">
 
   <div class="tapa tapa-izquierda">
@@ -1389,11 +1387,22 @@ resultsDiv.innerHTML = '<div style="text-align:center;"><span style="font-family
   </script>
 <script>
 
-setTimeout(() => {
+document.querySelector(".sello-centro").addEventListener("click", () => {
 
-  document.getElementById("intro-portada").style.display = "none";
+  document.querySelector(".tapa-izquierda").style.animation =
+    "abrirIzquierda 2.8s ease-in-out forwards";
 
-}, 3200);
+  document.querySelector(".tapa-derecha").style.animation =
+    "abrirDerecha 2.8s ease-in-out forwards";
+
+  document.querySelector(".sello-centro").style.animation =
+    "desaparecer 0.8s forwards";
+
+  setTimeout(() => {
+    document.getElementById("intro-portada").style.display = "none";
+  }, 2800);
+
+});
 
 </script>
 </body>
