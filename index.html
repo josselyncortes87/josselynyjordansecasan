@@ -656,6 +656,69 @@
   }
 
 }
+
+  /* --- ANIMACIÓN PULSO/PARPADEO DEL SELLO INICIAL --- */
+  .sello-centro {
+    animation: latidoSello 2s infinite ease-in-out !important;
+  }
+
+  @keyframes latidoSello {
+    0%, 100% {
+      transform: translate(-50%, -50%) scale(1);
+      filter: drop-shadow(0 8px 15px rgba(0,0,0,0.25));
+    }
+    50% {
+      transform: translate(-50%, -50%) scale(1.1);
+      filter: drop-shadow(0 12px 25px rgba(184, 151, 88, 0.6));
+    }
+  }
+
+  /* --- MODAL MAPA AMPLIA BLE (FULLSCREEN) --- */
+  .map-modal {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+    z-index: 99999;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    box-sizing: border-box;
+    backdrop-filter: blur(5px);
+  }
+  .map-modal img {
+    max-width: 100%;
+    max-height: 90vh;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    object-fit: contain;
+  }
+  .map-modal-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    color: white;
+    font-size: 2rem;
+    font-family: sans-serif;
+    cursor: pointer;
+    background: rgba(255,255,255,0.2);
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  /* --- MAQUETA PESTAÑA FOTOS (POV) --- */
+  .photos-card-preview {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 25px 20px;
+    text-align: center;
+    border: 1px solid rgba(125, 140, 117, 0.3);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.04);
+    margin: 20px auto;
+    max-width: 340px;
+  }
+  
   
 </style>
 </head>
@@ -844,7 +907,10 @@
     </p>
     
     <div class="map-container">
-      <img src="CasonaFondoMapa.png" alt="Mapa Casona Fundo El Rosario" onclick="alert('Copia esto en tu pin -> top: ' + Math.round(event.offsetY/this.clientHeight*100) + '%; left: ' + Math.round(event.offsetX/this.clientWidth*100) + '%;')">
+  <div onclick="abrirMapaGrande()" style="position: absolute; top: 10px; right: 10px; z-index: 15; background: rgba(252,251,248,0.92); border: 1px solid var(--sage-green); padding: 5px 12px; border-radius: 20px; font-size: 0.7rem; font-weight: 600; color: var(--text-dark); cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.15);">
+    🔍 Ampliar Mapa
+  </div>
+  <img src="CasonaFondoMapa.png" alt="Mapa Casona Fundo El Rosario" onclick="abrirMapaGrande()">
       <div class="map-pin pin-latido-suave" style="top: 90%; left: 25%;" onclick="openPinInfo('Acceso & Check-In', 'Entrada', '¡Bienvenidos! Recuerda avisar de tu llegada a través de esta web')">
         <span class="pin-icon">Entrada</span>
       </div>
@@ -996,7 +1062,25 @@
     </div>
   </div>
 
-  <!-- BARRA INFERIOR DE NAVEGACIÓN ELEGANTE -->
+  <!-- VISTA 5: FOTOS (POV / GALERÍA DE INVITADOS) -->
+  <div id="view-fotos" class="view-section">
+    <h2 style="font-family: 'Pinyon Script', cursive; font-size: 3.8rem; color: var(--sage-green); text-align: center; margin: 10px 0 0 0; font-weight: normal; line-height: 1;">Álbum Colectivo</h2>
+    <p style="text-align: center; font-family: 'Montserrat', sans-serif; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 3px; color: var(--gold-accent); margin-top: 6px; margin-bottom: 25px; font-weight: 600;">POV • Recuerdos de los Invitados</p>
+
+    <div class="photos-card-preview">
+      <div style="font-size: 2.5rem; margin-bottom: 10px;">📸</div>
+      <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; color: var(--text-dark); margin: 0 0 10px 0;">Captura cada momento</h3>
+      <p style="font-size: 0.85rem; color: var(--text-light); line-height: 1.5; margin-bottom: 20px;">
+        Queremos ver la celebración a través de tus ojos. Comparte tus fotos y videos para construir nuestro álbum de recuerdos juntos.
+      </p>
+
+      <button onclick="alert('Próximamente: Podrás subir tus fotos aquí')" style="background: var(--sage-green); color: white; border: none; padding: 14px 25px; border-radius: 30px; font-family: 'Montserrat', sans-serif; font-size: 0.78rem; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; cursor: pointer; box-shadow: 0 6px 15px rgba(125, 140, 117, 0.3); width: 100%;">
+        Subir mis Fotos 📤
+      </button>
+    </div>
+  </div>
+  
+  <!-- BARRA INFERIOR DE NAVEGACIÓN ELEGANTE (5 PESTAÑAS) -->
   <nav class="bottom-nav">
     <div class="nav-item active" onclick="switchTab('view-inicio', this)">
       <span class="nav-text">Inicio</span>
@@ -1008,6 +1092,10 @@
     </div>
     <div class="nav-item" onclick="switchTab('view-lugar', this)">
       <span class="nav-text">El Lugar</span>
+      <div class="nav-dot"></div>
+    </div>
+    <div class="nav-item" onclick="switchTab('view-fotos', this)">
+      <span class="nav-text">Fotos</span>
       <div class="nav-dot"></div>
     </div>
     <div class="nav-item" onclick="switchTab('view-juegos', this)">
@@ -1419,5 +1507,20 @@ document.querySelector(".sello-centro").addEventListener("click", () => {
 });
 
 </script>
+
+  <!-- MODAL PARA VER EL MAPA EN PANTALLA COMPLETA -->
+  <div id="modal-mapa-fullscreen" class="map-modal" onclick="cerrarMapaGrande()">
+    <span class="map-modal-close" onclick="cerrarMapaGrande()">&times;</span>
+    <img src="CasonaFondoMapa.png" alt="Mapa Ampliado Casona">
+  </div>
+
+  <script>
+    function abrirMapaGrande() {
+      document.getElementById('modal-mapa-fullscreen').style.display = 'flex';
+    }
+    function cerrarMapaGrande() {
+      document.getElementById('modal-mapa-fullscreen').style.display = 'none';
+    }
+  </script>
 </body>
 </html>
