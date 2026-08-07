@@ -293,15 +293,15 @@
   .menu-botanical-frame {
     position: relative;
     width: 100%;
-    max-width: 340px;
-    min-height: 600px;
+    max-width: 350px;
+    height: auto;
     margin: 20px auto;
-    padding: 70px 30px 50px 30px;
+    padding: 85px 30px 65px 30px; /* Margen superior amplio para el monograma e inferior para el sello */
     box-sizing: border-box;
     text-align: center;
     background-image: url('minuta-fondo.png');
-    background-size: 100% 100%;
-    background-position: center;
+    background-size: contain; /* Mantiene la proporción REAL de la foto sin deformarla */
+    background-position: center top;
     background-repeat: no-repeat;
     border: none;
     box-shadow: none;
@@ -589,6 +589,7 @@
 
 .tapa-izquierda {
   left: 0;
+  width: calc(50% - 1.5px); /* Pequeño espacio en el centro para marcar la junta */
   transform-origin: left center;
 }
 
@@ -598,6 +599,7 @@
 
 .tapa-derecha {
   right: 0;
+  width: calc(50% - 1.5px); /* Pequeño espacio en el centro para marcar la junta */
   transform-origin: right center;
 }
 
@@ -614,7 +616,7 @@
   cursor: pointer;
   z-index: 1000000;
   filter: drop-shadow(0 8px 15px rgba(0,0,0,0.25));
-  transition: transform 0.2s ease;
+  transition: opacity 0.4s ease;
 }
 
 .sello-centro:active {
@@ -650,11 +652,14 @@
 }
 
 @keyframes desaparecer {
-
-  to {
-    opacity: 0;
+  0% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
   }
-
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(1.2);
+  }
 }
 
   /* --- ANIMACIÓN PULSO/PARPADEO DEL SELLO INICIAL --- */
@@ -717,6 +722,52 @@
     box-shadow: 0 10px 25px rgba(0,0,0,0.04);
     margin: 20px auto;
     max-width: 340px;
+  }
+
+  /* --- MODAL MAPA GIGANTE CON PINS INTERACTIVOS --- */
+  .map-modal-fullscreen {
+    position: fixed;
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    background-color: rgba(28, 33, 29, 0.95);
+    z-index: 999999;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 15px;
+    box-sizing: border-box;
+    backdrop-filter: blur(8px);
+  }
+  .map-modal-fullscreen .map-container-giant {
+    position: relative;
+    width: 100%;
+    max-width: 500px;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+    background-color: #eae7df;
+  }
+  .map-modal-fullscreen .map-container-giant img {
+    width: 100%;
+    display: block;
+    height: auto;
+  }
+  .map-modal-close-btn {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    color: #ffffff;
+    font-size: 1.8rem;
+    font-weight: bold;
+    cursor: pointer;
+    background: rgba(255,255,255,0.2);
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000000;
   }
   
   
@@ -907,9 +958,7 @@
     </p>
     
     <div class="map-container">
-  <div onclick="abrirMapaGrande()" style="position: absolute; top: 10px; right: 10px; z-index: 15; background: rgba(252,251,248,0.92); border: 1px solid var(--sage-green); padding: 5px 12px; border-radius: 20px; font-size: 0.7rem; font-weight: 600; color: var(--text-dark); cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.15);">
-    🔍 Ampliar Mapa
-  </div>
+  
   <img src="CasonaFondoMapa.png" alt="Mapa Casona Fundo El Rosario" onclick="abrirMapaGrande()">
       <div class="map-pin pin-latido-suave" style="top: 90%; left: 25%;" onclick="openPinInfo('Acceso & Check-In', 'Entrada', '¡Bienvenidos! Recuerda avisar de tu llegada a través de esta web')">
         <span class="pin-icon">Entrada</span>
@@ -1487,25 +1536,38 @@ resultsDiv.innerHTML = '<div style="text-align:center;"><span style="font-family
     
     
   </script>
+<!-- MODAL PARA VER EL MAPA EN PANTALLA COMPLETA CON SUS ETIQUETAS -->
+<div id="modal-mapa-giant" class="map-modal-fullscreen">
+  <div class="map-modal-close-btn" onclick="cerrarMapaGigante()">&times;</div>
+  <p style="color: #ffffff; font-size: 0.8rem; margin-bottom: 12px; font-family: 'Montserrat', sans-serif;">Toca cualquier etiqueta para ver el detalle</p>
+  <div id="mapa-gigante-holder" class="map-container-giant"></div>
+</div>
+
 <script>
-
+// APERTURA DE TAPAS Y DESAPARICIÓN SINCRONIZADA DEL SELLO
 document.querySelector(".sello-centro").addEventListener("click", () => {
+  // Sello desaparece suavemente al mismo tiempo que abren las tapas
+  document.querySelector(".sello-centro").style.animation = "desaparecer 2.8s ease-in-out forwards";
 
-  document.querySelector(".tapa-izquierda").style.animation =
-    "abrirIzquierda 2.8s ease-in-out forwards";
-
-  document.querySelector(".tapa-derecha").style.animation =
-    "abrirDerecha 2.8s ease-in-out forwards";
-
-  document.querySelector(".sello-centro").style.animation =
-    "desaparecer 0.8s forwards";
+  document.querySelector(".tapa-izquierda").style.animation = "abrirIzquierda 2.8s ease-in-out forwards";
+  document.querySelector(".tapa-derecha").style.animation = "abrirDerecha 2.8s ease-in-out forwards";
 
   setTimeout(() => {
     document.getElementById("intro-portada").style.display = "none";
   }, 2800);
-
 });
 
+// FUNCIONES PARA AMPLIAR EL MAPA COMPLETO CON PINES
+function abrirMapaGigante() {
+  const mapaOriginal = document.getElementById('mapa-normal-container');
+  const mapaHolder = document.getElementById('mapa-gigante-holder');
+  mapaHolder.innerHTML = mapaOriginal.innerHTML;
+  document.getElementById('modal-mapa-giant').style.display = 'flex';
+}
+
+function cerrarMapaGigante() {
+  document.getElementById('modal-mapa-giant').style.display = 'none';
+}
 </script>
 
   <!-- MODAL PARA VER EL MAPA EN PANTALLA COMPLETA -->
