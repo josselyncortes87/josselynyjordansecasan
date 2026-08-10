@@ -570,6 +570,7 @@
   z-index: 999999;
   overflow: hidden;
   background: transparent;
+  perspective: 1200px; /* CREA EL EFECTO DE PROFUNDIDAD 3D */
 }
 
 .tapa {
@@ -589,8 +590,11 @@
 
 .tapa-izquierda {
   left: 0;
-  width: calc(50% - 1.5px); /* Pequeño espacio en el centro para marcar la junta */
+  width: 50%;
   transform-origin: left center;
+  transform-style: preserve-3d;
+  overflow: visible; /* PERMITE QUE LA MITAD DERECHA DEL SELLO SOBRESALGA SIN RECORTARSE */
+  z-index: 10;
 }
 
 .tapa-izquierda img {
@@ -599,8 +603,10 @@
 
 .tapa-derecha {
   right: 0;
-  width: calc(50% - 1.5px); /* Pequeño espacio en el centro para marcar la junta */
+  width: 50%;
   transform-origin: right center;
+  transform-style: preserve-3d;
+  overflow: hidden;
 }
 
 .tapa-derecha img {
@@ -610,74 +616,49 @@
 .sello-centro {
   position: absolute;
   top: 50%;
-  right: -60px; /* Posiciona la mitad del sello hacia afuera de la tapa izquierda para quedar perfectamente centrado en la junta */
+  right: -60px; /* Mitad del sello de 120px vuela exacto sobre el centro vertical de la pantalla */
   width: 120px;
+  height: 120px;
   transform: translateY(-50%);
   cursor: pointer;
   z-index: 1000000;
-  filter: drop-shadow(0 8px 15px rgba(0,0,0,0.25));
-  transition: transform 0.2s ease;
-}
-
-.sello-centro:active {
-  transform: translate(-50%, -50%) scale(0.92);
+  filter: drop-shadow(0 8px 15px rgba(0,0,0,0.3));
+  animation: latidoSello 2.2s infinite ease-in-out;
 }
 
 .sello-centro img {
   width: 100%;
+  height: 100%;
+}
+
+@keyframes latidoSello {
+  0%, 100% {
+    transform: translateY(-50%) scale(1);
+    filter: drop-shadow(0 8px 15px rgba(0,0,0,0.3));
+  }
+  50% {
+    transform: translateY(-50%) scale(1.08);
+    filter: drop-shadow(0 12px 22px rgba(184, 151, 88, 0.5));
+  }
 }
 
 @keyframes abrirIzquierda {
-
   0% {
     transform: rotateY(0deg);
   }
-
   100% {
     transform: rotateY(-100deg);
   }
-
 }
 
 @keyframes abrirDerecha {
-
   0% {
     transform: rotateY(0deg);
   }
-
   100% {
     transform: rotateY(100deg);
   }
-
 }
-
-@keyframes desaparecer {
-  0% {
-    opacity: 1;
-    transform: translate(-50%, -50%) scale(1);
-  }
-  100% {
-    opacity: 0;
-    transform: translate(-50%, -50%) scale(1.2);
-  }
-}
-
-  /* --- ANIMACIÓN PULSO/PARPADEO DEL SELLO INICIAL --- */
-  .sello-centro {
-    animation: latidoSello 2s infinite ease-in-out !important;
-  }
-
-  @keyframes latidoSello {
-    0%, 100% {
-      transform: translate(-50%, -50%) scale(1);
-      filter: drop-shadow(0 8px 15px rgba(0,0,0,0.25));
-    }
-    50% {
-      transform: translate(-50%, -50%) scale(1.1);
-      filter: drop-shadow(0 12px 25px rgba(184, 151, 88, 0.6));
-    }
-  }
-
   /* --- MODAL MAPA AMPLIA BLE (FULLSCREEN) --- */
   .map-modal {
     position: fixed;
@@ -1536,16 +1517,13 @@ resultsDiv.innerHTML = '<div style="text-align:center;"><span style="font-family
     
     
   </script>
-<!-- MODAL PARA VER EL MAPA EN PANTALLA COMPLETA CON SUS ETIQUETAS -->
-<div id="modal-mapa-giant" class="map-modal-fullscreen">
-  <div class="map-modal-close-btn" onclick="cerrarMapaGigante()">&times;</div>
-  <p style="color: #ffffff; font-size: 0.8rem; margin-bottom: 12px; font-family: 'Montserrat', sans-serif;">Toca cualquier etiqueta para ver el detalle</p>
-  <div id="mapa-gigante-holder" class="map-container-giant"></div>
-</div>
 
-<script>
-// 1. ANIMACIÓN DE APERTURA DE TAPAS Y SELLO PEGADO
+  <script>
+// 1. ANIMACIÓN DE APERTURA: TAPA IZQUIERDA LLEVA EL SELLO CONSIGO AL GIRAR
 document.querySelector(".sello-centro").addEventListener("click", () => {
+  // Apagamos la animación del latido para que el sello no parpadee mientras gira la puerta
+  document.querySelector(".sello-centro").style.animation = "none";
+
   document.querySelector(".tapa-izquierda").style.animation =
     "abrirIzquierda 2.8s ease-in-out forwards";
 
@@ -1559,7 +1537,7 @@ document.querySelector(".sello-centro").addEventListener("click", () => {
 
 // 2. FUNCIONES PARA AMPLIAR EL MAPA COMPLETO CON SUS PINES ETIQUETADOS
 function abrirMapaGigante() {
-  const mapaOriginal = document.getElementById('mapa-normal-container');
+  const mapaOriginal = document.querySelector('.map-container');
   const mapaHolder = document.getElementById('mapa-gigante-holder');
   if (mapaOriginal && mapaHolder) {
     mapaHolder.innerHTML = mapaOriginal.innerHTML;
