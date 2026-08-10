@@ -941,9 +941,9 @@
       Toca cada etiqueta para descubrir los rincones de la Casona.
     </p>
     
-    <div class="map-container">
-  
-<img src="CasonaFondoMapa.png" alt="Mapa Casona Fundo El Rosario" onclick="abrirMapaGigante()" style="cursor: pointer;">      <div class="map-pin pin-latido-suave" style="top: 90%; left: 25%;" onclick="openPinInfo('Acceso & Check-In', 'Entrada', '¡Bienvenidos! Recuerda avisar de tu llegada a través de esta web')">
+    <div class="map-container" style="border-radius: 0; box-shadow: none; background: transparent; width: 100vw; margin-left: -20px; position: relative; overflow: hidden;">
+      <img src="CasonaFondoMapa.png" alt="Mapa Casona Fundo El Rosario" onclick="abrirMapaGigante()" style="width: 100%; display: block; cursor: pointer;">
+      <div class="map-pin pin-latido-suave" style="top: 90%; left: 25%;" onclick="openPinInfo('Acceso & Check-In', 'Entrada', '¡Bienvenidos! Recuerda avisar de tu llegada a través de esta web')">
         <span class="pin-icon">Entrada</span>
       </div>
 
@@ -979,6 +979,7 @@
         <span class="pin-icon">Baños</span>
       </div>
     </div>
+    
     <!-- BUSCADOR DE ASIENTOS CON DISEÑO WOW ARCHITECTURAL -->
     <div style="margin-top: 10px; text-align: center; padding: 25px 15px; background: #ffffff; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.03); border: 1px solid rgba(155, 169, 147, 0.25);">
       
@@ -995,7 +996,7 @@
       <div id="asientos-interactive-area">
         <div class="search-box" style="max-width: 320px; margin: 0 auto;">
           <input type="text" id="seat-search-input" placeholder="Escribe tu nombre o apellido..." style="border-radius: 30px; border: 1px solid var(--sage-green); padding: 14px 20px; background: #fdfcf9;">
-          <button type="button" class="sheet-close-btn" onclick="buscarAsientoVirtual()" style="margin-top: 12px; border-radius: 30px; letter-spacing: 2px;">Descubrir Mi Mesa ✨</button>
+          <button type="button" class="sheet-close-btn" onclick="buscarAsientoVirtual()" style="margin-top: 12px; border-radius: 30px; letter-spacing: 2px;">Descubrir Mi Mesa</button>
         </div>
         
         <div id="table-visual-container" style="margin-top: 20px; display: none;">
@@ -1037,6 +1038,20 @@
     </div>
   </div>
   <div id="sheet-overlay" class="sheet-overlay" onclick="closePinInfo()"></div>
+
+  <!-- FOTO INTERACTIVA DÍA / NOCHE AL PIE DE 'EL LUGAR' -->
+  <div style="margin-top: 30px; text-align: center;">
+    <h4 style="font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; color: var(--sage-green); margin-bottom: 8px; font-style: italic;">Casona Fundo El Rosario</h4>
+    
+    <div id="casona-interactive-frame" style="position: relative; width: 100%; max-width: 340px; height: 220px; margin: 0 auto; border-radius: 16px; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.08); border: 1px solid rgba(125, 140, 117, 0.3);">
+      <!-- Imagen Día -->
+      <img id="casona-img-dia" src="casona-dia.png" alt="Casona de Día" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; transition: opacity 2.5s ease-in-out; opacity: 1; z-index: 1;">
+      <!-- Imagen Noche -->
+      <img id="casona-img-noche" src="casona-noche.png" alt="Casona de Noche" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; transition: opacity 2.5s ease-in-out; opacity: 0; z-index: 2;">
+    </div>
+  </div>
+
+</div>
 
   <!-- MODAL DE CHECK-IN -->
   <div id="checkin-modal" class="modal-checkin-container" style="display: none;">
@@ -1213,7 +1228,17 @@
         });
     }
 
-    // FUNCIÓN QUE DIBUJA LA MESA CON LOS DATOS REALES DE GOOGLE SHEET
+    // FUNCIÓN PARA ACTIVAR LA TRANSICIÓN CASONA A LA NOCHE
+    function activarModoNocheCasona() {
+      const imgDia = document.getElementById('casona-img-dia');
+      const imgNoche = document.getElementById('casona-img-noche');
+      if (imgDia && imgNoche) {
+        imgDia.style.opacity = '0';
+        imgNoche.style.opacity = '1';
+      }
+    }
+
+    // FUNCIÓN QUE DIBUJA LA MESA Y TRANSICIONA A LA NOCHE
     function procesarRenderMesa(datosMesaNube, input) {
       const container = document.getElementById('table-visual-container');
       const errorMsg = document.getElementById('search-error-msg');
@@ -1230,19 +1255,20 @@
       });
       
       if (encontrado) {
+        // ACTIVAMOS EL CAMBIO A MODO NOCHE
+        activarModoNocheCasona();
+
         errorMsg.style.display = 'none';
         container.style.display = 'block';
         tableTitle.innerHTML = `¡Te encontramos, <strong>${nombreExactoEncontrado}</strong>!`;
         seatsContainer.innerHTML = '';
         
         datosMesaNube.forEach((fila, index) => {
-          // Evitamos dibujar filas completamente vacías
           if (fila.izq === "" && fila.der === "") return;
 
           const row = document.createElement('div');
           row.className = 'seat-row';
           
-          // Lado Izquierdo
           const seatIzq = document.createElement('div');
           seatIzq.className = 'seat-side left-side';
           if (fila.izq === nombreExactoEncontrado) {
@@ -1252,7 +1278,6 @@
             seatIzq.innerText = fila.izq;
           }
           
-          // Lado Derecho
           const seatDer = document.createElement('div');
           seatDer.className = 'seat-side right-side';
           if (fila.der === nombreExactoEncontrado) {
