@@ -232,8 +232,58 @@
     margin-top: 10px;
   }
 
-  /* Estilos para los Pines */
-  .map-container { position: relative; width: 100%; border-radius: 16px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.06); background-color: #eae7df; }
+  /* Estilos para los Pines y Zoom Táctil Nativo */
+  .map-container { 
+    position: relative; 
+    width: 100vw; 
+    margin-left: -20px; 
+    overflow: hidden; 
+    background-color: transparent; 
+    touch-action: pan-x pan-y pinch-zoom; /* Permite ampliar con los dedos en Android y iPhone */
+  }
+
+  /* --- FOTO PIE DE PÁGINA FUNDIDA EN EL PAPEL (DÍA / NOCHE) --- */
+  .casona-dianoche-blend {
+    position: relative;
+    width: 100vw;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    height: 320px;
+    margin-top: 35px;
+  }
+
+  /* Transición suave entre las dos fotos */
+  .casona-dianoche-blend img {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    transition: opacity 2.5s ease-in-out;
+  }
+
+  /* Pincelada superior: funde el borde de la foto con el fondo crema */
+  .casona-dianoche-blend::before {
+    content: "";
+    position: absolute;
+    top: -1px; left: 0; right: 0;
+    height: 100px;
+    background: linear-gradient(to bottom, var(--bg-cream) 0%, rgba(252, 251, 248, 0) 100%);
+    z-index: 10;
+    pointer-events: none;
+  }
+
+  /* Pincelada inferior: desvanece suavemente hacia abajo */
+  .casona-dianoche-blend::after {
+    content: "";
+    position: absolute;
+    bottom: -1px; left: 0; right: 0;
+    height: 60px;
+    background: linear-gradient(to top, var(--bg-cream) 0%, rgba(252, 251, 248, 0) 100%);
+    z-index: 10;
+    pointer-events: none;
+  }
   .map-container img { width: 100%; display: block; height: auto; }
 .map-pin { position: absolute; width: auto; min-width: auto; height: 22px; padding: 0 6px; background-color: rgba(255, 255, 255, 0.9); border: 1px solid var(--sage-green); border-radius: 12px; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 10; transform: translate(-50%, -50%); box-shadow: 0 2px 5px rgba(0,0,0,0.1); transition: transform 0.2s ease; white-space: nowrap; }  .map-pin:active { transform: translate(-50%, -50%) scale(0.85); }
 .pin-icon { font-family: 'Cormorant Garamond', serif; font-weight: 600; font-size: 0.85rem; font-style: italic; color: var(--text-dark); text-transform: none; letter-spacing: normal; }  .pin-latido-suave { animation: latidoPin 3s infinite ease-in-out; }
@@ -941,8 +991,9 @@
       Toca cada etiqueta para descubrir los rincones de la Casona.
     </p>
     
-    <div class="map-container" style="border-radius: 0; box-shadow: none; background: transparent; width: 100vw; margin-left: -20px; position: relative; overflow: hidden;">
-      <img src="CasonaFondoMapa.png" alt="Mapa Casona Fundo El Rosario" onclick="abrirMapaGigante()" style="width: 100%; display: block; cursor: pointer;">
+    <div class="map-container">
+      <img src="CasonaFondoMapa.png" alt="Mapa Casona Fundo El Rosario" style="width: 100%; display: block;">
+      
       <div class="map-pin pin-latido-suave" style="top: 90%; left: 25%;" onclick="openPinInfo('Acceso & Check-In', 'Entrada', '¡Bienvenidos! Recuerda avisar de tu llegada a través de esta web')">
         <span class="pin-icon">Entrada</span>
       </div>
@@ -979,7 +1030,7 @@
         <span class="pin-icon">Baños</span>
       </div>
     </div>
-    
+
     <!-- BUSCADOR DE ASIENTOS CON DISEÑO WOW ARCHITECTURAL -->
     <div style="margin-top: 10px; text-align: center; padding: 25px 15px; background: #ffffff; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.03); border: 1px solid rgba(155, 169, 147, 0.25);">
       
@@ -1003,52 +1054,42 @@
           <h3 id="visual-table-title" style="font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; color: var(--text-dark); margin-bottom: 2px; font-weight: 600;"></h3>
           <p style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1.5px; color: var(--sage-green); margin-bottom: 5px; font-weight: 600;">Distribución Oficial • Mesa Imperial</p>
           
-          <!-- MARCO BOTÁNICO VERDE SAGE ENVOLVIENDO LA MESA -->
           <div class="botanical-frame-container">
-            
             <div class="monogram-header">
               <img src="monograma-jj.png" alt="J&J" class="monogram-img" onerror="this.style.display='none'">
               <div class="monogram-names">Josselyn & Jordán</div>
             </div>
             
-            <!-- CONTENEDOR INTERNO DE LA MESA SIN BORDES GRISACEOS -->
             <div class="table-scroll-box" style="background: transparent; border: none; max-height: 250px; padding: 0;">
               <div class="table-body-layout">
-                <!-- Barra central de la mesa más cálida -->
                 <div class="long-table-bar" style="background-color: #f4efea; border: 1px solid rgba(155, 169, 147, 0.6); width: 38px;"></div>
                 <div id="rectangular-seats-container"></div>
               </div>
             </div>
           </div>
-
         </div>
         
         <div id="search-error-msg" style="display: none; color: #b35c5c; margin-top: 15px; font-size: 0.85rem; font-style: italic;"></div>
       </div>
     </div>
-  </div>
 
-  <div id="pin-bottom-sheet" class="bottom-sheet">
-    <div class="bottom-sheet-header"><div class="drag-handle"></div></div>
-    <div class="bottom-sheet-content">
-      <div id="sheet-badge" class="sheet-badge" style="font-family: 'Cormorant Garamond', serif; color: var(--gold-accent); font-size: 2rem;">✤</div>
-      <h3 id="sheet-title">Título del Lugar</h3>
-      <p id="sheet-description">Descripción detallada del punto.</p>
-      <button class="sheet-close-btn" onclick="closePinInfo()">Entendido</button>
+    <div id="pin-bottom-sheet" class="bottom-sheet">
+      <div class="bottom-sheet-header"><div class="drag-handle"></div></div>
+      <div class="bottom-sheet-content">
+        <div id="sheet-badge" class="sheet-badge" style="font-family: 'Cormorant Garamond', serif; color: var(--gold-accent); font-size: 2rem;">✤</div>
+        <h3 id="sheet-title">Título del Lugar</h3>
+        <p id="sheet-description">Descripción detallada del punto.</p>
+        <button class="sheet-close-btn" onclick="closePinInfo()">Entendido</button>
+      </div>
     </div>
-  </div>
-  <div id="sheet-overlay" class="sheet-overlay" onclick="closePinInfo()"></div>
+    <div id="sheet-overlay" class="sheet-overlay" onclick="closePinInfo()"></div>
 
-  <!-- FOTO INTERACTIVA DÍA / NOCHE AL PIE DE 'EL LUGAR' -->
-  <div style="margin-top: 30px; text-align: center;">
-    <h4 style="font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; color: var(--sage-green); margin-bottom: 8px; font-style: italic;">Casona Fundo El Rosario</h4>
-    
-    <div id="casona-interactive-frame" style="position: relative; width: 100%; max-width: 340px; height: 220px; margin: 0 auto; border-radius: 16px; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.08); border: 1px solid rgba(125, 140, 117, 0.3);">
-      <!-- Imagen Día -->
-      <img id="casona-img-dia" src="casona-dia.png" alt="Casona de Día" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; transition: opacity 2.5s ease-in-out; opacity: 1; z-index: 1;">
-      <!-- Imagen Noche -->
-      <img id="casona-img-noche" src="casona-noche.png" alt="Casona de Noche" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; transition: opacity 2.5s ease-in-out; opacity: 0; z-index: 2;">
+    <!-- IMAGEN DECORATIVA AL PIE FUNDIDA DÍA / NOCHE (SIN MARCOS NI TÍTULOS) -->
+    <div class="casona-dianoche-blend">
+      <img id="casona-img-dia" src="casona-dia.png" alt="Casona Fundo El Rosario" style="opacity: 1; z-index: 1;">
+      <img id="casona-img-noche" src="casona-noche.png" alt="Casona Fundo El Rosario" style="opacity: 0; z-index: 2;">
     </div>
+
   </div>
 
 </div>
