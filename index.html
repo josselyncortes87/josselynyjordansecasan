@@ -755,52 +755,7 @@
     max-width: 340px;
   }
 
-  /* --- MODAL MAPA GIGANTE CON PINS INTERACTIVOS --- */
-  .map-modal-fullscreen {
-    position: fixed;
-    top: 0; left: 0; width: 100vw; height: 100vh;
-    background-color: rgba(28, 33, 29, 0.95);
-    z-index: 999999;
-    display: none;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 15px;
-    box-sizing: border-box;
-    backdrop-filter: blur(8px);
-  }
-  .map-modal-fullscreen .map-container-giant {
-    position: relative;
-    width: 100%;
-    max-width: 500px;
-    border-radius: 16px;
-    overflow: hidden;
-    box-shadow: 0 15px 35px rgba(0,0,0,0.5);
-    background-color: #eae7df;
-  }
-  .map-modal-fullscreen .map-container-giant img {
-    width: 100%;
-    display: block;
-    height: auto;
-  }
-  .map-modal-close-btn {
-    position: absolute;
-    top: 15px;
-    right: 20px;
-    color: #ffffff;
-    font-size: 1.8rem;
-    font-weight: bold;
-    cursor: pointer;
-    background: rgba(255,255,255,0.2);
-    width: 42px;
-    height: 42px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 1000000;
-  }
-  
+    
   
 </style>
 </head>
@@ -1603,32 +1558,6 @@ document.querySelector(".sello-centro").addEventListener("click", () => {
   }, 2800);
 });
 
-// 2. FUNCIONES PARA AMPLIAR EL MAPA COMPLETO CON SUS PINES ETIQUETADOS
-function abrirMapaGigante() {
-  const mapaOriginal = document.querySelector('.map-container');
-  const mapaHolder = document.getElementById('mapa-gigante-holder');
-  if (mapaOriginal && mapaHolder) {
-    mapaHolder.innerHTML = mapaOriginal.innerHTML;
-    document.getElementById('modal-mapa-giant').style.display = 'flex';
-  }
-}
-
-function cerrarMapaGigante() {
-  const modal = document.getElementById('modal-mapa-giant');
-  if (modal) {
-    modal.style.display = 'none';
-  }
-}
-</script>
-
-<!-- MODAL PARA VER EL MAPA EN PANTALLA COMPLETA CON ETIQUETAS -->
-<div id="modal-mapa-giant" class="map-modal-fullscreen" onclick="cerrarMapaGigante()">
-  <div class="map-modal-close-btn" onclick="cerrarMapaGigante()">&times;</div>
-  <p style="color: #ffffff; font-size: 0.8rem; margin-bottom: 12px; font-family: 'Montserrat', sans-serif; text-align: center;">
-    Toca cualquier etiqueta para ver el detalle
-  </p>
-  <div id="mapa-gigante-holder" class="map-container-giant" onclick="event.stopPropagation()"></div>
-</div>
 
 </body>
 </html>
