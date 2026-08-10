@@ -610,13 +610,13 @@
 .sello-centro {
   position: absolute;
   top: 50%;
-  left: 50%;
+  right: -60px; /* Posiciona la mitad del sello hacia afuera de la tapa izquierda para quedar perfectamente centrado en la junta */
   width: 120px;
-  transform: translate(-50%, -50%);
+  transform: translateY(-50%);
   cursor: pointer;
   z-index: 1000000;
   filter: drop-shadow(0 8px 15px rgba(0,0,0,0.25));
-  transition: opacity 0.4s ease;
+  transition: transform 0.2s ease;
 }
 
 .sello-centro:active {
@@ -780,14 +780,14 @@
 
   <div class="tapa tapa-izquierda">
     <img src="tapa-izquierda.png">
+    <!-- SELLO INTEGRADO A LA TAPA IZQUIERDA -->
+    <div class="sello-centro">
+      <img src="sello.png">
+    </div>
   </div>
 
   <div class="tapa tapa-derecha">
     <img src="tapa-derecha.png">
-  </div>
-
-  <div class="sello-centro">
-    <img src="sello.png">
   </div>
 
 </div>
@@ -1544,45 +1544,45 @@ resultsDiv.innerHTML = '<div style="text-align:center;"><span style="font-family
 </div>
 
 <script>
-// APERTURA DE TAPAS Y DESAPARICIÓN SINCRONIZADA DEL SELLO
+// 1. ANIMACIÓN DE APERTURA DE TAPAS Y SELLO PEGADO
 document.querySelector(".sello-centro").addEventListener("click", () => {
-  // Sello desaparece suavemente al mismo tiempo que abren las tapas
-  document.querySelector(".sello-centro").style.animation = "desaparecer 2.8s ease-in-out forwards";
+  document.querySelector(".tapa-izquierda").style.animation =
+    "abrirIzquierda 2.8s ease-in-out forwards";
 
-  document.querySelector(".tapa-izquierda").style.animation = "abrirIzquierda 2.8s ease-in-out forwards";
-  document.querySelector(".tapa-derecha").style.animation = "abrirDerecha 2.8s ease-in-out forwards";
+  document.querySelector(".tapa-derecha").style.animation =
+    "abrirDerecha 2.8s ease-in-out forwards";
 
   setTimeout(() => {
     document.getElementById("intro-portada").style.display = "none";
   }, 2800);
 });
 
-// FUNCIONES PARA AMPLIAR EL MAPA COMPLETO CON PINES
+// 2. FUNCIONES PARA AMPLIAR EL MAPA COMPLETO CON SUS PINES ETIQUETADOS
 function abrirMapaGigante() {
   const mapaOriginal = document.getElementById('mapa-normal-container');
   const mapaHolder = document.getElementById('mapa-gigante-holder');
-  mapaHolder.innerHTML = mapaOriginal.innerHTML;
-  document.getElementById('modal-mapa-giant').style.display = 'flex';
+  if (mapaOriginal && mapaHolder) {
+    mapaHolder.innerHTML = mapaOriginal.innerHTML;
+    document.getElementById('modal-mapa-giant').style.display = 'flex';
+  }
 }
 
 function cerrarMapaGigante() {
-  document.getElementById('modal-mapa-giant').style.display = 'none';
+  const modal = document.getElementById('modal-mapa-giant');
+  if (modal) {
+    modal.style.display = 'none';
+  }
 }
 </script>
 
-  <!-- MODAL PARA VER EL MAPA EN PANTALLA COMPLETA -->
-  <div id="modal-mapa-fullscreen" class="map-modal" onclick="cerrarMapaGrande()">
-    <span class="map-modal-close" onclick="cerrarMapaGrande()">&times;</span>
-    <img src="CasonaFondoMapa.png" alt="Mapa Ampliado Casona">
-  </div>
+<!-- MODAL PARA VER EL MAPA EN PANTALLA COMPLETA CON ETIQUETAS -->
+<div id="modal-mapa-giant" class="map-modal-fullscreen" onclick="cerrarMapaGigante()">
+  <div class="map-modal-close-btn" onclick="cerrarMapaGigante()">&times;</div>
+  <p style="color: #ffffff; font-size: 0.8rem; margin-bottom: 12px; font-family: 'Montserrat', sans-serif; text-align: center;">
+    Toca cualquier etiqueta para ver el detalle
+  </p>
+  <div id="mapa-gigante-holder" class="map-container-giant" onclick="event.stopPropagation()"></div>
+</div>
 
-  <script>
-    function abrirMapaGrande() {
-      document.getElementById('modal-mapa-fullscreen').style.display = 'flex';
-    }
-    function cerrarMapaGrande() {
-      document.getElementById('modal-mapa-fullscreen').style.display = 'none';
-    }
-  </script>
 </body>
 </html>
