@@ -268,8 +268,8 @@
     content: "";
     position: absolute;
     top: -1px; left: 0; right: 0;
-    height: 100px;
-    background: linear-gradient(to bottom, var(--bg-cream) 0%, rgba(252, 251, 248, 0) 100%);
+    height: 150px;
+    background: linear-gradient(to bottom, var(--bg-cream) 0%, rgba(252, 251, 248, 0.8) 50%, rgba(252, 251, 248, 0) 100%);
     z-index: 10;
     pointer-events: none;
   }
@@ -343,14 +343,14 @@
   .menu-botanical-frame {
     position: relative;
     width: 100%;
-    max-width: 350px;
+    max-width: 380px;
     height: auto;
-    margin: 20px auto;
-    padding: 85px 30px 65px 30px; /* Margen superior amplio para el monograma e inferior para el sello */
+    margin: 10px auto 20px auto;
+    padding: 85px 15px 65px 15px;
     box-sizing: border-box;
     text-align: center;
     background-image: url('minuta-fondo.png');
-    background-size: contain; /* Mantiene la proporción REAL de la foto sin deformarla */
+    background-size: contain;
     background-position: center top;
     background-repeat: no-repeat;
     border: none;
@@ -412,15 +412,15 @@
   .table-cabecera { display: flex; justify-content: center; gap: 15px; margin-bottom: 15px; padding-bottom: 12px; border-bottom: 2px dashed var(--sage-green); }
   .novio-seat { font-family: 'Cormorant Garamond', serif; font-size: 1.05rem; font-weight: bold; color: var(--text-dark); background: rgba(155, 169, 147, 0.15); padding: 6px 14px; border-radius: 20px; border: 1px solid var(--sage-green); }
   
-  .table-scroll-box { max-height: 280px; overflow-y: auto; border: 1px solid #f0f0f0; padding: 10px; border-radius: 8px; background: #fafafa; }
+  .table-scroll-box { max-height: 380px; overflow-y: auto; border: none; padding: 10px 5px; background: transparent; }
   .table-body-layout { position: relative; width: 100%; display: flex; justify-content: center; }
-  .long-table-bar { width: 45px; background-color: #f7f5ef; border: 1px solid var(--sage-green); position: absolute; top: 0; bottom: 0; left: 50%; transform: translateX(-50%); z-index: 1; border-radius: 4px; }
+  .long-table-bar { width: 42px; background: #f1ebd9 linear-gradient(to bottom, rgba(125, 140, 117, 0.25) 1px, transparent 1px); background-size: 100% 16px; border-left: 1px solid rgba(184, 151, 88, 0.4); border-right: 1px solid rgba(184, 151, 88, 0.4); position: absolute; top: 0; bottom: 0; left: 50%; transform: translateX(-50%); z-index: 1; }
   
   #rectangular-seats-container { width: 100%; z-index: 2; display: flex; flex-direction: column; gap: 14px; position: relative; }
   
   .seat-row { display: flex; justify-content: space-between; width: 100%; align-items: center; }
-  .seat-side { width: 43%; font-size: 0.75rem; color: var(--text-light); font-weight: 500; opacity: 0; transition: opacity 0.4s ease; box-sizing: border-box; }
-  .seat-side.left-side { text-align: right; padding-right: 8px; }
+.seat-side { width: 43%; font-size: 0.75rem; color: var(--text-light); font-weight: 500; opacity: 0; transition: opacity 0.4s ease; box-sizing: border-box; }
+  .seat-side::before { content: ""; display: inline-block; width: 6px; height: 6px; border: 1px solid var(--sage-green); border-radius: 50%; margin: 0 5px; vertical-align: middle; opacity: 0.4; }  .seat-side.left-side { text-align: right; padding-right: 8px; }
   .seat-side.right-side { text-align: left; padding-left: 8px; }
   
   /* Resaltado del invitado con el conejito */
@@ -852,17 +852,16 @@
     </div>
 
   <!-- VISTA 2: EL DÍA (CRONOGRAMA Y MENÚ) -->
-  <div id="view-agenda" class="view-section">
+  <div id="view-agenda" class="view-section" style="position: relative;">
     
+    <!-- TÍTULO SUPERPUESTO -->
+    <h2 style="font-family: 'Pinyon Script', cursive; font-size: 3.8rem; color: var(--sage-green); text-align: center; margin: 0; position: absolute; top: 15px; left: 0; right: 0; z-index: 20; font-weight: normal; text-shadow: 0 1px 4px rgba(252, 251, 248, 0.9);">Cronograma</h2>
+
     <!-- PANORÁMICA ANIMADA CASONA DÍA / NOCHE -->
-    <div class="casona-dianoche-blend">
+    <div class="casona-dianoche-blend" style="margin-top: 0;">
       <img id="casona-img-dia" src="casona-dia.png" alt="Casona Fundo El Rosario" style="opacity: 1; z-index: 1;">
       <img id="casona-img-noche" src="casona-noche.png" alt="Casona Fundo El Rosario" style="opacity: 0; z-index: 2;">
-    </div>
-    
-    <!-- TÍTULO CRONOGRAMA -->
-    <h2 style="font-family: 'Pinyon Script', cursive; font-size: 3.5rem; color: var(--sage-green); text-align: center; margin: 10px 0 0 0; font-weight: normal;">Cronograma</h2>
-    <p style="text-align: center; font-size: 0.85rem; color: var(--text-light); margin-bottom: 20px;">Sigue cada momento de nuestra celebración.</p>
+    </div>    <p style="text-align: center; font-size: 0.85rem; color: var(--text-light); margin-bottom: 20px;">Sigue cada momento de nuestra celebración.</p>
     
     <!-- LÍNEA DE TIEMPO APRETADA -->
     <div class="app-timeline">
@@ -911,6 +910,7 @@
     <div style="margin: 30px auto 20px auto; width: 70%; border-top: 1px dashed var(--sage-green); opacity: 0.5;"></div>
 
     <!-- CARTA DEL MENÚ RESTAURADA SOBRE MINUTA-FONDO.PNG -->
+    <h2 style="font-family: 'Pinyon Script', cursive; font-size: 3.8rem; color: var(--sage-green); text-align: center; margin: 30px 0 -10px 0; font-weight: normal;">Menú</h2>
     <div class="menu-botanical-frame">
       <h3 class="menu-category" style="margin-top: 0; margin-bottom: 6px;">Para Brindar</h3>
       <p class="menu-items" style="margin-bottom: 12px; font-size: 1rem; line-height: 1.35;">Vino Cabernet Sauvignon o Carmenere<br>Jugos y Bebidas</p>
@@ -993,8 +993,7 @@
       <!-- ENCABEZADO ELEGANTE DEL BUSCADOR -->
       <div style="text-align: center; padding: 10px 0 20px 0;">
         <img src="adorno-floral-superior2.png" alt="Flourish" style="height: 35px; opacity: 0.8; margin-bottom: 10px;" onerror="this.style.display='none'">
-        <h2 style="font-family: 'Cormorant Garamond', serif; font-size: 2.2rem; color: var(--text-dark); margin: 0; font-weight: 600; font-style: italic;">Tu Lugar en la Casona</h2>
-      </div>
+<h2 style="font-family: 'Cormorant Garamond', serif; font-size: 2.2rem; color: var(--text-dark); margin: 0; font-weight: 600; font-style: italic;">Busca tu asiento</h2>      </div>
 
       <p style="font-family: 'Montserrat', sans-serif; font-size: 0.8rem; color: var(--text-light); margin: 0 0 20px 0; line-height: 1.5;">
         Ingresa tu nombre para ver tu ubicación en la mesa.
@@ -1003,8 +1002,7 @@
       <div id="asientos-interactive-area">
         <div class="search-box" style="max-width: 320px; margin: 0 auto;">
           <input type="text" id="seat-search-input" placeholder="Escribe tu nombre o apellido..." style="border-radius: 30px; border: 1px solid var(--sage-green); padding: 14px 20px; background: #fdfcf9;">
-          <button type="button" class="sheet-close-btn" onclick="buscarAsientoVirtual()" style="margin-top: 12px; border-radius: 30px; letter-spacing: 2px;">Descubrir Mi Mesa</button>
-        </div>
+<button type="button" class="sheet-close-btn" onclick="buscarAsientoVirtual()" style="margin-top: 12px; border-radius: 30px; letter-spacing: 2px;">Descubrir mi asiento</button>        </div>
         
         <div id="table-visual-container" style="margin-top: 20px; display: none;">
           <h3 id="visual-table-title" style="font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; color: var(--text-dark); margin-bottom: 2px; font-weight: 600;"></h3>
@@ -1226,23 +1224,15 @@
         });
     }
 
-    // ANIMACIÓN AUTOMÁTICA DE CAMBIO DÍA A NOCHE CADA 5 SEGUNDOS
-    let modoNocheActivo = false;
-    setInterval(() => {
+    // TRANSICIÓN ÚNICA DÍA A NOCHE TRAS 2.5 SEGUNDOS
+    setTimeout(() => {
       const imgDia = document.getElementById('casona-img-dia');
       const imgNoche = document.getElementById('casona-img-noche');
       if (imgDia && imgNoche) {
-        if (!modoNocheActivo) {
-          imgDia.style.opacity = '0';
-          imgNoche.style.opacity = '1';
-          modoNocheActivo = true;
-        } else {
-          imgDia.style.opacity = '1';
-          imgNoche.style.opacity = '0';
-          modoNocheActivo = false;
-        }
+        imgDia.style.opacity = '0';
+        imgNoche.style.opacity = '1';
       }
-    }, 5000);
+    }, 2500);
 
     // FUNCIÓN QUE DIBUJA LA MESA Y TRANSICIONA A LA NOCHE
     function procesarRenderMesa(datosMesaNube, input) {
