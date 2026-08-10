@@ -854,9 +854,10 @@
   <!-- VISTA 2: EL DÍA (CRONOGRAMA Y MENÚ) -->
   <div id="view-agenda" class="view-section">
     
-    <!-- FOTO REDONDA DE LOS NOVIOS -->
-    <div class="round-photo-frame">
-      <img src="novios-redonda.jpeg" alt="Josselyn & Jordán">
+    <!-- PANORÁMICA ANIMADA CASONA DÍA / NOCHE -->
+    <div class="casona-dianoche-blend">
+      <img id="casona-img-dia" src="casona-dia.png" alt="Casona Fundo El Rosario" style="opacity: 1; z-index: 1;">
+      <img id="casona-img-noche" src="casona-noche.png" alt="Casona Fundo El Rosario" style="opacity: 0; z-index: 2;">
     </div>
     
     <!-- TÍTULO CRONOGRAMA -->
@@ -1039,11 +1040,7 @@
     </div>
     <div id="sheet-overlay" class="sheet-overlay" onclick="closePinInfo()"></div>
 
-    <!-- IMAGEN DECORATIVA AL PIE FUNDIDA DÍA / NOCHE (SIN MARCOS NI TÍTULOS) -->
-    <div class="casona-dianoche-blend">
-      <img id="casona-img-dia" src="casona-dia.png" alt="Casona Fundo El Rosario" style="opacity: 1; z-index: 1;">
-      <img id="casona-img-noche" src="casona-noche.png" alt="Casona Fundo El Rosario" style="opacity: 0; z-index: 2;">
-    </div>
+    
 
   </div>
 
@@ -1069,6 +1066,11 @@
 
   <!-- VISTA 4: TRIVIA -->
   <div id="view-juegos" class="view-section">
+    
+    <!-- FOTO REDONDA DE LOS NOVIOS -->
+    <div class="round-photo-frame" style="margin: 10px auto 15px auto;">
+      <img src="novios-redonda.jpeg" alt="Josselyn & Jordán">
+    </div>
     <h2 style="font-family: 'Pinyon Script', cursive; font-size: 3.8rem; color: var(--sage-green); text-align: center; margin: 10px 0 0 0; font-weight: normal; line-height: 1;">¿Cuánto nos conoces?</h2>
     <p style="text-align: center; font-family: 'Montserrat', sans-serif; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 3px; color: var(--gold-accent); margin-top: 6px; margin-bottom: 25px; font-weight: 600;">Trivia Oficial de Josselyn & Jordán</p>
     
@@ -1224,15 +1226,23 @@
         });
     }
 
-    // FUNCIÓN PARA ACTIVAR LA TRANSICIÓN CASONA A LA NOCHE
-    function activarModoNocheCasona() {
+    // ANIMACIÓN AUTOMÁTICA DE CAMBIO DÍA A NOCHE CADA 5 SEGUNDOS
+    let modoNocheActivo = false;
+    setInterval(() => {
       const imgDia = document.getElementById('casona-img-dia');
       const imgNoche = document.getElementById('casona-img-noche');
       if (imgDia && imgNoche) {
-        imgDia.style.opacity = '0';
-        imgNoche.style.opacity = '1';
+        if (!modoNocheActivo) {
+          imgDia.style.opacity = '0';
+          imgNoche.style.opacity = '1';
+          modoNocheActivo = true;
+        } else {
+          imgDia.style.opacity = '1';
+          imgNoche.style.opacity = '0';
+          modoNocheActivo = false;
+        }
       }
-    }
+    }, 5000);
 
     // FUNCIÓN QUE DIBUJA LA MESA Y TRANSICIONA A LA NOCHE
     function procesarRenderMesa(datosMesaNube, input) {
@@ -1251,8 +1261,6 @@
       });
       
       if (encontrado) {
-        // ACTIVAMOS EL CAMBIO A MODO NOCHE
-        activarModoNocheCasona();
 
         errorMsg.style.display = 'none';
         container.style.display = 'block';
