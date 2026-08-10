@@ -1150,21 +1150,30 @@
   <script>
     // Función para cambiar de pestañas fluidamente
     function switchTab(viewId, element) {
-      // 1. Ocultar todas las vistas
       document.querySelectorAll('.view-section').forEach(view => {
         view.classList.remove('active-view');
       });
-      // 2. Quitar estado activo de todos los botones
       document.querySelectorAll('.nav-item').forEach(btn => {
         btn.classList.remove('active');
       });
-      // 3. Mostrar la vista seleccionada
       document.getElementById(viewId).classList.add('active-view');
-      // 4. Activar el botón presionado
       element.classList.add('active');
       
-      // Hacemos scroll al tope automáticamente al cambiar de pestaña
       window.scrollTo({ top: 0, behavior: 'smooth' });
+
+      // Si entra a la pestaña El Día, reinicia la foto a Día y transiciona a Noche
+      if (viewId === 'view-agenda') {
+        const imgDia = document.getElementById('casona-img-dia');
+        const imgNoche = document.getElementById('casona-img-noche');
+        if (imgDia && imgNoche) {
+          imgDia.style.opacity = '1';
+          imgNoche.style.opacity = '0';
+          setTimeout(() => {
+            imgDia.style.opacity = '0';
+            imgNoche.style.opacity = '1';
+          }, 2500);
+        }
+      }
     }
 
     // LÓGICA DE INTERACCIÓN DEL MAPA INTERACTIVO
