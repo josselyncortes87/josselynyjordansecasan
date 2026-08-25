@@ -737,6 +737,8 @@
   transform-style: preserve-3d;
   overflow: visible; /* PERMITE QUE LA MITAD DERECHA DEL SELLO SOBRESALGA SIN RECORTARSE */
   z-index: 10;
+  transform: rotateY(-3deg);
+  box-shadow: inset -5px 0 10px rgba(0, 0, 0, 0.08);
 }
 
 .tapa-izquierda img {
@@ -749,6 +751,8 @@
   transform-origin: right center;
   transform-style: preserve-3d;
   overflow: hidden;
+  transform: rotateY(3deg);
+  box-shadow: inset 5px 0 10px rgba(0, 0, 0, 0.08);
 }
 
 .tapa-derecha img {
@@ -786,7 +790,7 @@
 
 @keyframes abrirIzquierda {
   0% {
-    transform: rotateY(0deg);
+    transform: rotateY(-3deg);
   }
   100% {
     transform: rotateY(-100deg);
@@ -795,7 +799,7 @@
 
 @keyframes abrirDerecha {
   0% {
-    transform: rotateY(0deg);
+    transform: rotateY(3deg);
   }
   100% {
     transform: rotateY(100deg);
@@ -884,7 +888,7 @@
   <div id="intro-portada">
 
   <div class="tapa tapa-izquierda">
-    <img src="tapa-izquierda.jpeg">
+    <img src="tapa-izquierda.png">
     <!-- SELLO INTEGRADO A LA TAPA IZQUIERDA -->
     <div class="sello-centro">
       <img src="sello.png">
@@ -892,8 +896,10 @@
   </div>
 
   <div class="tapa tapa-derecha">
-    <img src="tapa-derecha.jpeg">
+    <img src="tapa-derecha.png">
   </div>
+
+  <div class="hint-toca-abrir">Toca el sello para abrir</div>
 
 </div>
   
