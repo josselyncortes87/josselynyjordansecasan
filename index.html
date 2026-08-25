@@ -8,11 +8,34 @@
   @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400;1,600&family=Montserrat:wght@300;400;500;600&family=Pinyon+Script&display=swap');
 
   :root {
-    --sage-green: #7d8c75; /* Verde oliva más maduro y elegante, estilo sello de cera */
-    --gold-accent: #b89758; /* Tono oro viejo/bronce para acentos y subtítulos */
-    --text-dark: #2d3830; /* Verde bosque muy profundo, más sofisticado que el negro */
+    --sage-green: #7d8c75; 
+    --gold-accent: #b89758; 
+    --text-dark: #2d3830; 
+    --text-body: #445047; /* Gris bosque más nítido y legible */
     --text-light: #636f66;
-    --bg-cream: #fcfbf8; /* Crema cálido estilo papel de textura fina */
+    --bg-cream: #fcfbf8; 
+  }
+
+  .section-main-title {
+    font-family: 'Pinyon Script', cursive;
+    font-size: 3.8rem;
+    color: var(--sage-green);
+    text-align: center;
+    margin: 10px 0 0 0;
+    font-weight: normal;
+    line-height: 1;
+  }
+
+  .section-subtitle {
+    text-align: center;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    color: var(--gold-accent);
+    margin-top: 6px;
+    margin-bottom: 25px;
+    font-weight: 600;
   }
 
   /* --- ESTILOS: ROLLO EDITORIAL DELICADO --- */
@@ -464,10 +487,10 @@
   }
   .app-time-content {
     background: #ffffff;
-    padding: 18px 20px;
+    padding: 14px 18px;
     border-radius: 14px;
     box-shadow: 0 8px 20px rgba(45, 56, 48, 0.05);
-    border: 1px solid rgba(125, 140, 117, 0.25);
+    border: 1px solid rgba(125, 140, 117, 0.35);
     position: relative;
   }
   /* Doble borde interior sutil estilo papelería de lujo */
@@ -481,6 +504,20 @@
     border: 1px solid rgba(184, 151, 88, 0.15);
     border-radius: 10px;
     pointer-events: none;
+  }
+  .app-time-content h4 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem;
+    font-style: italic;
+    margin: 0;
+    color: var(--text-dark) !important;
+    font-weight: 600;
+  }
+  .app-time-content p {
+    margin: 4px 0 0 0;
+    font-size: 0.82rem;
+    color: var(--text-body) !important;
+    line-height: 1.4;
   }
 
   /* --- ESTILOS: MENÚ DE ALTA GASTRONOMÍA --- */
@@ -894,7 +931,7 @@
   <div id="view-agenda" class="view-section" style="position: relative;">
     
     <!-- TÍTULO SUPERPUESTO -->
-    <h2 style="font-family: 'Pinyon Script', cursive; font-size: 3.8rem; color: var(--sage-green); text-align: center; margin: 0; position: absolute; top: 15px; left: 0; right: 0; z-index: 20; font-weight: normal; text-shadow: 0 1px 4px rgba(252, 251, 248, 0.9);">Cronograma</h2>
+    <h2 style="font-family: 'Pinyon Script', cursive; font-size: 3.8rem; color: var(--sage-green); text-align: center; margin: 0; position: absolute; top: 15px; left: 0; right: 0; z-index: 20; font-weight: normal; text-shadow: 0 1px 4px rgba(252, 251, 248, 0.9);">Programa</h2>
 
     <!-- PANORÁMICA ANIMADA CASONA DÍA / NOCHE -->
     <div class="casona-dianoche-blend" style="margin-top: 0;">
@@ -908,7 +945,7 @@
         <div class="app-time-dot"></div>
         <div class="app-time-content" style="padding: 10px 15px;">
           <h4 style="font-family: 'Cormorant Garamond', serif; font-size: 1.25rem; font-style: italic; margin: 0; color: var(--text-dark);">18:00 hrs — Bienvenida</h4>
-          <p style="margin: 3px 0 0 0; font-size: 0.8rem; color: var(--text-light);">Recepción de invitados en los jardines de la Casona.</p>
+          <p style="margin: 3px 0 0 0; font-size: 0.8rem; color: var(--text-light);">Recepción de invitados.</p>
         </div>
       </div>
 
@@ -916,7 +953,7 @@
         <div class="app-time-dot"></div>
         <div class="app-time-content" style="padding: 10px 15px;">
           <h4 style="font-family: 'Cormorant Garamond', serif; font-size: 1.25rem; font-style: italic; margin: 0; color: var(--text-dark);">18:15 hrs — Ceremonia</h4>
-          <p style="margin: 3px 0 0 0; font-size: 0.8rem; color: var(--text-light);">Acompáñanos a dar el Sí en un entorno mágico.</p>
+          <p style="margin: 3px 0 0 0; font-size: 0.8rem; color: var(--text-light);">Toma asiento y acompáñanos a dar el Sí.</p>
         </div>
       </div>
       
@@ -931,7 +968,7 @@
       <div class="app-time-item">
         <div class="app-time-dot"></div>
         <div class="app-time-content" style="padding: 10px 15px;">
-          <h4 style="font-family: 'Cormorant Garamond', serif; font-size: 1.25rem; font-style: italic; margin: 0; color: var(--text-dark);">20:30 hrs — Cena y Postre</h4>
+          <h4 style="font-family: 'Cormorant Garamond', serif; font-size: 1.25rem; font-style: italic; margin: 0; color: var(--text-dark);">20:30 hrs — Cena</h4>
           <p style="margin: 3px 0 0 0; font-size: 0.8rem; color: var(--text-light);">Busca tu asiento y disfruta de la banquetería.</p>
         </div>
       </div>
@@ -940,7 +977,7 @@
         <div class="app-time-dot"></div>
         <div class="app-time-content" style="padding: 10px 15px;">
           <h4 style="font-family: 'Cormorant Garamond', serif; font-size: 1.25rem; font-style: italic; margin: 0; color: var(--text-dark);">22:00 hrs — Fiesta y Bar</h4>
-          <p style="margin: 3px 0 0 0; font-size: 0.8rem; color: var(--text-light);">Barra libre y pista de baile hasta las 02:00 hrs.</p>
+          <p style="margin: 3px 0 0 0; font-size: 0.8rem; color: var(--text-light);">Baile y Barra libre hasta las 02:00 hrs.</p>
         </div>
       </div>
     </div>
@@ -981,9 +1018,10 @@
 
   <!-- VISTA 3: TU LUGAR (MAPA Y ASIENTOS) -->
   <div id="view-lugar" class="view-section">
-    <h1>Mapa de la Casona</h1>
-    <p style="text-align: center; font-size: 0.85rem; color: var(--text-light); margin-bottom: 20px;">
-      Toca cada etiqueta para descubrir el mapa del lugar.
+    <h2 class="section-main-title">El Lugar</h2>
+    <p class="section-subtitle">Mapa & Ubicación en la Casona</p>
+    <p style="text-align: center; font-size: 0.85rem; color: var(--text-body); margin-top: -15px; margin-bottom: 20px; font-style: italic;">
+      Toca cada etiqueta para descubrir los rincones de nuestra celebración.
     </p>
     
     <div class="map-container">
@@ -1104,35 +1142,33 @@
   <!-- VISTA 4: TRIVIA -->
   <div id="view-juegos" class="view-section">
     
-    <!-- FOTO REDONDA DE LOS NOVIOS -->
     <div class="round-photo-frame" style="margin: 10px auto 15px auto;">
       <img src="novios-redonda.jpeg" alt="Josselyn & Jordán">
     </div>
-    <h2 style="font-family: 'Pinyon Script', cursive; font-size: 3.8rem; color: var(--sage-green); text-align: center; margin: 10px 0 0 0; font-weight: normal; line-height: 1;">¿Cuánto nos conoces?</h2>
-    <p style="text-align: center; font-family: 'Montserrat', sans-serif; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 3px; color: var(--gold-accent); margin-top: 6px; margin-bottom: 25px; font-weight: 600;">Trivia Oficial de Josselyn & Jordán</p>
+    <h2 class="section-main-title">¿Cuánto nos conoces?</h2>
+    <p class="section-subtitle">Trivia Oficial de los Novios</p>
     
     <div id="btn-iniciar-contenedor" style="background: #ffffff; padding: 35px 25px; border-radius: 14px; border: 1px solid rgba(184, 151, 88, 0.3); box-shadow: 0 10px 30px rgba(45, 56, 48, 0.05); text-align: center; max-width: 340px; margin: 0 auto 20px auto; box-sizing: border-box; position: relative;">
       
-      <p style="font-family: 'Cormorant Garamond', serif; font-size: 1.35rem; color: var(--text-dark); line-height: 1.4; font-style: italic; margin: 0 0 15px 0;">
-        Responde este breve desafío antes de la Cena y prepárate...
+      <p style="font-family: 'Cormorant Garamond', serif; font-size: 1.35rem; color: var(--text-dark); line-height: 1.4; font-style: italic; margin: 0 0 12px 0;">
+        Pon a prueba qué tanto conoces nuestra historia antes de la cena.
       </p>
       
-      <p style="font-size: 0.85rem; color: var(--text-light); line-height: 1.6; margin: 0 0 25px 0;">
-        <strong>Durante la fiesta</strong> revelaremos al ganador o ganadora.
+      <p style="font-family: 'Montserrat', sans-serif; font-size: 0.82rem; color: var(--text-body); line-height: 1.6; margin: 0 0 25px 0;">
+        Durante la noche revelaremos al ganador o ganadora.
       </p>
       
-      <div style="border-top: 1px dashed rgba(184, 151, 88, 0.4); margin: 20px 0; padding-top: 20px;">
+      <div style="border-top: 1px dashed rgba(184, 151, 88, 0.35); margin: 20px 0; padding-top: 20px;">
         <label for="nombre-jugador-input" style="display: block; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 2px; color: var(--gold-accent); font-weight: 600; margin-bottom: 12px;">Ingresa tu nombre y apellido</label>
         
-        <input type="text" id="nombre-jugador-input" placeholder="Ej: Juan Pérez" style="width: 100%; padding: 14px; border-radius: 8px; border: 1px solid rgba(125, 140, 117, 0.5); background: var(--bg-cream); font-family: 'Montserrat', sans-serif; font-size: 0.9rem; color: var(--text-dark); text-align: center; box-sizing: border-box; outline: none; margin-bottom: 20px;">
+        <input type="text" id="nombre-jugador-input" placeholder="Ej: Juan Pérez" style="width: 100%; padding: 14px; border-radius: 8px; border: 1px solid rgba(125, 140, 117, 0.4); background: var(--bg-cream); font-family: 'Montserrat', sans-serif; font-size: 0.9rem; color: var(--text-dark); text-align: center; box-sizing: border-box; outline: none; margin-bottom: 20px;">
         
-        <button onclick="iniciarJuego()" style="background: var(--text-dark); color: #ffffff; border: none; padding: 16px 30px; border-radius: 30px; font-family: 'Montserrat', sans-serif; font-size: 0.8rem; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; width: 100%; box-shadow: 0 8px 18px rgba(45, 56, 48, 0.15); transition: opacity 0.3s;">
+        <button onclick="iniciarJuego()" style="background: var(--text-dark); color: #ffffff; border: none; padding: 15px 30px; border-radius: 30px; font-family: 'Montserrat', sans-serif; font-size: 0.8rem; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; width: 100%; box-shadow: 0 8px 18px rgba(45, 56, 48, 0.15); transition: opacity 0.3s;">
           Comenzar el Desafío
         </button>
       </div>
       
     </div>
-
     <div id="game-container" class="game-box" style="display: none;">
       <div id="question-box">
         <h4 id="question-text" style="font-family: 'Cormorant Garamond', serif; font-size: 1.35rem; color: var(--text-dark); margin-top: 0; margin-bottom: 22px; text-align: center; line-height: 1.4;"></h4>
@@ -1146,18 +1182,20 @@
 
   <!-- VISTA 5: FOTOS (POV / GALERÍA DE INVITADOS) -->
   <div id="view-fotos" class="view-section">
-    <h2 style="font-family: 'Pinyon Script', cursive; font-size: 3.8rem; color: var(--sage-green); text-align: center; margin: 10px 0 0 0; font-weight: normal; line-height: 1;">Álbum Colectivo</h2>
-    <p style="text-align: center; font-family: 'Montserrat', sans-serif; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 3px; color: var(--gold-accent); margin-top: 6px; margin-bottom: 25px; font-weight: 600;">POV • Recuerdos de los Invitados</p>
+    <h2 class="section-main-title">Álbum Colectivo</h2>
+    <p class="section-subtitle">Recuerdos de los Invitados</p>
 
     <div class="photos-card-preview">
-      <div style="font-size: 2.5rem; margin-bottom: 10px;">📸</div>
-      <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; color: var(--text-dark); margin: 0 0 10px 0;">Captura cada momento</h3>
-      <p style="font-size: 0.85rem; color: var(--text-light); line-height: 1.5; margin-bottom: 20px;">
+      <div style="text-align: center; margin-bottom: 15px;">
+        <img src="album-icon.png" alt="Álbum" style="height: 55px; width: auto; opacity: 0.85;" onerror="this.style.display='none'">
+      </div>
+      <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; color: var(--text-dark); margin: 0 0 10px 0; font-weight: 600; font-style: italic;">Captura cada momento</h3>
+      <p style="font-family: 'Montserrat', sans-serif; font-size: 0.82rem; color: var(--text-body); line-height: 1.6; margin-bottom: 25px;">
         Queremos ver la celebración a través de tus ojos. Comparte tus fotos y videos para construir nuestro álbum de recuerdos juntos.
       </p>
 
-      <button onclick="alert('Próximamente: Podrás subir tus fotos aquí')" style="background: var(--sage-green); color: white; border: none; padding: 14px 25px; border-radius: 30px; font-family: 'Montserrat', sans-serif; font-size: 0.78rem; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; cursor: pointer; box-shadow: 0 6px 15px rgba(125, 140, 117, 0.3); width: 100%;">
-        Subir mis Fotos 📤
+      <button onclick="alert('Próximamente: Podrás subir tus fotos aquí')" style="background: var(--sage-green); color: white; border: none; padding: 15px 25px; border-radius: 30px; font-family: 'Montserrat', sans-serif; font-size: 0.78rem; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; box-shadow: 0 6px 15px rgba(125, 140, 117, 0.25); width: 100%;">
+        Subir Fotografías
       </button>
     </div>
   </div>
