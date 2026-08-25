@@ -762,32 +762,39 @@
 .sello-centro {
   position: absolute;
   top: 50%;
-  right: -60px; /* Mitad del sello de 120px vuela exacto sobre el centro vertical de la pantalla */
+  right: -60px; /* Centrado perfecto sobre el corte medio */
   width: 120px;
   height: 120px;
   transform: translateY(-50%);
   cursor: pointer;
   z-index: 1000000;
-  filter: drop-shadow(0 8px 15px rgba(0,0,0,0.3));
-  animation: latidoSello 2.2s infinite ease-in-out;
+  border-radius: 50%;
+  animation: latidoSelloEvidente 2s infinite ease-in-out;
+  transition: transform 0.15s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.sello-centro:active {
+  transform: translateY(-50%) scale(0.92) !important;
 }
 
 .sello-centro img {
   width: 100%;
   height: 100%;
+  display: block;
 }
 
-@keyframes latidoSello {
+@keyframes latidoSelloEvidente {
   0%, 100% {
     transform: translateY(-50%) scale(1);
-    filter: drop-shadow(0 8px 15px rgba(0,0,0,0.3));
+    filter: drop-shadow(0 6px 14px rgba(45, 56, 48, 0.35)) drop-shadow(0 0 0 rgba(184, 151, 88, 0));
   }
   50% {
-    transform: translateY(-50%) scale(1.06);
-    filter: drop-shadow(0 12px 22px rgba(184, 151, 88, 0.5));
+    transform: translateY(-50%) scale(1.10); /* Pulso más notorio */
+    /* Halo dorado expansivo que invita al toque */
+    filter: drop-shadow(0 14px 25px rgba(45, 56, 48, 0.25)) drop-shadow(0 0 16px rgba(184, 151, 88, 0.75));
   }
 }
-
 @keyframes abrirIzquierda {
   0% {
     transform: rotateY(-3deg);
@@ -1088,7 +1095,7 @@
         <span class="pin-icon">Recuerdos</span>
       </div>
 
-      <div class="map-pin pin-latido-suave" style="top: 50%; left: 20%;" onclick="openPinInfo('Estación de Té y Café', 'Té y Café', 'Disponible durante todo el evento.')">
+      <div class="map-pin pin-latido-suave" style="top: 54%; left: 20%;" onclick="openPinInfo('Estación de Té y Café', 'Té y Café', 'Disponible durante todo el evento.')">
         <span class="pin-icon">Té y Café</span>
       </div>
 
@@ -1096,7 +1103,7 @@
         <span class="pin-icon">Baños</span>
       </div>
       
-      <div class="map-pin pin-latido-suave" style="top: 73%; left: 29%;" onclick="openPinInfo('Toma asiento', 'Ceremonia', 'La ceremonia comenzará puntualmente a las 18:15 hrs.')">
+      <div class="map-pin pin-latido-suave" style="top: 76%; left: 29%;" onclick="openPinInfo('Toma asiento', 'Ceremonia', 'La ceremonia comenzará puntualmente a las 18:15 hrs.')">
         <span class="pin-icon">Ceremonia</span>
       </div>
 
@@ -1104,7 +1111,7 @@
         <span class="pin-icon">Cóctel</span>
       </div>
 
-      <div class="map-pin pin-latido-suave" style="top: 51%; left: 52%;" onclick="openPinInfo('Busca tu asiento y acompáñanos', 'Cena', 'La cena se servirá en este sector.')">
+      <div class="map-pin pin-latido-suave" style="top: 51%; left: 55%;" onclick="openPinInfo('Busca tu asiento y acompáñanos', 'Cena', 'La cena se servirá en este sector.')">
         <span class="pin-icon">Cena</span>
       </div>
 
