@@ -569,11 +569,23 @@
     width: 100%;
     box-sizing: border-box;
   }
-  .option-btn:hover, .option-btn:active {
+  @media (hover: hover) {
+    .option-btn:hover {
+      background: var(--sage-green);
+      color: #ffffff;
+      border-color: var(--sage-green);
+      box-shadow: 0 4px 12px rgba(125, 140, 117, 0.25);
+    }
+  }
+
+  .option-btn:active {
     background: var(--sage-green);
     color: #ffffff;
     border-color: var(--sage-green);
-    box-shadow: 0 4px 12px rgba(125, 140, 117, 0.25);
+  }
+
+  .option-btn:focus {
+    outline: none;
   }
 
   /* --- ACUARELA FUNDIDA EN EL PAPEL (PORTADA) --- */
@@ -950,23 +962,23 @@
     <div class="map-container">
       <img src="CasonaFondoMapa.png" alt="Mapa Casona Fundo El Rosario" style="width: 100%; display: block;">
       
-      <div class="map-pin pin-latido-suave" style="top: 90%; left: 25%;" onclick="openPinInfo('Acceso & Check-In', 'Entrada', '¡Bienvenidos! Recuerda avisar de tu llegada a través de esta web')">
+      <div class="map-pin pin-latido-suave" style="top: 90%; left: 25%;" onclick="openPinInfo('¡Bienvenidos!', 'Entrada', 'Recuerda avisar de tu llegada a través de esta web')">
         <span class="pin-icon">Entrada</span>
       </div>
 
-      <div class="map-pin pin-latido-suave" style="top: 66%; left: 22%;" onclick="openPinInfo('Libro de Recuerdos', 'Recuerdos', 'Acércate a este rincón especial para firmar nuestro libro de invitados, tomarte una fotografía y dejarnos una postal con tus mejores deseos.')">
+      <div class="map-pin pin-latido-suave" style="top: 66%; left: 22%;" onclick="openPinInfo('Libro de Recuerdos', 'Recuerdos', 'Acércate a este rincón para firmar nuestro libro de invitados, tomarte una fotografía, o dejarnos una postal con tus mejores deseos.')">
         <span class="pin-icon">Recuerdos</span>
       </div>
 
-      <div class="map-pin pin-latido-suave" style="top: 48%; left: 20%;" onclick="openPinInfo('Estación de Café', 'Té y Café', 'Zona de té y café disponible durante todo el evento.')">
+      <div class="map-pin pin-latido-suave" style="top: 48%; left: 20%;" onclick="openPinInfo('Estación de Té y Café', 'Té y Café', 'Disponible durante todo el evento.')">
         <span class="pin-icon">Té y Café</span>
       </div>
 
-      <div class="map-pin pin-latido-suave" style="top: 42%; left: 30%;" onclick="openPinInfo('Servicios Higiénicos', 'Baños', 'Baños principales ubicados al interior de la casona.')">
+      <div class="map-pin pin-latido-suave" style="top: 42%; left: 30%;" onclick="openPinInfo('Servicios Higiénicos #1', 'Baños', 'Ubicados al interior de la casona.')">
         <span class="pin-icon">Baños</span>
       </div>
       
-      <div class="map-pin pin-latido-suave" style="top: 73%; left: 29%;" onclick="openPinInfo('La Ceremonia', 'Ceremonia', 'La ceremonia civil comenzará puntualmente a las 18:15 hrs.')">
+      <div class="map-pin pin-latido-suave" style="top: 73%; left: 29%;" onclick="openPinInfo('Toma asiento', 'Ceremonia', 'La ceremonia comenzará puntualmente a las 18:15 hrs.')">
         <span class="pin-icon">Ceremonia</span>
       </div>
 
@@ -974,15 +986,15 @@
         <span class="pin-icon">Cóctel</span>
       </div>
 
-      <div class="map-pin pin-latido-suave" style="top: 51%; left: 52%;" onclick="openPinInfo('La Cena', 'Cena', 'La gran cena se servirá en este sector.')">
+      <div class="map-pin pin-latido-suave" style="top: 51%; left: 52%;" onclick="openPinInfo('Busca tu asiento y acompáñanos', 'Cena', 'La cena se servirá en este sector.')">
         <span class="pin-icon">Cena</span>
       </div>
 
-      <div class="map-pin pin-latido-suave" style="top: 52%; left: 80%;" onclick="openPinInfo('Fiesta y Bar', 'Fiesta', '¡Aquí se prende la noche! Desde las 22:00 hrs se abre la pista de baile y la barra libre hasta las 02:00 hrs.')">
+      <div class="map-pin pin-latido-suave" style="top: 52%; left: 80%;" onclick="openPinInfo('Baile y Bar Abierto', 'Fiesta', 'Desde las 22:00 hrs se abre la pista de baile y la barra libre hasta las 02:00 hrs.')">
         <span class="pin-icon">Fiesta</span>
       </div>
 
-      <div class="map-pin pin-latido-suave" style="top: 23%; left: 34%;" onclick="openPinInfo('Servicios Higiénicos', 'Baños', 'Los baños exteriores se encuentran en este sector')">
+      <div class="map-pin pin-latido-suave" style="top: 23%; left: 34%;" onclick="openPinInfo('Servicios Higiénicos #2', 'Baños', 'Los baños exteriores se encuentran en este sector')">
         <span class="pin-icon">Baños</span>
       </div>
     </div>
@@ -1075,11 +1087,11 @@
     <div id="btn-iniciar-contenedor" style="background: #ffffff; padding: 35px 25px; border-radius: 14px; border: 1px solid rgba(184, 151, 88, 0.3); box-shadow: 0 10px 30px rgba(45, 56, 48, 0.05); text-align: center; max-width: 340px; margin: 0 auto 20px auto; box-sizing: border-box; position: relative;">
       
       <p style="font-family: 'Cormorant Garamond', serif; font-size: 1.35rem; color: var(--text-dark); line-height: 1.4; font-style: italic; margin: 0 0 15px 0;">
-        ¡Queremos poner a prueba qué tanto conocen nuestra historia!
+        Responde este breve desafío antes de la Cena y prepárate...
       </p>
       
       <p style="font-size: 0.85rem; color: var(--text-light); line-height: 1.6; margin: 0 0 25px 0;">
-        Responde este breve desafío antes de la Cena y prepárate: <strong>durante la fiesta revelaremos al ganador o ganadora.</strong>
+        <strong>Durante la fiesta</strong> revelaremos al ganador o ganadora.
       </p>
       
       <div style="border-top: 1px dashed rgba(184, 151, 88, 0.4); margin: 20px 0; padding-top: 20px;">
@@ -1529,6 +1541,10 @@ resultsDiv.innerHTML = '<div style="text-align:center;"><span style="font-family
     }
 
     function verificarRespuesta(index) {
+      if (document.activeElement) {
+        document.activeElement.blur(); // Quita el foco visual de inmediato
+      }
+
       const respuestaUsuarioAjustada = index + 1; 
       
       if (respuestaUsuarioAjustada === Number(listaPreguntas[indicePregunta].a)) {
