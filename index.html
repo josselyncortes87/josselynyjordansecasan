@@ -644,7 +644,7 @@
     }
   }
 
-  /* --- ACUARELA FUNDIDA EN EL PAPEL (PORTADA CON EFECTO PROFUNDIDAD) --- */
+  /* --- ACUARELA FUNDIDA EN EL PAPEL (PORTADA) --- */
   .casona-footer-blend {
     position: relative;
     width: 100vw;
@@ -654,27 +654,34 @@
     margin-right: -50vw;
     height: 340px; 
     margin-top: 10px;
-    overflow: hidden; /* Mantiene la animación dentro del marco */
-  }
-
-  .casona-capa-profundidad {
-    position: absolute;
-    inset: -15px; /* Margen para que el zoom sutil no corte los bordes */
     background-image: url('casona-acuarela.png');
     background-position: center center;
     background-size: cover;
     background-repeat: no-repeat;
-    animation: respiracionProfundidad 12s ease-in-out infinite alternate;
-    will-change: transform;
+  }
+  
+  /* Pincelada superior: funde el borde exactamente con el crema del fondo */
+  .casona-footer-blend::before {
+    content: "";
+    position: absolute;
+    top: -1px;
+    left: 0;
+    right: 0;
+    height: 120px;
+    background: linear-gradient(to bottom, var(--bg-cream) 0%, rgba(252, 251, 248, 0.7) 40%, rgba(252, 251, 248, 0) 100%);
+    pointer-events: none;
   }
 
-  @keyframes respiracionProfundidad {
-    0% {
-      transform: scale(1) translateY(0);
-    }
-    100% {
-      transform: scale(1.06) translateY(-8px);
-    }
+  /* Pincelada inferior: funde hacia abajo suavemente */
+  .casona-footer-blend::after {
+    content: "";
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    right: 0;
+    height: 60px;
+    background: linear-gradient(to top, var(--bg-cream) 0%, rgba(252, 251, 248, 0) 100%);
+    pointer-events: none;
   }
   
   /* Pincelada mágica: funde el borde superior exactamente con el color crema del fondo */
@@ -916,10 +923,8 @@
       Llegó el gran día
     </p>
 
-    <!-- ACUARELA DE LA CASONA CON CAPA DE PROFUNDIDAD -->
-    <div class="casona-footer-blend">
-      <div class="casona-capa-profundidad"></div>
-    </div>
+    <!-- ACUARELA DE LA CASONA INTEGRADA (Justo debajo del texto) -->
+    <div class="casona-footer-blend"></div>
     <p style="text-align: center; font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.2rem; color: var(--text-light); margin-top: 20px; margin-bottom: 20px;">¡Es hoy, es hoy!</p>
     
     <!-- CONTENEDOR DE LA CUENTA REGRESIVA ELEGANTE -->
