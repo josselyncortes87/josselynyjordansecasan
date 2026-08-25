@@ -767,7 +767,34 @@
     max-width: 340px;
   }
 
-    
+/* --- EFECTO LLUVIA DE HOJAS AL ABRIR --- */
+  .hoja-caida {
+    position: fixed;
+    top: -40px;
+    z-index: 9999999;
+    pointer-events: none;
+    border-radius: 80% 0 80% 0; /* Forma orgánica de hoja */
+    opacity: 0;
+    will-change: transform, opacity;
+    animation: caerYBalancear var(--duracion) cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+  }
+
+  @keyframes caerYBalancear {
+    0% {
+      opacity: 0;
+      transform: translateY(0) translateX(0) rotate(0deg) scale(0.6);
+    }
+    15% {
+      opacity: 0.9;
+    }
+    85% {
+      opacity: 0.85;
+    }
+    100% {
+      opacity: 0;
+      transform: translateY(105vh) translateX(var(--desplazamiento-x)) rotate(var(--rotacion-final)) scale(1);
+    }
+  }    
   
 </style>
 </head>
@@ -1575,7 +1602,46 @@ resultsDiv.innerHTML = '<div style="text-align:center;"><span style="font-family
         }).catch(err => console.error("Error guardando puntaje:", err));
       }
     }
-    
+  function lanzarLluviaHojas() {
+  const cantidadHojas = 28; // Cantidad ideal para no sobrecargar el celular
+  const paletaColores = [
+    'rgba(125, 140, 117, 0.85)', // Verde sage
+    'rgba(155, 169, 147, 0.75)', // Sage claro
+    'rgba(184, 151, 88, 0.7)',   // Dorado suave
+    'rgba(99, 111, 102, 0.8)'    // Verde bosque
+  ];
+
+  for (let i = 0; i < cantidadHojas; i++) {
+    const hoja = document.createElement('div');
+    hoja.className = 'hoja-caida';
+
+    // Tamaños variados para dar profundidad
+    const ancho = Math.floor(Math.random() * 10) + 12; // 12px a 22px
+    const alto = ancho * 1.8; // Proporción alargada estilo olivo
+    const posX = Math.random() * 100; // Distribución a lo ancho de la pantalla (0vw a 100vw)
+    const retraso = Math.random() * 1.4; // Salida en cascada natural
+    const duracion = (Math.random() * 2 + 3.2).toFixed(2); // Caída pausada (3.2s a 5.2s)
+    const desplazamientoX = (Math.random() * 160 - 80).toFixed(0) + 'px'; // Balanceo lateral
+    const rotacionFinal = (Math.random() * 720 - 360).toFixed(0) + 'deg';
+    const colorElegido = paletaColores[Math.floor(Math.random() * paletaColores.length)];
+
+    hoja.style.width = ancho + 'px';
+    hoja.style.height = alto + 'px';
+    hoja.style.left = posX + 'vw';
+    hoja.style.backgroundColor = colorElegido;
+    hoja.style.animationDelay = retraso + 's';
+    hoja.style.setProperty('--duracion', duracion + 's');
+    hoja.style.setProperty('--desplazamiento-x', desplazamientoX);
+    hoja.style.setProperty('--rotacion-final', rotacionFinal);
+
+    document.body.appendChild(hoja);
+
+    // Limpieza de memoria en el DOM una vez terminada la animación
+    setTimeout(() => {
+      hoja.remove();
+    }, (parseFloat(duracion) + parseFloat(retraso) + 0.5) * 1000);
+  }
+}  
     
   </script>
 
@@ -1586,6 +1652,9 @@ document.addEventListener("DOMContentLoaded", () => {
   if (sello) {
     sello.addEventListener("click", () => {
       sello.style.animation = "none";
+
+      // Disparar lluvia de hojas justo al romper el sello
+      lanzarLluviaHojas();
 
       document.querySelector(".tapa-izquierda").style.animation =
         "abrirIzquierda 2.8s ease-in-out forwards";
