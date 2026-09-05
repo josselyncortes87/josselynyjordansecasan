@@ -1138,19 +1138,30 @@
         
         <div id="table-visual-container" style="margin-top: 20px; display: none;">
           <h3 id="visual-table-title" style="font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; color: var(--text-dark); margin-bottom: 2px; font-weight: 600;"></h3>
-          <p style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1.5px; color: var(--sage-green); margin-bottom: 5px; font-weight: 600;"></p>
+          <p style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1.5px; color: var(--sage-green); margin-bottom: 12px; font-weight: 600;">Distribución Oficial • Mesa Imperial</p>
           
           <div class="botanical-frame-container">
-            <div class="monogram-header">
-              <img src="monograma-jj.png" alt="J&J" class="monogram-img" onerror="this.style.display='none'">
-              <div class="monogram-names">Josselyn y Jordán</div>
+            <!-- Referencia de orientación: Extremo pegado a la Casona y Baños -->
+            <div style="text-align: center; margin-bottom: 8px;">
+              <span style="font-size: 0.7rem; font-family: 'Montserrat', sans-serif; text-transform: uppercase; letter-spacing: 2px; color: var(--text-light); font-weight: 500;">
+                ↑ Hacia la Casona y Baños
+              </span>
             </div>
             
-            <div class="table-scroll-box" style="background: transparent; border: none; max-height: 250px; padding: 0;">
+            <div class="table-scroll-box" style="background: transparent; border: none; max-height: 280px; padding: 0;">
               <div class="table-body-layout">
                 <div class="long-table-bar" style="background-color: #f4efea; border: 1px solid rgba(155, 169, 147, 0.6); width: 38px;"></div>
                 <div id="rectangular-seats-container"></div>
               </div>
+            </div>
+
+            <!-- Cabecera de novios ahora al final (Extremo Pista de Baile / Fiesta) -->
+            <div class="monogram-header" style="margin-top: 15px; margin-bottom: 5px; padding-top: 12px; border-top: 1px dashed var(--sage-green); border-bottom: none;">
+              <img src="monograma-jj.png" alt="J&J" class="monogram-img" onerror="this.style.display='none'">
+              <div class="monogram-names">Cabecera • Josselyn y Jordán</div>
+              <small style="font-family: 'Montserrat', sans-serif; font-size: 0.68rem; text-transform: uppercase; letter-spacing: 1.5px; color: var(--gold-accent); display: block; margin-top: 4px; font-weight: 600;">
+                ↓ Hacia la Pista de Baile
+              </small>
             </div>
           </div>
         </div>
@@ -1200,8 +1211,8 @@
     <div class="round-photo-frame" style="margin: 10px auto 15px auto;">
       <img src="novios-redonda.jpeg" alt="Josselyn & Jordán">
     </div>
-    <h2 class="section-main-title">¿Cuánto nos conoces?</h2>
-    <p class="section-subtitle">Trivia Oficial de los Novios</p>
+    <h2 class="section-main-title" style="line-height: 0.88; margin-top: 12px; margin-bottom: 8px;">¿Cuánto nos conoces?</h2>
+    <p class="section-subtitle" style="margin-top: 4px;">Trivia Oficial de los Novios</p>
     
     <div id="btn-iniciar-contenedor" style="background: #ffffff; padding: 35px 25px; border-radius: 14px; border: 1px solid rgba(184, 151, 88, 0.3); box-shadow: 0 10px 30px rgba(45, 56, 48, 0.05); text-align: center; max-width: 340px; margin: 0 auto 20px auto; box-sizing: border-box; position: relative;">
       
@@ -1438,11 +1449,11 @@
           }, index * 80);
         });
         
-        setTimeout(() => {
+       setTimeout(() => {
           container.scrollIntoView({ behavior: 'smooth', block: 'center' });
           const targetSeat = document.querySelector('.highlighted-guest');
           if (targetSeat) {
-            targetSeat.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            targetSeat.scrollIntoView({ behavior: 'smooth', block: 'center' });
           }
         }, 300);
         
