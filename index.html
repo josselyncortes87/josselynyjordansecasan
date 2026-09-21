@@ -435,42 +435,141 @@
   .table-cabecera { display: flex; justify-content: center; gap: 15px; margin-bottom: 15px; padding-bottom: 12px; border-bottom: 2px dashed var(--sage-green); }
   .novio-seat { font-family: 'Cormorant Garamond', serif; font-size: 1.05rem; font-weight: bold; color: var(--text-dark); background: rgba(155, 169, 147, 0.15); padding: 6px 14px; border-radius: 20px; border: 1px solid var(--sage-green); }
   
-  .table-scroll-box { max-height: 380px; overflow-y: auto; border: none; padding: 10px 5px; background: transparent; }
+  .table-scroll-box { 
+    max-height: 520px; /* Mucho más espacio para que se aprecie lo larga que es la mesa */
+    overflow-y: auto; 
+    border: none; 
+    padding: 10px 5px; 
+    background: transparent; 
+  }
+
+  .mesa-ref-banner {
+    background: rgba(184, 151, 88, 0.12);
+    border: 1px solid rgba(184, 151, 88, 0.4);
+    border-radius: 8px;
+    padding: 10px 15px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-dark);
+    margin: 8px auto;
+    max-width: 290px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .mesa-guia-lateral {
+    position: absolute;
+    right: -12px;
+    top: 50%;
+    transform: translateY(-50%) rotate(90deg);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--sage-green);
+    background: rgba(125, 140, 117, 0.12);
+    padding: 4px 10px;
+    border-radius: 12px;
+    border: 1px solid rgba(125, 140, 117, 0.3);
+    white-space: nowrap;
+    pointer-events: none;
+  }
   .table-body-layout { position: relative; width: 100%; display: flex; justify-content: center; }
-/* --- CAMINO DE MESA Y FLORES AL MEDIO --- */
+/* --- CAMINO DE MESA Y FLORES ESPACIADAS HASTA EL FINAL --- */
   .long-table-bar { 
-    width: 44px; 
-    background: #fdfbf7; 
-    border-left: 2px solid rgba(184, 151, 88, 0.35); 
-    border-right: 2px solid rgba(184, 151, 88, 0.35); 
-    border-radius: 20px; 
+    width: 38px; 
+    background-color: #fdfbf7; 
+    border-left: 1.5px solid rgba(184, 151, 88, 0.4); 
+    border-right: 1.5px solid rgba(184, 151, 88, 0.4); 
     position: absolute; 
     top: 0; 
     bottom: 0; 
     left: 50%; 
     transform: translateX(-50%); 
     z-index: 1; 
-    box-shadow: inset 0 0 10px rgba(0,0,0,0.03);
-    overflow: hidden;
+    /* Solo flores elegantes repetidas y espaciadas uniformemente cada 42px hasta el final */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='38' height='42' viewBox='0 0 38 42'%3E%3Ctext x='50%25' y='60%25' text-anchor='middle' font-size='12' fill='%23b89758' opacity='0.7'%3E🌸%3C/text%3E%3C/svg%3E");
+    background-repeat: repeat-y;
+    background-position: center top;
   }
 
-  /* Guirnalda botánica central de la mesa */
-  .long-table-bar::before {
-    content: "🌿 🌸 🍃 🌸 🌿 🍃 🌸 🌿 🍃 🌸 🌿 🍃 🌸 🌿 🍃 🌸 🌿 🍃 🌸 🌿 🍃 🌸 🌿 🍃 🌸 🌿 🍃 🌸 🌿 🍃 🌸 🌿";
-    position: absolute;
-    top: 5px;
+  /* Estilos para el visor ampliado de las fotos de recuerdos */
+  .gallery-card {
+    cursor: pointer;
+  }
+  .gallery-track.paused {
+    animation-play-state: paused !important;
+  }
+  .lightbox-modal {
+    position: fixed;
+    top: 0;
     left: 0;
-    right: 0;
-    bottom: 5px;
-    font-size: 0.62rem;
-    line-height: 2.2;
-    text-align: center;
-    opacity: 0.55;
-    word-break: break-all;
-    letter-spacing: 2px;
-    pointer-events: none;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(15, 23, 18, 0.88);
+    backdrop-filter: blur(8px);
+    z-index: 1000002;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    box-sizing: border-box;
+    opacity: 0;
+    transition: opacity 0.3s ease;
   }
-
+  .lightbox-modal.active {
+    display: flex;
+    opacity: 1;
+  }
+  .lightbox-card {
+    position: relative;
+    max-width: 90vw;
+    max-height: 80vh;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+    border: 4px solid #ffffff;
+    background: #ffffff;
+    transform: scale(0.9);
+    transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+  }
+  .lightbox-modal.active .lightbox-card {
+    transform: scale(1);
+  }
+  .lightbox-img {
+    width: 100%;
+    height: auto;
+    max-height: 75vh;
+    object-fit: contain;
+    display: block;
+  }
+  .lightbox-close-btn {
+    position: absolute;
+    top: 25px;
+    right: 25px;
+    width: 42px;
+    height: 42px;
+    background: rgba(255, 255, 255, 0.25);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    border-radius: 50%;
+    color: #ffffff;
+    font-size: 1.3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 1000003;
+    transition: background 0.2s;
+  }
+  .lightbox-close-btn:active {
+    background: rgba(255, 255, 255, 0.45);
+  }
   /* Indicador sutil de toque bajo el sello */
   .hint-toca-abrir {
     position: absolute;
@@ -1005,18 +1104,32 @@
 
     <!-- ROLLO DE RECUERDOS DELICADO Y CONTINUO -->
     <div class="editorial-gallery-wrapper">
-      <div class="gallery-track">
+      <div class="gallery-track" id="gallery-track-slider">
         <!-- Grupo 1 -->
-        <div class="gallery-card"><img src="recuerdo-1.jpg" alt="Recuerdo"></div>
-        <div class="gallery-card"><img src="recuerdo-2.jpg" alt="Recuerdo"></div>
-        <div class="gallery-card"><img src="recuerdo-3.jpg" alt="Recuerdo"></div>
-        <div class="gallery-card"><img src="recuerdo-4.jpg" alt="Recuerdo"></div>
+        <div class="gallery-card" onclick="abrirFotoRecuerdo(this)"><img src="recuerdo-1.jpg" alt="Recuerdo"></div>
+        <div class="gallery-card" onclick="abrirFotoRecuerdo(this)"><img src="recuerdo-2.jpg" alt="Recuerdo"></div>
+        <div class="gallery-card" onclick="abrirFotoRecuerdo(this)"><img src="recuerdo-3.jpg" alt="Recuerdo"></div>
+        <div class="gallery-card" onclick="abrirFotoRecuerdo(this)"><img src="recuerdo-4.jpg" alt="Recuerdo"></div>
+                <div class="gallery-card" onclick="abrirFotoRecuerdo(this)"><img src="recuerdo-5.jpg" alt="Recuerdo"></div>
+        <div class="gallery-card" onclick="abrirFotoRecuerdo(this)"><img src="recuerdo-6.jpg" alt="Recuerdo"></div>
+
         
         <!-- Grupo 2 (Duplicado exacto para el loop infinito suave) -->
-        <div class="gallery-card"><img src="recuerdo-1.jpg" alt="Recuerdo"></div>
-        <div class="gallery-card"><img src="recuerdo-2.jpg" alt="Recuerdo"></div>
-        <div class="gallery-card"><img src="recuerdo-3.jpg" alt="Recuerdo"></div>
-        <div class="gallery-card"><img src="recuerdo-4.jpg" alt="Recuerdo"></div>
+        <div class="gallery-card" onclick="abrirFotoRecuerdo(this)"><img src="recuerdo-1.jpg" alt="Recuerdo"></div>
+        <div class="gallery-card" onclick="abrirFotoRecuerdo(this)"><img src="recuerdo-2.jpg" alt="Recuerdo"></div>
+        <div class="gallery-card" onclick="abrirFotoRecuerdo(this)"><img src="recuerdo-3.jpg" alt="Recuerdo"></div>
+        <div class="gallery-card" onclick="abrirFotoRecuerdo(this)"><img src="recuerdo-4.jpg" alt="Recuerdo"></div>
+                <div class="gallery-card" onclick="abrirFotoRecuerdo(this)"><img src="recuerdo-5.jpg" alt="Recuerdo"></div>
+        <div class="gallery-card" onclick="abrirFotoRecuerdo(this)"><img src="recuerdo-6.jpg" alt="Recuerdo"></div>
+
+      </div>
+    </div>
+
+    <!-- MODAL PARA VER FOTO GRANDE (LIGHTBOX) -->
+    <div id="lightbox-modal" class="lightbox-modal" onclick="cerrarFotoRecuerdo()">
+      <div class="lightbox-close-btn" onclick="cerrarFotoRecuerdo()">&times;</div>
+      <div class="lightbox-card" onclick="event.stopPropagation()">
+        <img id="lightbox-img" class="lightbox-img" src="" alt="Recuerdo en grande">
       </div>
     </div>
     <!-- BOTÓN DE CHECK-IN Y LISTA DE PRESENTES -->
@@ -1210,36 +1323,35 @@
         <div id="table-visual-container" style="margin-top: 20px; display: none;">
           <h3 id="visual-table-title" style="font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; color: var(--text-dark); margin-bottom: 2px; font-weight: 600;"></h3>
           
-          <div class="botanical-frame-container" style="margin-top: 15px;">
-            <!-- Referencia superior: Salida Casona -->
-            <div style="text-align: center; margin-bottom: 10px;">
-              <span style="font-size: 0.72rem; font-family: 'Montserrat', sans-serif; text-transform: uppercase; letter-spacing: 2px; color: var(--gold-accent); font-weight: 600;">
-                (Salida de la Casona)
-              </span>
+          <div class="botanical-frame-container" style="margin-top: 20px; position: relative;">
+            
+            <!-- EXTREMO SUPERIOR: CASONA -->
+            <div class="mesa-ref-banner">
+              🏛️ HACIA LA CASONA
             </div>
             
-            <div class="table-scroll-box" style="background: transparent; border: none; max-height: 290px; padding: 0;">
-              <div class="table-body-layout">
-                <div class="long-table-bar"></div>
-                <div id="rectangular-seats-container"></div>
+            <!-- CONTENEDOR LARGO DE LA MESA CON INDICADOR DE PISCINA AL COSTADO -->
+            <div style="position: relative; width: 100%; margin: 15px 0;">
+              
+              <!-- Etiqueta lateral: Lado Piscina -->
+              <div class="mesa-guia-lateral">
+                🏊 Lado Piscina
               </div>
+
+              <div class="table-scroll-box" style="max-height: 520px; padding: 0 10px;">
+                <div class="table-body-layout">
+                  <div class="long-table-bar"></div>
+                  <div id="rectangular-seats-container"></div>
+                </div>
+              </div>
+
             </div>
 
-            <!-- Cabecera final con ustedes dos en sus filas respectivas -->
-            <div style="margin-top: 15px; padding-top: 12px; border-top: 1px dashed var(--sage-green); text-align: center;">
-              <div style="display: flex; justify-content: space-between; align-items: center; width: 100%; max-width: 320px; margin: 0 auto 6px auto;">
-                <div class="seat-side left-side" style="opacity: 1; font-weight: 600; color: var(--text-dark); font-size: 0.85rem;">
-                  Jordán
-                </div>
-                <div style="font-size: 0.9rem; color: var(--gold-accent); opacity: 0.7;">✤</div>
-                <div class="seat-side right-side" style="opacity: 1; font-weight: 600; color: var(--text-dark); font-size: 0.85rem;">
-                  Josselyn
-                </div>
-              </div>
-              <span style="font-size: 0.72rem; font-family: 'Montserrat', sans-serif; text-transform: uppercase; letter-spacing: 2px; color: var(--gold-accent); font-weight: 600; display: block;">
-                (Hacia la Pista de Baile)
-              </span>
+            <!-- EXTREMO INFERIOR: PISTA DE BAILE -->
+            <div class="mesa-ref-banner" style="margin-top: 15px;">
+              🪩 HACIA LA PISTA DE BAILE
             </div>
+
           </div>
         </div>
         
@@ -1423,6 +1535,8 @@
       sheet.classList.remove('sheet-open');
       overlay.classList.remove('overlay-active');
     }
+
+    
 
     // Normalizador de texto: remueve tildes y pasa a minúsculas
     function normalizarTexto(txt) {
