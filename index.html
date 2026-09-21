@@ -481,94 +481,140 @@
     pointer-events: none;
   }
   .table-body-layout { position: relative; width: 100%; display: flex; justify-content: center; }
-/* --- CAMINO DE MESA Y FLORES ESPACIADAS HASTA EL FINAL --- */
+/* --- MESA IMPERIAL CON PRINCIPIO Y FIN RECTO Y CUADRADO --- */
+  .table-body-layout { 
+    position: relative; 
+    width: 100%; 
+    display: flex; 
+    justify-content: center;
+    padding: 18px 0; /* Margen para que se note el principio y el fin */
+  }
+
   .long-table-bar { 
-    width: 38px; 
-    background-color: #fdfbf7; 
-    border-left: 1.5px solid rgba(184, 151, 88, 0.4); 
-    border-right: 1.5px solid rgba(184, 151, 88, 0.4); 
+    width: 40px; 
+    background-color: #fcfbf8; 
+    /* Mesa cuadrada y recta de punta a punta */
+    border-left: 2px solid rgba(184, 151, 88, 0.5); 
+    border-right: 2px solid rgba(184, 151, 88, 0.5); 
+    border-top: 4px solid #b89758; /* Principio cuadrado de la mesa */
+    border-bottom: 4px solid #b89758; /* Fin cuadrado de la mesa */
+    border-radius: 0 !important; /* Cuadrada pura */
     position: absolute; 
     top: 0; 
     bottom: 0; 
     left: 50%; 
     transform: translateX(-50%); 
     z-index: 1; 
-    /* Solo flores elegantes repetidas y espaciadas uniformemente cada 42px hasta el final */
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='38' height='42' viewBox='0 0 38 42'%3E%3Ctext x='50%25' y='60%25' text-anchor='middle' font-size='12' fill='%23b89758' opacity='0.7'%3E🌸%3C/text%3E%3C/svg%3E");
+    box-shadow: 0 4px 15px rgba(0,0,0,0.04);
+    /* Solo flores separadas verticalmente cada 46px */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='46' viewBox='0 0 40 46'%3E%3Ctext x='50%25' y='60%25' text-anchor='middle' font-size='13' fill='%23b89758' opacity='0.75'%3E🌸%3C/text%3E%3C/svg%3E");
     background-repeat: repeat-y;
     background-position: center top;
   }
 
-  /* Estilos para el visor ampliado de las fotos de recuerdos */
+  /* Carteles de extremos limpios y directos */
+  .mesa-ref-banner {
+    background: #ffffff;
+    border: 1.5px solid rgba(184, 151, 88, 0.5);
+    border-radius: 6px;
+    padding: 10px 18px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-dark);
+    margin: 8px auto;
+    max-width: 250px;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+  }
+
+  /* Indicador Lado Piscina: barra superior informativa sin tapar nombres */
+  .barra-referencia-piscina {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 100%;
+    max-width: 320px;
+    margin: 0 auto 10px auto;
+    padding-right: 5px;
+    box-sizing: border-box;
+  }
+  .tag-piscina {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    color: #4b7a8a;
+    background: #eef6f8;
+    border: 1px solid #b8dbe3;
+    border-radius: 4px;
+    padding: 4px 10px;
+    text-transform: uppercase;
+  }
+
+  /* --- LIGHTBOX FOTOS DE RECUERDO ROBUSTO --- */
   .gallery-card {
     cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
   }
   .gallery-track.paused {
     animation-play-state: paused !important;
   }
   .lightbox-modal {
     position: fixed;
-    top: 0;
-    left: 0;
+    inset: 0;
     width: 100vw;
     height: 100vh;
-    background: rgba(15, 23, 18, 0.88);
-    backdrop-filter: blur(8px);
-    z-index: 1000002;
+    background-color: rgba(20, 26, 22, 0.92);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    z-index: 9999999;
     display: none;
     align-items: center;
     justify-content: center;
     padding: 20px;
     box-sizing: border-box;
-    opacity: 0;
-    transition: opacity 0.3s ease;
   }
   .lightbox-modal.active {
-    display: flex;
-    opacity: 1;
+    display: flex !important;
   }
   .lightbox-card {
     position: relative;
     max-width: 90vw;
-    max-height: 80vh;
-    border-radius: 16px;
+    max-height: 82vh;
+    border-radius: 12px;
     overflow: hidden;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.4);
-    border: 4px solid #ffffff;
+    box-shadow: 0 25px 50px rgba(0,0,0,0.5);
     background: #ffffff;
-    transform: scale(0.9);
-    transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
-  }
-  .lightbox-modal.active .lightbox-card {
-    transform: scale(1);
+    border: 3px solid #ffffff;
   }
   .lightbox-img {
     width: 100%;
     height: auto;
-    max-height: 75vh;
+    max-height: 80vh;
     object-fit: contain;
     display: block;
   }
   .lightbox-close-btn {
     position: absolute;
-    top: 25px;
-    right: 25px;
-    width: 42px;
-    height: 42px;
-    background: rgba(255, 255, 255, 0.25);
-    border: 1px solid rgba(255, 255, 255, 0.6);
+    top: 20px;
+    right: 20px;
+    width: 44px;
+    height: 44px;
+    background: rgba(255, 255, 255, 0.2);
+    border: 1.5px solid rgba(255, 255, 255, 0.7);
     border-radius: 50%;
     color: #ffffff;
-    font-size: 1.3rem;
+    font-size: 26px;
+    line-height: 1;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    z-index: 1000003;
-    transition: background 0.2s;
-  }
-  .lightbox-close-btn:active {
-    background: rgba(255, 255, 255, 0.45);
+    z-index: 10000000;
   }
   /* Indicador sutil de toque bajo el sello */
   .hint-toca-abrir {
@@ -1327,29 +1373,27 @@
             
             <!-- EXTREMO SUPERIOR: CASONA -->
             <div class="mesa-ref-banner">
-              🏛️ HACIA LA CASONA
+              🏡 CASONA
+            </div>
+
+            <!-- INDICADOR CLARO DE ORIENTACIÓN: LADO DERECHO = PISCINA -->
+            <div class="barra-referencia-piscina">
+              <span class="tag-piscina">🏊 Lado Piscina &rarr;</span>
             </div>
             
-            <!-- CONTENEDOR LARGO DE LA MESA CON INDICADOR DE PISCINA AL COSTADO -->
-            <div style="position: relative; width: 100%; margin: 15px 0;">
-              
-              <!-- Etiqueta lateral: Lado Piscina -->
-              <div class="mesa-guia-lateral">
-                🏊 Lado Piscina
-              </div>
-
-              <div class="table-scroll-box" style="max-height: 520px; padding: 0 10px;">
+            <!-- CONTENEDOR LARGO DE LA MESA -->
+            <div style="position: relative; width: 100%; margin: 5px 0 15px 0;">
+              <div class="table-scroll-box" style="max-height: 520px; padding: 0 5px;">
                 <div class="table-body-layout">
                   <div class="long-table-bar"></div>
                   <div id="rectangular-seats-container"></div>
                 </div>
               </div>
-
             </div>
 
             <!-- EXTREMO INFERIOR: PISTA DE BAILE -->
             <div class="mesa-ref-banner" style="margin-top: 15px;">
-              🪩 HACIA LA PISTA DE BAILE
+              🪩 PISTA DE BAILE
             </div>
 
           </div>
@@ -1536,6 +1580,39 @@
       overlay.classList.remove('overlay-active');
     }
 
+    // FUNCIONES LIGHTBOX FOTOS DE RECUERDO (AMPLIAR AL TOCAR)
+    function abrirFotoRecuerdo(cardElement) {
+      const img = cardElement.querySelector('img') || cardElement;
+      if (!img || !img.src) return;
+      
+      const modal = document.getElementById('lightbox-modal');
+      const modalImg = document.getElementById('lightbox-img');
+      const track = document.getElementById('gallery-track-slider');
+      
+      modalImg.src = img.src;
+      modal.classList.add('active');
+      if (track) track.classList.add('paused');
+    }
+
+    function cerrarFotoRecuerdo(e) {
+      if (e) e.stopPropagation();
+      const modal = document.getElementById('lightbox-modal');
+      const track = document.getElementById('gallery-track-slider');
+      
+      if (modal) modal.classList.remove('active');
+      if (track) track.classList.remove('paused');
+    }
+
+    // Asegura que las fotos se puedan tocar en cualquier celular o PC
+    document.addEventListener("DOMContentLoaded", () => {
+      const fotos = document.querySelectorAll('.gallery-card');
+      fotos.forEach(card => {
+        card.addEventListener('click', function(ev) {
+          ev.preventDefault();
+          abrirFotoRecuerdo(this);
+        });
+      });
+    });
     
 
     // Normalizador de texto: remueve tildes y pasa a minúsculas
