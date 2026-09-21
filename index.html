@@ -125,14 +125,22 @@
     box-shadow: inset 0 0 20px rgba(0,0,0,0.02);
   }
 
+  .editorial-gallery-wrapper {
+    touch-action: pan-y pinch-zoom;
+    user-select: none;
+    cursor: grab;
+  }
+  .editorial-gallery-wrapper:active {
+    cursor: grabbing;
+  }
   .gallery-track {
     display: flex;
     gap: 22px;
     width: max-content;
     animation: scrollElegante 35s linear infinite;
     padding: 5px 0;
+    will-change: transform;
   }
-
   .gallery-card {
     width: 145px;
     height: 200px;
@@ -1543,8 +1551,77 @@
       overlay.classList.remove('overlay-active');
     }
 
+    // CONTROL TÁCTIL Y ARRASTRE DEL CARRUSEL DE RECUERDOS
+    let trackDesplazamiento = 0;
+    let inicioX = 0;
+    let arrastrando = false;
+    let huboArrastre = false;
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const wrapper = document.querySelector('.editorial-gallery-wrapper');
+      const track = document.getElementById('gallery-track-slider');
+      if (!wrapper || !track) return;
+
+      const mitadAncho = () => track.scrollWidth / 2;
+
+      function obtenerPosicionActual() {
+        const matrix = window.getComputedStyle(track).transform;
+        if (matrix && matrix !== 'none') {
+          const valores = matrix.split('(')[1].split(')')[0].split(',');
+          return parseFloat(valores[4]) || 0;
+        }
+        return trackDesplazamiento;
+      }
+
+      function iniciarArrastre(e) {
+        arrastrando = true;
+        huboArrastre = false;
+        inicioX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
+        trackDesplazamiento = obtenerPosicionActual();
+        track.style.animation = 'none';
+        track.style.transform = `translateX(${trackDesplazamiento}px)`;
+      }
+
+      function moverArrastre(e) {
+        if (!arrastrando) return;
+        const xActual = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
+        const delta = xActual - inicioX;
+        if (Math.abs(delta) > 5) huboArrastre = true;
+
+        let nuevaPos = trackDesplazamiento + delta;
+        const limite = mitadAncho();
+        if (nuevaPos > 0) nuevaPos -= limite;
+        if (nuevaPos < -limite) nuevaPos += limite;
+
+        track.style.transform = `translateX(${nuevaPos}px)`;
+      }
+
+      function soltarArrastre() {
+        if (!arrastrando) return;
+        arrastrando = false;
+        trackDesplazamiento = obtenerPosicionActual();
+        const limite = mitadAncho();
+        const porcentaje = Math.abs(trackDesplazamiento % limite) / limite;
+        const duracionTotal = 35; // Misma duración definida en el CSS
+        const tiempoRestante = duracionTotal * (1 - porcentaje);
+
+        // Reanuda el carrusel de manera fluida desde donde quedó el dedo
+        track.style.animation = `scrollElegante ${duracionTotal}s linear infinite`;
+        track.style.animationDelay = `-${(duracionTotal - tiempoRestante)}s`;
+      }
+
+      wrapper.addEventListener('touchstart', iniciarArrastre, { passive: true });
+      window.addEventListener('touchmove', moverArrastre, { passive: true });
+      window.addEventListener('touchend', soltarArrastre);
+
+      wrapper.addEventListener('mousedown', iniciarArrastre);
+      window.addEventListener('mousemove', moverArrastre);
+      window.addEventListener('mouseup', soltarArrastre);
+    });
+
     // FUNCIONES LIGHTBOX FOTOS DE RECUERDO (AMPLIAR AL TOCAR)
     function abrirFotoRecuerdo(cardElement) {
+      if (huboArrastre) return; // Si estaba arrastrando con el dedo, no abre la foto
       const img = cardElement.querySelector('img') || cardElement;
       if (!img || !img.src) return;
       
