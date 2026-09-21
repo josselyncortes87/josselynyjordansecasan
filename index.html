@@ -443,44 +443,7 @@
     background: transparent; 
   }
 
-  .mesa-ref-banner {
-    background: rgba(184, 151, 88, 0.12);
-    border: 1px solid rgba(184, 151, 88, 0.4);
-    border-radius: 8px;
-    padding: 10px 15px;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 0.82rem;
-    font-weight: 600;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--text-dark);
-    margin: 8px auto;
-    max-width: 290px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-  }
-
-  .mesa-guia-lateral {
-    position: absolute;
-    right: -12px;
-    top: 50%;
-    transform: translateY(-50%) rotate(90deg);
-    font-family: 'Montserrat', sans-serif;
-    font-size: 0.65rem;
-    font-weight: 600;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--sage-green);
-    background: rgba(125, 140, 117, 0.12);
-    padding: 4px 10px;
-    border-radius: 12px;
-    border: 1px solid rgba(125, 140, 117, 0.3);
-    white-space: nowrap;
-    pointer-events: none;
-  }
-  .table-body-layout { position: relative; width: 100%; display: flex; justify-content: center; }
+  
 /* --- MESA IMPERIAL CON PRINCIPIO Y FIN RECTO Y CUADRADO --- */
   .table-body-layout { 
     position: relative; 
@@ -1171,9 +1134,9 @@
       </div>
     </div>
 
-    <!-- MODAL PARA VER FOTO GRANDE (LIGHTBOX) -->
-    <div id="lightbox-modal" class="lightbox-modal" onclick="cerrarFotoRecuerdo()">
-      <div class="lightbox-close-btn" onclick="cerrarFotoRecuerdo()">&times;</div>
+   <!-- MODAL PARA VER FOTO GRANDE (LIGHTBOX) -->
+    <div id="lightbox-modal" class="lightbox-modal" onclick="cerrarFotoRecuerdo(event)">
+      <div class="lightbox-close-btn" onclick="cerrarFotoRecuerdo(event)">&times;</div>
       <div class="lightbox-card" onclick="event.stopPropagation()">
         <img id="lightbox-img" class="lightbox-img" src="" alt="Recuerdo en grande">
       </div>
